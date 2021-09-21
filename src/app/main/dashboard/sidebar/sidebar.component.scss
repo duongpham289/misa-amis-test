@@ -1,0 +1,120 @@
+.ms-sidebar {
+  height: 100vh;
+  width: 260px;
+  background-color: rgba(0, 0, 0, .7);
+  color: white;
+  padding-top: 20px;
+
+  .sidebar-title {
+    width: 100%;
+    height: 40px;
+    padding-left: 24px;
+    margin-bottom: 20px;
+
+    .sidebar-toggle {
+      margin-right: 16px;
+    }
+
+    .sidebar-logo {
+      max-width: 185px;
+      max-height: 36px;
+
+      .logo-sidebar {
+        width: 32px;
+        height: 32px;
+        background: url('/assets/img/ICON.svg') -608px -64px no-repeat;
+      }
+
+      .logo-name {
+        font-size: 24px;
+        font-weight: 500;
+        padding-left: 8px;
+
+      }
+    }
+
+    .icon-menu {
+      background-color: white;
+      -webkit-mask: url('/assets/img/ICON.svg') no-repeat -580px -68px;
+      mask: url('/assets/img/ICON.svg') no-repeat -580px -68px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .sidebar-content {
+    .main-sidebar {
+      height: 40px;
+      font-weight: 500;
+      cursor: pointer;
+      position: relative;
+
+      :hover {
+        background: #212121;
+      }
+
+      .item-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        padding-left: 24px;
+        align-items: center;
+        height: 100%;
+        color: #fff;
+        padding-right: 16px;
+        text-decoration: none !important;
+
+        .item-icon {
+          margin-right: 16px;
+          min-width: 24px;
+        }
+
+        .icon-home-active {
+          width: 24px;
+          height: 24px;
+          -webkit-mask: url('/assets/img/ICON.svg') no-repeat -36px -132px;
+          mask: url('/assets/img/ICON.svg') no-repeat -36px -132px;
+          background-color: #ffffff;
+        }
+        .icon-task-active {
+          width: 24px;
+          height: 24px;
+          -webkit-mask: url('/assets/img/ICON.svg') no-repeat -516px -132px;
+          mask: url('/assets/img/ICON.svg') no-repeat -516px -132px;
+          background-color: #ffffff;
+        }
+        .icon-report-active {
+          width: 24px;
+          height: 24px;
+          -webkit-mask: url('/assets/img/ICON.svg') no-repeat -644px -36px;
+          mask: url('/assets/img/ICON.svg') no-repeat -644px -36px;
+          background-color: #ffffff;
+        }
+
+        .icon-text {
+          font-size: 18px;
+          opacity: .87;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          flex: 1;
+          text-decoration: none !important;
+        }
+      }
+
+      .padding-item-content-16 {
+        padding-right: 16px !important;
+      }
+    }
+
+    .sidebar-search{
+        margin: 0 30px;
+        border-top: 1px solid gray;
+    }
+
+    .sidebar-scroll{
+        height: calc(100vh - 201px);
+    }
+  }
+
+}

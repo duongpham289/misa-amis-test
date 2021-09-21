@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    font-family: ProductSans-Regular, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    -webkit-user-select: none;
+    user-select: none;
+    color: #1f1f1f;
+    overflow-x: hidden;
+}
+
+.d-flex{
+    display: flex;
+}
+
+.align-center{
+    align-items: center;
+}
+
+@font-face {
+    font-family: 'ProductSans-Regular';
+    src: url('../src/assets/font/ProductSans-Regular.ttf');
+}
