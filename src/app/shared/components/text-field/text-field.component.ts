@@ -10,6 +10,7 @@ export class TextFieldComponent implements OnInit {
   @Input() inputPlaceholder: string = '';
   @Input() isRequired: boolean = false;
   @Input() textFieldHeight: string = '40px';
+  
   constructor() { }
 
   ngOnInit(): void {

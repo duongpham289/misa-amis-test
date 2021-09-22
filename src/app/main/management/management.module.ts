@@ -5,7 +5,6 @@ import { ManagementRoutingModule } from './management-routing.module';
 
 import { ManagementComponent } from './management.component';
 import { DashboardModule } from '../dashboard/dashboard.module';
-import { PopupModule } from '../../../app/shared/components/popup/popup.module';
 
 
 

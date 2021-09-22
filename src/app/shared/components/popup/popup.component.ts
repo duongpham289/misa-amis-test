@@ -9,6 +9,8 @@ export class PopupComponent implements OnInit {
 
   currentTemplate: string = 'project';
   
+  closeButtonOptions: any;
+  
   @Input() isPopupOpen = false;
   
   @Output() isPopupClose = new EventEmitter<boolean>();

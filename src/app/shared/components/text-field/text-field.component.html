@@ -1,13 +1,13 @@
 <div
-  class="tms-text-field"
+  class="text-field"
 >
   <div
-    class="tms-text-field__label"
+    class="text-field__label"
   >
     {{ inputLabel }}
     <span
       *ngIf="isRequired"
-      class="tms-asterisk"
+      class="required"
     >
       *
     </span>
@@ -15,7 +15,6 @@
 
   <dx-text-box
     [placeholder]="inputPlaceholder"
-    width="100%"
     [height]="textFieldHeight"
   ></dx-text-box>
 </div>

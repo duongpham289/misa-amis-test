@@ -1,12 +1,11 @@
-.tms-text-field {
+.text-field {
+  font-family: 'GoogleSans-Regular';
   margin-bottom: 16px;
 
   &__label {
+    color: #1f1f1f !important;
+    font-size: 15px;
+    font-weight: 500;
     margin-bottom: 8px;
-  }
-
-  &__group {
-    display: flex;
-    gap: 0.5rem;
   }
 }

@@ -1,17 +1,15 @@
-<dx-popup
-  class="tms-modal"
-  [width]="618"
-  height="auto"
-  [showTitle]="true"
-  [shadingColor]="'rgba(0, 0, 0, 0.45)'"
-  [dragEnabled]="true"
-  [closeOnOutsideClick]="true"
-  [showCloseButton]="true"
-  [visible]="true"
-  [contentTemplate]="currentTemplate"
->
+<dx-popup class="popup" [width]="618" height="auto" [shadingColor]="'rgba(0, 0, 0, 0.45)'" [dragEnabled]="true"
+  (onHidden)="closePopup()" [visible]="isPopupOpen" [contentTemplate]="currentTemplate" titleTemplate="title">
+
   <div *dxTemplate="let data of 'project'">
     <app-popup-department></app-popup-department>
+  </div>
+  <div *dxTemplate="let data of 'title'">
+    <div class="popup-header d-flex content-between align-center">
+
+      <div class="popup-title">Thêm mới dự án/nhóm</div>
+      <div class="button-close dx-icon-close" (click)="closePopup()"></div>
+    </div>
   </div>
 
   <div *dxTemplate="let data of 'department'">
