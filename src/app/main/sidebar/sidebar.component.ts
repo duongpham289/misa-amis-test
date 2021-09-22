@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import {MENU_ITEMS} from '../../shared/constants/menu'
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -9,20 +11,7 @@ export class SidebarComponent implements OnInit {
 
   constructor() { }
 
-  mainMenuItems = [
-    {
-      icon: "icon-home-active",
-      text: "Tổng quan",
-    },
-    {
-      icon: "icon-task-active",
-      text: "Việc của tôi",
-    },
-    {
-      icon: "icon-report-active",
-      text: "Báo cáo",
-    }
-  ]
+  mainMenuItems = MENU_ITEMS;
 
   ngOnInit(): void {
   }

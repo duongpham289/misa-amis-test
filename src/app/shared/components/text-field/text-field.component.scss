@@ -1,0 +1,12 @@
+.tms-text-field {
+  margin-bottom: 16px;
+
+  &__label {
+    margin-bottom: 8px;
+  }
+
+  &__group {
+    display: flex;
+    gap: 0.5rem;
+  }
+}

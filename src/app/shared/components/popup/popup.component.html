@@ -1,0 +1,24 @@
+<dx-popup
+  class="tms-modal"
+  [width]="618"
+  height="auto"
+  [showTitle]="true"
+  [shadingColor]="'rgba(0, 0, 0, 0.45)'"
+  [dragEnabled]="true"
+  [closeOnOutsideClick]="true"
+  [showCloseButton]="true"
+  [visible]="true"
+  [contentTemplate]="currentTemplate"
+>
+  <div *dxTemplate="let data of 'project'">
+    <app-popup-department></app-popup-department>
+  </div>
+
+  <div *dxTemplate="let data of 'department'">
+    <div>Hello Department</div>
+  </div>
+
+  <div *dxTemplate="let data of 'task'">
+    <div>Hello Task</div>
+  </div>
+</dx-popup>

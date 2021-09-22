@@ -1,0 +1,33 @@
+@import './fonts.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: 'GoogleSans-Regular', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  -webkit-user-select: none;
+  user-select: none;
+  color: #1f1f1f;
+  overflow-x: hidden;
+}
+
+.required {
+  color: red !important;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+.align-center {
+  align-items: center !important;
+}
+
+.content-between {
+  justify-content: space-between !important;
+}
+

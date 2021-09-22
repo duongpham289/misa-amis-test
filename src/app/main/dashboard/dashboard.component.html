@@ -1,1 +1,6 @@
-<app-sidebar></app-sidebar>
+<div class="dashboard d-flex">
+
+  <app-sidebar></app-sidebar>
+  <app-navbar (isPopupOpen)="openPopup($event)"></app-navbar>
+  <app-popup [isPopupOpen]="isPopupOpen" (isPopupClose)="closePopup($event)"></app-popup>
+</div>
