@@ -7,6 +7,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
+  dropdownVisible: boolean = false;
   constructor() { }
 
   @Output() isPopupOpen = new EventEmitter<boolean>();
@@ -14,9 +15,19 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-
+  /**
+   * Hàm mở popup
+   * CreatedBy: PHDUONG(23/09/2021)
+   */
   openPopup(){
     this.isPopupOpen.emit(true)
   }
 
+  /**
+   * Hàm mở/đóng dropdown 
+   * CreatedBy: PHDUONG(23/09/2021)
+   */
+   toggleDropdown() {
+    this.dropdownVisible = !this.dropdownVisible;
+  }
 }

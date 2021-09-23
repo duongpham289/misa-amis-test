@@ -11,6 +11,7 @@ import {
 import { PopupDepartmentComponent } from './popup-department/popup-department.component';
 import { TextFieldComponent } from '../text-field/text-field.component';
 import { PopupComponent } from './popup.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { PopupComponent } from './popup.component';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     DxPopupModule,
     DxTextBoxModule,
     DxTemplateModule

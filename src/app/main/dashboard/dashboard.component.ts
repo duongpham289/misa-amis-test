@@ -7,19 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  isPopupOpen!: boolean;
-
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  openPopup(open: boolean){
-    this.isPopupOpen = open;
-  }
-  
-  closePopup(close: boolean){
-    this.isPopupOpen = close;
   }
 
 }

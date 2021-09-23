@@ -8,11 +8,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class PopupComponent implements OnInit {
 
   currentTemplate: string = 'project';
-  
+
   closeButtonOptions: any;
-  
+
   @Input() isPopupOpen = false;
-  
+
   @Output() isPopupClose = new EventEmitter<boolean>();
 
   constructor() { }
@@ -20,7 +20,11 @@ export class PopupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  closePopup(){
+  /**
+   * Hàm mở popup
+   * CreatedBy: PHDUONG(23/09/2021)
+   */
+  closePopup() {
     this.isPopupClose.emit(false);
     // this.isPopupOpen = false
   }

@@ -1,4 +1,11 @@
-<div class="main-img">
-  
+<div class="main-app">
+  <div class="main-app--navbar">
+    <app-navbar (isPopupOpen)="openPopup($event)"></app-navbar>
+  </div>
+
+  <app-popup [isPopupOpen]="isPopupOpen" (isPopupClose)="closePopup($event)"></app-popup>
+
   <router-outlet ></router-outlet>
+
+  <app-dashboard  *ngIf="defaultPage"></app-dashboard>
 </div>

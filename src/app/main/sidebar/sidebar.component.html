@@ -8,10 +8,10 @@
   </div>
   <div class="sidebar-content">
     <div class="main-sidebar" *ngFor="let item of mainMenuItems">
-      <div class="item-content padding-item-content-16 ">
+      <a class="item-content padding-item-content-16 " [routerLink]="[item.link]">
         <div class="{{item.icon}} item-icon"></div>
         <div class="icon-text"> {{item.text}} </div>
-      </div>
+      </a>
     </div>
     <div class="sidebar-search"></div>
     <div class="sidebar-scroll"></div>

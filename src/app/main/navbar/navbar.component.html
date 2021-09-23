@@ -1,17 +1,33 @@
-<div class="main-nav d-flex align-center">
-  <div class="button-icon align-center d-flex">
-    <div class="button-left d-flex  align-center" (click)="openPopup()">
+<div class="ms-nav d-flex align-center content-between">
+  <div class="ms-nav--left">
 
-      <div class="add-icon"></div>
-      <div class="add-button">Thêm công việc</div>
-    </div>
-    <div class="button-right"></div>
   </div>
 
-  <div class="search-icon"></div>
-  <div class="bell-icon"></div>
-  <div class="info-icon"></div>
-  <div class="setting-icon"></div>
-  <div class="ava-icon"></div>
+  <div class="ms-nav--right d-flex align-center height-100">
+    <div class="ms-nav__button-group d-flex align-center">
+      <div class="ms-nav__button ms-nav__button--add d-flex align-center" (click)="openPopup()">
+        <div class="ms-nav__button-icon add"></div>
+        Thêm công việc
+      </div>
+      <div class="ms-nav__button-separator"></div>
+      <div id="ms-nav__dropdown-button" class="ms-nav__button ms-nav__button--dropdown" (click)="toggleDropdown()">
+        <div class="ms-nav__button-icon dropdown"></div>
+      </div>
+    </div>
+
+    <dx-popover class="ms-popover" target="#ms-nav__dropdown-button" position="bottom" [width]="234" [visible]="dropdownVisible"
+      (onHidden)="dropdownVisible = false">
+      <div *dxTemplate="let data of 'content'">
+        <dx-list [dataSource]="['Thêm dự án/nhóm', 'Thêm phòng ban']">
+        </dx-list>
+      </div>
+    </dx-popover>
+
+    <div class="search-icon"></div>
+    <div class="bell-icon"></div>
+    <div class="info-icon"></div>
+    <div class="setting-icon"></div>
+    <div class="ava-icon"></div>
+  </div>
 
 </div>

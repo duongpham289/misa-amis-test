@@ -1,20 +1,10 @@
-<div
-  class="text-field"
->
-  <div
-    class="text-field__label"
-  >
+<div class="text-field">
+  <div class="text-field__label">
     {{ inputLabel }}
-    <span
-      *ngIf="isRequired"
-      class="required"
-    >
+    <span *ngIf="isRequired" class="required">
       *
     </span>
   </div>
 
-  <dx-text-box
-    [placeholder]="inputPlaceholder"
-    [height]="textFieldHeight"
-  ></dx-text-box>
+  <dx-text-box [placeholder]="inputPlaceholder" [height]="textFieldHeight"></dx-text-box>
 </div>

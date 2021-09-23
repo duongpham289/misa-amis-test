@@ -5,17 +5,27 @@ import { ManagementRoutingModule } from './management-routing.module';
 
 import { ManagementComponent } from './management.component';
 import { DashboardModule } from '../dashboard/dashboard.module';
+import { RouterModule } from '@angular/router';
+import { PopupModule } from 'src/app/shared/components/popup/popup.module';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { DxListModule, DxPopoverModule, DxTemplateModule } from 'devextreme-angular';
 
 
 
 @NgModule({
   declarations: [
-    ManagementComponent
+    ManagementComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule,
     ManagementRoutingModule,
-    DashboardModule
+    DashboardModule,
+    RouterModule,
+    PopupModule,
+    DxPopoverModule,
+    DxTemplateModule,
+    DxListModule
   ],
   exports:[
     ManagementComponent
