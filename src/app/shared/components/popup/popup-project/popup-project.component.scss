@@ -1,0 +1,12 @@
+.popup--project {
+    padding: 0 24px;
+  }
+  
+  .text-field {
+    &__group {
+      display: flex;
+      gap: 0.5rem;
+      //justify-content: space-between;
+    }
+  }
+  

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocationStrategy } from '@angular/common';
-import Enum from '../../shared/constants/enum';
+import CommonEnum from '../../shared/constants/common';
 
 @Component({
   selector: 'app-management',
@@ -16,7 +16,7 @@ export class ManagementComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.url.path() === '/task') {
-      this.defaultPage = Enum.DefaultPage;
+      this.defaultPage = CommonEnum.DefaultPage;
     }
   }
 

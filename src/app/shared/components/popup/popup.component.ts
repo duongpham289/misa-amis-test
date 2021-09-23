@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import POPUP_ENUM from '../../enum/popup-enum'
 
 @Component({
   selector: 'app-popup',
@@ -7,15 +8,30 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class PopupComponent implements OnInit {
 
-  currentTemplate: string = 'project';
-
-  closeButtonOptions: any;
+  currentTemplate: string = 'projectTemplate';
 
   @Input() isPopupOpen = false;
 
   @Output() isPopupClose = new EventEmitter<boolean>();
 
-  constructor() { }
+  popupWidth: any;
+  popupVariables: any;
+  popupTitle: any;
+
+  constructor() {
+    this.popupVariables = POPUP_ENUM;
+
+    if (this.currentTemplate === 'departmentTemplate') {
+      this.popupTitle = this.popupVariables.PopupDepartmentTitle;
+      this.popupWidth = this.popupVariables.PopupDepartmentWidth;
+    } else if (this.currentTemplate === 'projectTemplate') {
+      this.popupTitle = this.popupVariables.PopupProjectTitle;
+      this.popupWidth = this.popupVariables.PopupProjectWidth;
+    } else {
+      this.popupTitle = this.popupVariables.PopupTaskTitle;
+      this.popupWidth = this.popupVariables.PopupTaskWidth;
+    }
+   }
 
   ngOnInit(): void {
   }

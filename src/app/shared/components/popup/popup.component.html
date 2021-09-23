@@ -1,23 +1,23 @@
-<dx-popup class="popup" [width]="618" height="auto" [shadingColor]="'rgba(0, 0, 0, 0.45)'" [dragEnabled]="true"
-  (onHidden)="closePopup()" [visible]="isPopupOpen" [contentTemplate]="currentTemplate" titleTemplate="title">
+<dx-popup class="ms-popup" [width]="popupWidth" height="auto" [shadingColor]="'rgba(0, 0, 0, 0.45)'" [dragEnabled]="true"
+  (onHidden)="closePopup()" [visible]="isPopupOpen" contentTemplate="{{currentTemplate}}" titleTemplate="title">
 
-  <div *dxTemplate="let data of 'project'">
+  <div *dxTemplate="let data of 'projectTemplate'">
+    <app-popup-project></app-popup-project>
+  </div>
+
+  <div *dxTemplate="let data of 'departmentTemplate'">
     <app-popup-department></app-popup-department>
+  </div>
+
+  <div *dxTemplate="let data of 'task'">
+    <div>Hello Task</div>
   </div>
   
   <div *dxTemplate="let data of 'title'">
     <div class="popup-header d-flex content-between align-center">
 
-      <div class="popup-title">Thêm mới dự án/nhóm</div>
+      <div class="popup-title">{{popupTitle}}</div>
       <div class="button-close dx-icon-close" (click)="closePopup()"></div>
     </div>
-  </div>
-
-  <div *dxTemplate="let data of 'department'">
-    <div>Hello Department</div>
-  </div>
-
-  <div *dxTemplate="let data of 'task'">
-    <div>Hello Task</div>
   </div>
 </dx-popup>

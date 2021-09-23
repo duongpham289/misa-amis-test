@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
 import {
   DxPopupModule,
   DxTextBoxModule,
@@ -12,11 +11,13 @@ import { PopupDepartmentComponent } from './popup-department/popup-department.co
 import { TextFieldComponent } from '../text-field/text-field.component';
 import { PopupComponent } from './popup.component';
 import { RouterModule } from '@angular/router';
+import { PopupProjectComponent } from './popup-project/popup-project.component';
 
 @NgModule({
   declarations: [
     PopupComponent,
     PopupDepartmentComponent,
+    PopupProjectComponent,
     TextFieldComponent
   ],
   exports: [

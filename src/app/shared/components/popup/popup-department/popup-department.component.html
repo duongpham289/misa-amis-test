@@ -1,18 +1,7 @@
 <div class="modal--department">
-  <app-text-field inputLabel="Tên dự án/nhóm" inputPlaceholder="Tên dự án/nhóm" [isRequired]="true"></app-text-field>
+  <app-text-field [inputLabel]="popupDepartmentVar.PopupTextFieldNameLabel"
+    [inputPlaceholder]="popupDepartmentVar.PopupTextFieldNamePlaceholder" [isRequired]="true"></app-text-field>
 
-  <div class="text-field__group">
-    
-    <app-text-field inputLabel="Chọn phòng ban" inputPlaceholder="Chọn phòng ban" [isRequired]="true"></app-text-field>
-
-    <div class="date-input">
-      <app-text-field inputLabel="Từ ngày"></app-text-field>
-
-      <app-text-field inputLabel="Đến ngày"></app-text-field>
-    </div>
-  </div>
-
-  <app-text-field inputLabel="Mô tả" inputPlaceholder="Mô tả" textFieldHeight="78px"></app-text-field>
-
-  <app-text-field inputLabel="Thành viên" inputPlaceholder="Tìm theo tên hoặc email để thêm nhanh"></app-text-field>
+  <app-text-field [inputLabel]="popupDepartmentVar.PopupTextFieldMemberLabel"
+    [inputPlaceholder]="popupDepartmentVar.PopupTextFieldMemberPlaceholder"></app-text-field>
 </div>

@@ -1,8 +1,14 @@
+.popup {
+  font-family: 'GoogleSans-Regular', sans-serif;
+  font-size: 15px;
+  color: #1f1f1f !important;
+}
+
 .popup-header {
   color: #1f1f1f !important;
   font-weight: 700;
   font-size: 24px;
-  padding: 10px 4px;
+  padding: 16px 24px;
 
   .popup-title{
     font-family: 'GoogleSans-Regular';
@@ -13,10 +19,5 @@
   }
 }
 
-.dx-popup-title {
-  border: none !important;
-}
 
-.dx-popup-content{
-  padding: 0 24px !important;
-}
+
