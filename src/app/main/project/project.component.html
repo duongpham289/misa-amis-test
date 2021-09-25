@@ -1,1 +1,48 @@
-<p>project works!</p>
+<div class="ms-project">
+  <app-navbar [navbarIcons]="navbarIcons"></app-navbar>
+
+
+  <div class="grid-task">
+    <div class="grid-task__header d-flex align-center content-between">
+      <div class="grid-task__filter-group d-flex align-center">
+        <div class="grid-task__quick-filter d-flex align-center">
+          <div class="icon-grid-filter"></div>
+          <div class="m-l-8 m-r-8">Tất cả công việc</div>
+          <div class="icon-carret-down "></div>
+        </div>
+        <div class="grid-task__status-filter d-flex align-center">
+          <div class="d-flex">
+            <div class="icon-grid-status-done "></div>
+            <div class="m-l-8 m-r-8">Trạng thái hoàn thành<b class="m-l-4">Tất cả</b>
+            </div>
+            <div class="icon-carret-down "></div>
+          </div>
+        </div>
+        <div class="grid-task__sort-order d-flex align-center">
+          <div class="icon-grid-sort"></div>
+          <div class="m-l-8 m-r-8">Sắp xếp <b>Thứ tự công việc
+              con</b></div>
+          <div class="icon-carret-down "></div>
+        </div>
+        <div class="grid-task__choose-many d-flex align-center">
+          <div class="icon-grid-choose-many "></div>
+          <div class="m-l-8 m-r-8">Chọn nhiều</div>
+        </div>
+      </div>
+    </div>
+    <div class="grid-task__content">
+      <dx-data-grid [dataSource]="tasks" keyExpr="TaskID" height=100%>
+        <dxi-column dataField="TaskID" caption="" width=48 alignment="center" [allowSorting]="false"></dxi-column>
+        <dxi-column dataField="TaskName" caption="Tên công việc" width=900 [allowSorting]="false"></dxi-column>
+        <dxi-column class=" d-flex content-center" dataField="TaskStatus" caption="Tình trạng công việc" width=200
+          [allowSorting]="false">
+        </dxi-column>
+        <dxi-column dataField="WorkingStatus" caption="Trạng thái hoạt động" width=180 [allowSorting]="false">
+        </dxi-column>
+        <dxi-column dataField="EndDate" dataType="date" caption="Hạn hoàn thành" width=200 [allowSorting]="false">
+        </dxi-column>
+        <dxi-column dataField="AssigneeName" caption="Người thực hiện" [allowSorting]="false"></dxi-column>
+      </dx-data-grid>
+    </div>
+  </div>
+</div>

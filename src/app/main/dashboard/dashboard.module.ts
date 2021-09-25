@@ -2,30 +2,24 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { DashboardComponent } from './dashboard.component';
-import { SidebarComponent } from '../sidebar/sidebar.component';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { PopupModule } from 'src/app/shared/components/popup/popup.module';
-import { RouterModule } from '@angular/router';
-
-import {
-  DxPopoverModule,
-  DxTemplateModule,
-  DxListModule
-} from 'devextreme-angular';
+import { NavbarModule } from '../navbar/navbar.module';
+import { SidebarModule } from '../sidebar/sidebar.module';
+import { PopupProjectModule } from 'src/app/shared/components/views/project/popup-project/popup-project.module';
+import { PopupDepartmentModule } from 'src/app/shared/components/views/department/popup-department/popup-department.module';
 
 
 
 @NgModule({
   declarations: [
-    DashboardComponent,
-    SidebarComponent
+    DashboardComponent
   ],
   imports: [
     CommonModule,
-    PopupModule,
-    RouterModule,
+    PopupDepartmentModule,
+    NavbarModule,
+    SidebarModule
   ],
-  exports:[
+  exports: [
     DashboardComponent
   ]
 })

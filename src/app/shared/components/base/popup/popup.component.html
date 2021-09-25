@@ -1,7 +1,7 @@
 <dx-popup class="ms-popup" [width]="popupWidth" height="auto" [shadingColor]="'rgba(0, 0, 0, 0.45)'" [dragEnabled]="true"
   (onHidden)="closePopup()" [visible]="isPopupOpen" contentTemplate="{{currentTemplate}}" titleTemplate="title">
 
-  <div *dxTemplate="let data of 'projectTemplate'">
+  <!-- <div *dxTemplate="let data of 'projectTemplate'">
     <app-popup-project></app-popup-project>
   </div>
 
@@ -11,7 +11,7 @@
 
   <div *dxTemplate="let data of 'task'">
     <div>Hello Task</div>
-  </div>
+  </div> -->
   
   <div *dxTemplate="let data of 'title'">
     <div class="popup-header d-flex content-between align-center">

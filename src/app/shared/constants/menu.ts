@@ -7,6 +7,7 @@ export const MENU_ITEMS = [
     {
         icon: "icon-task-active",
         text: "Việc của tôi",
+        link: "/task/project"
     },
     {
         icon: "icon-report-active",

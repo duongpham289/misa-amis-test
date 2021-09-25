@@ -1,0 +1,26 @@
+::ng-deep .ms-dashboard {
+  position: absolute;
+  left: 260px;
+  top: 0;
+  width: calc(100% - 260px);
+  height: 100vh;
+
+  .ms-nav {
+    background-color: transparent;
+
+    &--left {
+      &.dashboard {
+        display: flex;
+      }
+
+      &.project {
+        display: none;
+      }
+    }
+
+    &__button {
+      color: #fff !important;
+      background: rgba(255, 255, 255, 0.3) !important;
+    }
+  }
+}

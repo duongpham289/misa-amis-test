@@ -1,12 +1,16 @@
 .ms-nav {
-  background-color: transparent;
   height: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 0 16px;
 
 
-  &--right {
-    position: absolute;
-    right: 0;
+  &--right,
+  &--left {
+    height: 100%;
+    display: flex;
+    align-items: center;
   }
 
   &__button {
@@ -72,7 +76,85 @@
     }
   }
 
+  &__home {
+    border-right: 1px solid #e0e0e0;
+  }
 
+  &__title {
+    margin-left: 16px;
+
+    .logo-user {
+      width: 24px;
+      height: 24px;
+      margin-right: 8px;
+      border-radius: 50%;
+      background-color: rgb(33, 150, 243);
+    }
+
+    .icon-user {
+      width: 16px;
+      height: 16px;
+      -webkit-mask: url('/assets/img/smallIcon.svg') no-repeat -15.5px -49px;
+      mask: url('/assets/img/smallIcon.svg') no-repeat -15.5px -49px;
+      background-color: #fff;
+    }
+
+    .project-title {
+      text-decoration: none;
+      color: #343a40;
+      font-weight: 500;
+      margin-right: 4px;
+    }
+
+    .project-setting {
+      padding: 0 30px;
+      border-right: 1px solid #e0e0e0;
+    }
+
+
+  }
+
+  .project-grids {
+    margin-left: 16px;
+
+    .project-items {
+      cursor: pointer;
+      margin-left: 24px;
+    }
+  }
+
+  .icon-menu {
+    background-color: #666;
+    -webkit-mask: url('/assets/img/ICON.svg') no-repeat -580px -68px;
+    mask: url('/assets/img/ICON.svg') no-repeat -580px -68px;
+    width: 24px;
+    height: 24px;
+    margin: 0 16px 0 8px;
+  }
+
+  .icon-home {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    -webkit-mask: url('/assets/img/ICON.svg') no-repeat -36px -132px;
+    mask: url('/assets/img/ICON.svg') no-repeat -36px -132px;
+    background-color: #666;
+    margin-right: 24px;
+  }
+
+  .icon-carret-down {
+    width: 16px;
+    height: 16px;
+    -webkit-mask: url('/assets/img/ICON.svg') no-repeat -232px -104px;
+    mask: url('/assets/img/ICON.svg') no-repeat -232px -104px;
+    background-color: #666;
+  }
+
+  .icon-setting {
+    width: 24px;
+    height: 24px;
+    background: url('/assets/img/ICON.svg') -644px -324px no-repeat;
+  }
 
   .search-icon {
     width: 24px;
@@ -111,17 +193,15 @@
   }
 
   .ava-icon {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
+    margin-left: 24px;
+    background-color: #a3cf32;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-weight: 500;
   }
-
-  
 }
-
-.ms-popover .dx-popup-content {
-    padding: 0 !important;
-  }
-
-  .dx-list .dx-empty-message, .dx-list-item{
-    border: none !important;
-  }

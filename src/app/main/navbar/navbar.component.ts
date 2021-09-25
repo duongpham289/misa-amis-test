@@ -1,4 +1,5 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { iconNavbar } from 'src/app/shared/interfaces/navbar-icon';
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +9,10 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 export class NavbarComponent implements OnInit {
 
   dropdownVisible: boolean = false;
-  constructor() { }
-
+  @Input() navbarIcons: iconNavbar[] = [];
   @Output() isPopupOpen = new EventEmitter<boolean>();
+
+  constructor() { }
 
   ngOnInit(): void {
   }
@@ -19,7 +21,7 @@ export class NavbarComponent implements OnInit {
    * Hàm mở popup
    * CreatedBy: PHDUONG(23/09/2021)
    */
-  openPopup(){
+  openPopup() {
     this.isPopupOpen.emit(true)
   }
 
@@ -27,7 +29,7 @@ export class NavbarComponent implements OnInit {
    * Hàm mở/đóng dropdown 
    * CreatedBy: PHDUONG(23/09/2021)
    */
-   toggleDropdown() {
+  toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
   }
 }

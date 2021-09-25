@@ -4,32 +4,25 @@ import { CommonModule } from '@angular/common';
 import {
   DxPopupModule,
   DxTextBoxModule,
-  DxTemplateModule
+  DxTemplateModule,
+  DxTextAreaModule
 } from 'devextreme-angular';
 
-import { PopupDepartmentComponent } from './popup-department/popup-department.component';
 import { TextFieldComponent } from '../text-field/text-field.component';
 import { PopupComponent } from './popup.component';
 import { RouterModule } from '@angular/router';
-import { PopupProjectComponent } from './popup-project/popup-project.component';
 
 @NgModule({
   declarations: [
-    PopupComponent,
-    PopupDepartmentComponent,
-    PopupProjectComponent,
-    TextFieldComponent
+    PopupComponent
   ],
   exports: [
-    PopupComponent,
-    TextFieldComponent
+    PopupComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     DxPopupModule,
-    DxTextBoxModule,
-    DxTemplateModule
   ]
 })
 export class PopupModule { }

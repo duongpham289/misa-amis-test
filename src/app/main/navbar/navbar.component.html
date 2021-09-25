@@ -1,10 +1,42 @@
 <div class="ms-nav d-flex align-center content-between">
-  <div class="ms-nav--left">
 
+  <!-- Dashboard Header -->
+  <div class="ms-nav--left dashboard">
+    <div class="ms-nav__button">
+      <div class="ms-nav__button-icon edit"></div>
+      Tuỳ chỉnh
+    </div>
   </div>
 
-  <div class="ms-nav--right d-flex align-center height-100">
+  <!-- Project Header -->
+  <div class="ms-nav--left project">
+    <div class="d-flex align-center">
+      <div class="ms-nav__home d-flex">
+        <div class="ms-nav__toggle icon-menu"></div>
+        <div class="ms-nav__home icon-home" [routerLink]="['/dashboard']"></div>
+      </div>
+      <div class="ms-nav__title d-flex content-center align-center">
+        <div class="logo-user d-flex content-center align-center">
+          <div class="icon-user"></div>
+        </div>
+        <div class="project-title text-overflow">Công việc cá nhân</div>
+        <div class="icon-carret-down"></div>
+        <div class="project-setting">
+          <div class="icon-setting">
+          </div>
+        </div>
+      </div>
+      <div class="project-grids  d-flex content-center align-center">
+        <div class="project-items">Danh sách</div>
+        <div class="project-items">Báo cáo</div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="ms-nav--right d-flex align-center">
     <div class="ms-nav__button-group d-flex align-center">
+      <!-- Nút thêm công việc -->
       <div class="ms-nav__button ms-nav__button--add d-flex align-center" (click)="openPopup()">
         <div class="ms-nav__button-icon add"></div>
         Thêm công việc
@@ -15,19 +47,18 @@
       </div>
     </div>
 
-    <dx-popover class="ms-popover" target="#ms-nav__dropdown-button" position="bottom" [width]="234" [visible]="dropdownVisible"
-      (onHidden)="dropdownVisible = false">
+    <dx-popover class="ms-popover" target="#ms-nav__dropdown-button" position="bottom" [width]="234"
+      [visible]="dropdownVisible" (onHidden)="dropdownVisible = false">
       <div *dxTemplate="let data of 'content'">
         <dx-list [dataSource]="['Thêm dự án/nhóm', 'Thêm phòng ban']">
         </dx-list>
       </div>
     </dx-popover>
 
-    <div class="search-icon"></div>
-    <div class="bell-icon"></div>
-    <div class="info-icon"></div>
-    <div class="setting-icon"></div>
-    <div class="ava-icon"></div>
+    <div *ngFor="let item of navbarIcons" class="{{item.iconClass}} nav-icon">
+    </div>
+
+    <div class="ava-icon">PD</div>
   </div>
 
 </div>

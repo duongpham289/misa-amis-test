@@ -6,10 +6,11 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./text-field.component.scss']
 })
 export class TextFieldComponent implements OnInit {
-  @Input() inputLabel: string = '';
-  @Input() inputPlaceholder: string = '';
+  @Input() inputLabel!: string;
+  @Input() inputPlaceholder!: string;
   @Input() isRequired: boolean = false;
   @Input() textFieldHeight: string = '40px';
+  @Input() textArea!:boolean;
   
   constructor() { }
 

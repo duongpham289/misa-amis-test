@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import POPUP_ENUM from '../../enum/popup-enum'
+import POPUP_ENUM from '../../../resources/popup-resources'
 
 @Component({
   selector: 'app-popup',
@@ -8,7 +8,7 @@ import POPUP_ENUM from '../../enum/popup-enum'
 })
 export class PopupComponent implements OnInit {
 
-  currentTemplate: string = 'projectTemplate';
+  currentTemplate: string = 'departmentTemplate';
 
   @Input() isPopupOpen = false;
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import POPUP_ENUM from 'src/app/shared/enum/popup-enum';
+import POPUP_ENUM from 'src/app/shared/resources/popup-resources';
 
 @Component({
   selector: 'app-popup-project',
@@ -8,6 +8,7 @@ import POPUP_ENUM from 'src/app/shared/enum/popup-enum';
 })
 export class PopupProjectComponent implements OnInit {
   popupProjectVar: any;
+  
 
   constructor() { 
     this.popupProjectVar = POPUP_ENUM

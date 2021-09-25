@@ -1,11 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ManagementComponent } from './main/management/management.component';
 
 const routes: Routes = [
-  
-  { path: '', redirectTo: '/task', pathMatch: 'full' },
-  { path: 'task', component: ManagementComponent },
+  { path: '', loadChildren: () => import(`./main/management/management.module`).then(m => m.ManagementModule) },
 ];
 
 @NgModule({
