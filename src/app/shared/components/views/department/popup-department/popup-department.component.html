@@ -1,11 +1,9 @@
 <app-popup [isPopupOpen]="isPopupOpen" (isPopupClose)="closePopup()">
-  <div *dxTemplate="let data of 'departmentTemplate'">
-    <div class="modal--department">
+    <div class="popup-department">
       <app-text-field [inputLabel]="popupDepartmentVar.PopupTextFieldNameLabel"
         [inputPlaceholder]="popupDepartmentVar.PopupTextFieldNamePlaceholder" [isRequired]="true"></app-text-field>
 
       <app-text-field [inputLabel]="popupDepartmentVar.PopupTextFieldMemberLabel"
         [inputPlaceholder]="popupDepartmentVar.PopupTextFieldMemberPlaceholder"></app-text-field>
     </div>
-  </div>
 </app-popup>

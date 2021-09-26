@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Department, DepartmentService } from 'src/app/services/department.service';
 
-import {MENU_ITEMS} from '../../shared/constants/menu'
+import { MENU_ITEMS } from '../../shared/constants/menu'
 
 @Component({
   selector: 'app-sidebar',
@@ -9,9 +10,19 @@ import {MENU_ITEMS} from '../../shared/constants/menu'
 })
 export class SidebarComponent implements OnInit {
 
-  constructor() { }
-
+  departments: Department[] = []
+  isTaskOpen: boolean = false;
+  departmentToOpen!: any;
+  constructor(service: DepartmentService) {
+    this.departments = service.getDepartments();
+  }
   mainMenuItems = MENU_ITEMS;
+
+
+  openTask(item: any) {
+    console.log(item);
+    
+  }
 
   ngOnInit(): void {
   }
