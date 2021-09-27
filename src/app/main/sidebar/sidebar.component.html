@@ -1,18 +1,24 @@
 <div class="ms-sidebar">
   <div class="sidebar-title d-flex align-center">
+
+    <!-- Main Menu -->
     <div class="sidebar-toggle icon-menu"></div>
+
+    <!-- Logo -->
     <div class="sidebar-logo d-flex align-center">
       <div class="logo-sidebar"></div>
       <div class="logo-name">Công việc</div>
     </div>
   </div>
   <div class="sidebar-content">
+    <!-- Main sidebar Menu -->
     <div class="main-sidebar" *ngFor="let item of mainMenuItems">
       <a class="item-content padding-item-content-16 " [routerLink]="[item.link]">
         <div class="{{item.icon}} item-icon"></div>
         <div class="icon-text"> {{item.text}} </div>
       </a>
     </div>
+    <!-- Sidebar search -->
     <div class="sidebar-search">
       <dx-text-box height="32px" width="188px" placeholder="Tìm kiếm" mode="search" stylingMode="underlined"
         [showClearButton]="true"></dx-text-box>
@@ -20,52 +26,32 @@
       <div class="sidebar-search__setting"></div>
     </div>
 
+    <!-- Phần hiển thị phòng ban/dự án -->
     <div class="sidebar-scroll">
-      <!-- <div class="sidebar-scroll__main" *ngFor="let project of projects">
-        <div class="sidebar-scroll__project">
-          <div class="sidebar-scroll__project-content d-flex content-between align-center h-100">
-            <div class="sidebar-scroll__project-dropdown d-flex content-center align-center h-100"
-              (click)="openTasks(project)">
-              <div class="sidebar-scroll__project-icon icon-arow--down" [ngClass]="{'rotate-90' : (isTaskOpen && projectToOpen == project)}"></div>
-            </div>
-            <div class="sidebar-scroll__project-title">{{project.ProjectName}}</div>
-          </div>
-        </div>
-        <div class="sidebar-scroll__project-task" *ngIf="isTaskOpen && projectToOpen == project">
-          <div class="sidebar-scroll__task d-flex align-center" *ngFor="let task of project.ProjectTasks">
-            <div class="sidebar-scroll__task-content  d-flex align-center content-center" [routerLink]="'/project'">
-              <div class="sidebar-scroll__task-icon d-flex align-center content-center">
-                <div class="person-icon"></div>
-              </div>
-              <div class="sidebar-scroll__task-title" >{{task}}</div>
-
-            </div>
-          </div>
-
-        </div>
-
-      </div> -->
       <dx-tree-view [items]="departments" itemTemplate="itemTemplate">
+
+        <!-- Phần hiển thị Phòng ban -->
         <div class="sidebar-scroll__main" *dxTemplate="let itemObj of 'itemTemplate'">
-          <div class="sidebar-scroll__project" *ngIf="itemObj.items">
-            <div class="sidebar-scroll__project-content d-flex content-between align-center h-100">
-              <div class="sidebar-scroll__project-dropdown d-flex content-center align-center h-100">
-                <!-- <div class="sidebar-scroll__project-icon icon-arow--down"></div> -->
+          <div class="sidebar-scroll__department" *ngIf="itemObj.items">
+            <div class="sidebar-scroll__department-content d-flex content-between align-center h-100">
+              <div class="sidebar-scroll__department-dropdown d-flex content-center align-center h-100">
               </div>
-              <div class="sidebar-scroll__project-title" (click)="openTask(itemObj)">{{itemObj.text}}</div>
+              <div class="sidebar-scroll__department-title">{{itemObj.text}}</div>
             </div>
           </div>
-          <div class="sidebar-scroll__project-task" *ngIf="!itemObj.items">
-            <div class="sidebar-scroll__task d-flex align-center">
-              <div class="sidebar-scroll__task-content  d-flex align-center content-center" [routerLink]="'/project'">
-                <div class="sidebar-scroll__task-icon d-flex align-center content-center">
+
+          <!-- Phần hiển thị Dự án -->
+          <div class="sidebar-scroll__department-project" *ngIf="!itemObj.items">
+            <div class="sidebar-scroll__project d-flex align-center">
+              <div class="sidebar-scroll__project-content  d-flex align-center content-center"
+                [routerLink]="'/project'">
+                <div class="sidebar-scroll__project-icon d-flex align-center content-center">
                   <div class="person-icon"></div>
                 </div>
-                <div class="sidebar-scroll__task-title" >{{itemObj.text}}</div>
-  
+                <div class="sidebar-scroll__project-title">{{itemObj.text}}</div>
               </div>
             </div>
-  
+
           </div>
         </div>
       </dx-tree-view>

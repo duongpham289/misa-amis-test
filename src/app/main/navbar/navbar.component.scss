@@ -1,3 +1,6 @@
+@import'../../../styles/colors.scss';
+@import'../../../styles/mixins.scss';
+
 .ms-nav {
   height: 56px;
   display: flex;
@@ -99,6 +102,12 @@
       background-color: #fff;
     }
 
+    .icon-setting {
+      width: 24px;
+      height: 24px;
+      background: url('/assets/img/ICON.svg') -644px -324px no-repeat;
+    }
+
     .project-title {
       text-decoration: none;
       color: #343a40;
@@ -114,14 +123,40 @@
 
   }
 
+  &__dropdown-item {
+    @include icon-size-default;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .icon-add-project {
+      background-image: url("../../../assets/icons/icon-add-project.svg");
+    }
+
+    .icon-add-department {
+      background-image: url("../../../assets/icons/icon-add-department.svg");
+    }
+  }
+
+  &__dropdown-icon {
+    @include icon-size-default;
+    @include background-template;
+    cursor: pointer;
+  }
+
   .project-grids {
     margin-left: 16px;
 
     .project-items {
+
+      line-height: 37px;
       cursor: pointer;
       margin-left: 24px;
     }
   }
+
 
   .icon-menu {
     background-color: #666;
@@ -148,12 +183,6 @@
     -webkit-mask: url('/assets/img/ICON.svg') no-repeat -232px -104px;
     mask: url('/assets/img/ICON.svg') no-repeat -232px -104px;
     background-color: #666;
-  }
-
-  .icon-setting {
-    width: 24px;
-    height: 24px;
-    background: url('/assets/img/ICON.svg') -644px -324px no-repeat;
   }
 
   .search-icon {

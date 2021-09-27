@@ -10,11 +10,14 @@ import { NavbarIcons } from "../../shared/resources/navbar-resource";
 export class DashboardComponent implements OnInit {
   isPopupOpen!: boolean;
 
-  navbarIcons: iconNavbar[];
-  constructor() { this.navbarIcons = NavbarIcons; }
+  // navbarIcons: iconNavbar[];
+  constructor() {
+    // this.navbarIcons = NavbarIcons;
+  }
 
   ngOnInit(): void {
   }
+
   /**
      * Mở popup 
      * @param open 

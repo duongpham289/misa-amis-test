@@ -6,8 +6,8 @@ import { ManagementRoutingModule } from './management-routing.module';
 import { ManagementComponent } from './management.component';
 import { DashboardModule } from '../dashboard/dashboard.module';
 import { RouterModule } from '@angular/router';
-import { PopupModule } from 'src/app/shared/components/base/popup/popup.module';
 import { ProjectModule } from '../project/project.module';
+import { ReportModule } from '../report/report.module';
 
 
 
@@ -22,8 +22,8 @@ import { ProjectModule } from '../project/project.module';
 
     //components import
     DashboardModule,
-    PopupModule,
     ProjectModule,
+    ReportModule,
   ],
   exports: [
     ManagementComponent

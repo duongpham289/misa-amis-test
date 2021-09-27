@@ -6,11 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./management.component.scss']
 })
 export class ManagementComponent implements OnInit {
+  
   constructor() { }
+
   ngOnInit(): void {
   }
-
-  
-
-
 }

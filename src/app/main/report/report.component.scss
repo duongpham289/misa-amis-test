@@ -1,0 +1,30 @@
+::ng-deep .ms-report {
+    &.grid-task {
+      width: 100%;
+      height: calc(100vh - 56px);
+      padding: 16px 0 16px 16px;
+    }
+  
+    .ms-nav {
+      background-color: #fff;
+  
+      &--left {
+        &.dashboard {
+          display: none;
+        }
+  
+        &.project {
+          display: flex;
+        }
+      }
+  
+      &__button {
+        background-color: rgb(33, 147, 243) !important;
+        color: #fff !important;
+      }
+      .nav-icon{
+        background-color: rgb(97, 97, 97) !important;
+      }
+    }
+  }
+  

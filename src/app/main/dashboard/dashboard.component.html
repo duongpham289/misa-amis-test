@@ -1,6 +1,13 @@
-<div class="ms-dashboard">
-  <app-navbar [navbarIcons]="navbarIcons" (isPopupOpen)="openPopup($event)"></app-navbar>
+<!-- Phần main dashboard -->
 
-  <app-popup-department  [isPopupOpen]="isPopupOpen" (isPopupClose)="closePopup($event)"></app-popup-department>
+<div class="ms-dashboard">
+
+  <!-- Phần navbar -->
+  <app-navbar (isPopupOpen)="openPopup($event)"></app-navbar>
+
+  <!-- Phần popup -->
+  <app-popup-department [isPopupOpen]="isPopupOpen" (isPopupClose)="closePopup($event)"></app-popup-department>
 </div>
+
+<!-- Phần sidebar -->
 <app-sidebar></app-sidebar>

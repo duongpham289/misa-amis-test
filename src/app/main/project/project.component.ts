@@ -9,10 +9,10 @@ import { NavbarIcons } from "../../shared/resources/navbar-resource";
   styleUrls: ['./project.component.scss']
 })
 export class ProjectComponent implements OnInit {
-  navbarIcons: iconNavbar[];
+  // navbarIcons: iconNavbar[];
   tasks: Task[] = []
   constructor(service: TaskService) {
-    this.navbarIcons = NavbarIcons;
+    // this.navbarIcons = NavbarIcons;
     this.tasks = service.getTasks();
    }
 

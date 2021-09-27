@@ -142,11 +142,11 @@
     .sidebar-scroll {
       height: calc(100vh - 248px);
 
-      &__project:first-child {
+      &__department:first-child {
         margin-top: 8px;
       }
 
-      &__project {
+      &__department {
         height: 48px;
 
         &-content {
@@ -186,11 +186,11 @@
         }
       }
 
-      &__task:first-child {
+      &__project:first-child {
         margin-top: 8px;
       }
 
-      &__task {
+      &__project {
 
         padding: 9px 0;
         font-weight: 500;

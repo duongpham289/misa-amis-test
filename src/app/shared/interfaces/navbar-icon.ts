@@ -1,5 +1,5 @@
 export interface iconNavbar {
-    iconClass: string;
-    iconName: string;
-  }
-  
+  iconId: number,
+  iconClass: string;
+  iconName: string;
+}

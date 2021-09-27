@@ -7,11 +7,4 @@
   background-repeat: no-repeat;
   background-size: cover;
   z-index: -1;
-
-  &--navbar {
-    position: absolute;
-    left: 260px;
-    top: 0;
-    width: calc(100% - 260px);
-  }
 }

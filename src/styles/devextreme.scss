@@ -1,0 +1,331 @@
+// .dx-popup-title {
+//   padding: 0 !important;
+//   border: none !important;
+// }
+
+// .dx-theme-generic-typography,
+// .dx-overlay-wrapper {
+//   font-family: "GoogleSans-Regular", sans-serif;
+//   font-size: 15px;
+//   color: #1f1f1f !important;
+// }
+
+// .dx-editor-underlined .dx-texteditor-input {
+//   font-family: "GoogleSans-Regular", sans-serif;
+//   font-size: 15px;
+//   color: #fff !important;
+// }
+
+// .dx-placeholder {
+//   font-family: "GoogleSans-Regular", sans-serif;
+//   font-size: 15px;
+// }
+
+// .dx-texteditor {
+//   &.dx-editor-outlined {
+//     border-radius: 8px;
+//     border: 1px solid #e0e0e0;
+//   }
+
+//   &.dx-state-hover {
+//     box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.1);
+//     border-color: #2196f3;
+//   }
+
+//   &.dx-state-focused {
+//     &.dx-editor-outlined {
+//       box-shadow: 0 1px 5px 2px rgba(0, 0, 0, 0.1);
+//       border-color: #2196f3;
+//     }
+//   }
+// }
+
+// .dx-overlay-wrapper input,
+// .dx-overlay-wrapper textarea {
+//   font-family: "GoogleSans-Regular", sans-serif;
+//   font-size: 15px;
+// }
+
+// .dx-texteditor-input {
+//   padding: 7px 16px 8px;
+// }
+
+// .ms-popup {
+//   .dx-placeholder {
+//     left: 7px;
+//     color: #b9b9b9;
+//   }
+// }
+
+// .dx-popup {
+//   &-title {
+//     border-bottom: none;
+
+//     &.dx-toolbar {
+//       padding: 16px 24px !important;
+//     }
+//   }
+
+//   &-content {
+//     padding: 8px 0;
+//   }
+// }
+
+// .dx-toolbar-label>div {
+//   font-size: 24px !important;
+//   font-family: "GoogleSans-Bold", sans-serif;
+//   overflow: visible;
+// }
+
+// .dx-toolbar-label .dx-toolbar-item-content>div {
+//   overflow: visible;
+// }
+
+// .dx-button-has-text .dx-button-content {
+//   padding-left: 16px;
+//   padding-right: 16px;
+// }
+
+// .dx-button-mode-contained {
+//   background-color: #2196f3;
+//   color: #fff;
+//   border-color: transparent;
+//   border-radius: 8px;
+
+//   &.dx-state-hover {
+//     background-color: #2A7EFC;
+//     border-color: #0062CC;
+//   }
+// }
+
+// .dx-datagrid-headers {
+//   background: #f2f2f2;
+//   border-bottom: none;
+// }
+
+// .dx-datagrid-borders .dx-datagrid-rowsview,
+// .dx-datagrid-headers+.dx-datagrid-rowsview {
+//   border-top: none;
+// }
+
+// .dx-datagrid-headers .dx-datagrid-table .dx-row>td {
+
+//   font-size: 16px;
+//   font-family: 'GoogleSans-Regular';
+//   color: #1f1f1f;
+//   padding-left: 16px;
+//   font-weight: 600;
+//   line-height: 27px;
+// }
+
+// .dx-datagrid .dx-column-lines>td {
+//   border-top: 1px solid #e0e0e0;
+// }
+
+// .dx-datagrid .dx-row>td {
+//   font-size: 15px;
+//   font-family: 'GoogleSans-Light';
+//   color: #1f1f1f;
+//   line-height: 29px;
+//   padding-left: 16px;
+// }
+
+@import "./fonts.scss";
+@import "./colors.scss";
+@import "./mixins.scss";
+
+.dx-popup-title {
+  padding: 0;
+}
+
+.dx-theme-generic-typography,
+.dx-overlay-wrapper {
+  font-family: "GoogleSans-Light", sans-serif;
+  font-size: 15px;
+  color: $color-text !important;
+}
+
+.dx-editor-underlined .dx-texteditor-input {
+  font-family: "GoogleSans-Light", sans-serif;
+  font-size: 15px;
+  color: $color-white !important;
+}
+
+.dx-placeholder {
+  font-family: "GoogleSans-Light", sans-serif;
+  font-size: 15px;
+}
+
+.dx-texteditor {
+  &.dx-editor-outlined {
+    border-radius: 8px;
+    border: 1px solid $color-grey;
+  }
+
+  &.dx-state-hover {
+    @include input-box-shadow;
+    border-color: $color-blue;
+  }
+
+  &.dx-state-focused {
+    &.dx-editor-outlined {
+      @include input-box-shadow;
+      border-color: $color-blue;
+    }
+  }
+}
+
+.dx-overlay-wrapper input,
+.dx-overlay-wrapper textarea {
+  font-family: "GoogleSans-Light", sans-serif;
+  font-size: 15px;
+}
+
+.dx-texteditor-input {
+  padding: 7px 16px 8px;
+}
+
+.modal {
+  .dx-placeholder {
+    left: 7px;
+    color: #b9b9b9;
+  }
+}
+
+.dx-popup {
+  &-title {
+    border-bottom: none;
+
+    &.dx-toolbar {
+      padding: 16px 24px !important;
+    }
+  }
+
+  &-content {
+    padding: 8px 0;
+  }
+}
+
+.dx-toolbar-label>div {
+  font-size: 24px !important;
+  font-family: "GoogleSans-Bold", sans-serif;
+  overflow: visible;
+}
+
+.dx-toolbar-label .dx-toolbar-item-content>div {
+  overflow: visible;
+}
+
+.dx-button-has-text .dx-button-content {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.dx-button-mode-contained {
+  background-color: $color-blue;
+  color: $color-white;
+  border-color: transparent;
+  border-radius: 8px;
+
+  &.dx-state-hover,
+  &.dx-state-focused,
+  &.dx-state-active {
+    background-color: $color-primary-hover;
+    border-color: $color-primary-hightlight;
+  }
+}
+
+.dx-list .dx-empty-message,
+.dx-list-item-content {
+  height: 40px;
+  padding: 0 12px;
+}
+
+.dx-list .dx-empty-message,
+.dx-list-item {
+  border-top: none;
+  font-family: "GoogleSans-Light", sans-serif;
+  font-size: 14px;
+  color: $color-text;
+}
+
+.dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item {
+
+  &.dx-state-hover,
+  &.dx-state-focused,
+  &.dx-state-active {
+    background-color: $color-blue-light;
+    color: $color-text;
+  }
+}
+
+// .dx-datagrid {
+//   border-radius: 0 0 8px 8px;
+//   color: $color-text;
+//   font-family: "GoogleSans-Light", sans-serif;
+//   font-size: 15px;
+// }
+
+// .dx-datagrid-headers {
+//   font-size: 16px;
+//   color: $color-text;
+//   font-family: "GoogleSans-Bold", sans-serif;
+//   background-color: $color-grid-bg;
+// }
+
+// .dx-datagrid-content .dx-datagrid-table.dx-datagrid-table-fixed {
+//   height: 42px;
+// }
+
+// .dx-datagrid-content .dx-datagrid-table .dx-row > td,
+// .dx-datagrid-content .dx-datagrid-table .dx-row > tr > td {
+//   height: 44px;
+//   padding: 11px 16px;
+//   box-sizing: border-box;
+// }
+
+// .dx-datagrid-headers .dx-datagrid-table .dx-row > td,
+// .dx-datagrid .dx-row-lines > td {
+//   border-bottom: 0.5px solid $color-grey;
+// }
+
+// .dx-datagrid .dx-column-lines > td {
+//   border-right: 0.5px solid $color-grey;
+// }
+
+.dx-row.dx-data-row.dx-row-lines.dx-column-lines.dx-state-hover {
+  @include table-row-shadow;
+  background-color: $color-blue-light;
+}
+
+.dx-datagrid-headers {
+  background: #f2f2f2;
+  border-bottom: none;
+}
+
+.dx-datagrid-borders .dx-datagrid-rowsview,
+.dx-datagrid-headers+.dx-datagrid-rowsview {
+  border-top: none;
+}
+
+.dx-datagrid-headers .dx-datagrid-table .dx-row>td {
+
+  font-size: 16px;
+  font-family: 'GoogleSans-Regular';
+  color: #1f1f1f;
+  padding-left: 16px;
+  font-weight: 600;
+  line-height: 27px;
+}
+
+.dx-datagrid .dx-column-lines>td {
+  border-top: 1px solid #e0e0e0;
+}
+
+.dx-datagrid .dx-row>td {
+  font-size: 15px;
+  font-family: 'GoogleSans-Light';
+  color: #1f1f1f;
+  line-height: 29px;
+  padding-left: 16px;
+}

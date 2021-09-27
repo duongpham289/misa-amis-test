@@ -2,6 +2,7 @@
 
   <!-- Dashboard Header -->
   <div class="ms-nav--left dashboard">
+    <!-- Nút tùy chỉnh -->
     <div class="ms-nav__button">
       <div class="ms-nav__button-icon edit"></div>
       Tuỳ chỉnh
@@ -12,23 +13,37 @@
   <div class="ms-nav--left project">
     <div class="d-flex align-center">
       <div class="ms-nav__home d-flex">
+
+        <!-- Nút mở menu -->
         <div class="ms-nav__toggle icon-menu"></div>
+
+        <!-- Nút về dashboard -->
         <div class="ms-nav__home icon-home" [routerLink]="['/dashboard']"></div>
       </div>
       <div class="ms-nav__title d-flex content-center align-center">
+
+        <!-- Project dropdown -->
         <div class="logo-user d-flex content-center align-center">
           <div class="icon-user"></div>
         </div>
         <div class="project-title text-overflow">Công việc cá nhân</div>
         <div class="icon-carret-down"></div>
+
+        <!-- Nút setting -->
         <div class="project-setting">
           <div class="icon-setting">
           </div>
         </div>
       </div>
       <div class="project-grids  d-flex content-center align-center">
-        <div class="project-items">Danh sách</div>
-        <div class="project-items">Báo cáo</div>
+
+        <!-- Nút chuyển trang danh sách -->
+        <div class="project-items" routerLink="/project" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
+          true}">Danh sách</div>
+
+        <!-- Nút chuyển trang báo cáo -->
+        <div class="project-items" routerLink="/report" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
+          true}">Báo cáo</div>
       </div>
     </div>
   </div>
@@ -36,21 +51,30 @@
 
   <div class="ms-nav--right d-flex align-center">
     <div class="ms-nav__button-group d-flex align-center">
+
       <!-- Nút thêm công việc -->
       <div class="ms-nav__button ms-nav__button--add d-flex align-center" (click)="openPopup()">
         <div class="ms-nav__button-icon add"></div>
         Thêm công việc
       </div>
       <div class="ms-nav__button-separator"></div>
+      <!-- Dropdown thêm phòng ban/dự án -->
       <div id="ms-nav__dropdown-button" class="ms-nav__button ms-nav__button--dropdown" (click)="toggleDropdown()">
         <div class="ms-nav__button-icon dropdown"></div>
       </div>
     </div>
 
-    <dx-popover class="ms-popover" target="#ms-nav__dropdown-button" position="bottom" [width]="234"
-      [visible]="dropdownVisible" (onHidden)="dropdownVisible = false">
+    <!-- Popover thêm phòng ban/dự án -->
+    <dx-popover target="#ms-nav__dropdown-button" position="bottom" [width]="234" [visible]="dropdownVisible"
+      (onHidden)="dropdownVisible = false">
       <div *dxTemplate="let data of 'content'">
-        <dx-list [dataSource]="['Thêm dự án/nhóm', 'Thêm phòng ban']">
+        <dx-list [dataSource]="dropdownIcons">
+          <div *dxTemplate="let item of 'item'">
+            <div class="ms-nav__dropdown-item">
+              <div class="ms-nav__dropdown-icon {{item.iconClass}}"></div>
+              <div>{{item.iconName}}</div>
+            </div>
+          </div>
         </dx-list>
       </div>
     </dx-popover>

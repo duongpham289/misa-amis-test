@@ -2,15 +2,16 @@ export const MENU_ITEMS = [
     {
         icon: "icon-home-active",
         text: "Tổng quan",
-        link: "/task/dashboard"
+        link: "/dashboard"
     },
     {
         icon: "icon-task-active",
         text: "Việc của tôi",
-        link: "/task/project"
+        link: "/project"
     },
     {
         icon: "icon-report-active",
         text: "Báo cáo",
+        link: "/project"
     }
 ]

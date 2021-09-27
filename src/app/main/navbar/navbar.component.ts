@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { iconNavbar } from 'src/app/shared/interfaces/navbar-icon';
+import { NavbarDropdownIcons, NavbarIcons } from 'src/app/shared/resources/navbar-resource';
 
 @Component({
   selector: 'app-navbar',
@@ -9,10 +10,16 @@ import { iconNavbar } from 'src/app/shared/interfaces/navbar-icon';
 export class NavbarComponent implements OnInit {
 
   dropdownVisible: boolean = false;
-  @Input() navbarIcons: iconNavbar[] = [];
+  // @Input() navbarIcons: iconNavbar[] = [];
   @Output() isPopupOpen = new EventEmitter<boolean>();
+  navbarIcons: iconNavbar[];
+  dropdownIcons: iconNavbar[];
 
-  constructor() { }
+  constructor() { 
+    this.navbarIcons = NavbarIcons;
+    this.dropdownIcons = NavbarDropdownIcons;
+    
+   }
 
   ngOnInit(): void {
   }
