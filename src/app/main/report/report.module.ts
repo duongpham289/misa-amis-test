@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReportComponent } from './report.component';
 import { NavbarModule } from '../navbar/navbar.module';
+import { DxChartModule } from 'devextreme-angular';
 
 
 
@@ -11,7 +12,8 @@ import { NavbarModule } from '../navbar/navbar.module';
   ],
   imports: [
     CommonModule,
-    NavbarModule
+    NavbarModule,
+    DxChartModule
   ],
   exports: [
     ReportComponent

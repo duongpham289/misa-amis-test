@@ -3,12 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import {
   DxPopupModule,
-  DxTextBoxModule,
-  DxTemplateModule,
-  DxTextAreaModule
 } from 'devextreme-angular';
 
-import { TextFieldComponent } from '../text-field/text-field.component';
 import { PopupComponent } from './popup.component';
 import { RouterModule } from '@angular/router';
 
@@ -16,13 +12,13 @@ import { RouterModule } from '@angular/router';
   declarations: [
     PopupComponent
   ],
-  exports: [
-    PopupComponent
-  ],
   imports: [
     CommonModule,
     RouterModule,
     DxPopupModule,
+  ],
+  exports: [
+    PopupComponent
   ]
 })
 export class PopupModule { }

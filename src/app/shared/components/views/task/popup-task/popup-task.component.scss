@@ -1,0 +1,140 @@
+@use '../../../../../../styles/colors' as *;
+@use '../../../../../../styles/mixins' as *;
+
+.popup__task {
+  padding: 0 24px;
+  margin: -8px 0;
+
+  &-container {
+    display: flex;
+    border-top: 1px solid $color-grey;
+    border-bottom: 1px solid $color-grey;
+    margin: 0 -24px;
+    padding: 0 24px;
+  }
+
+  &--left {
+    width: 75%;
+    border-right: 1px solid $color-grey;
+    padding: 8px 20px 32px 0;
+  }
+
+  &--right {
+    width: 25%;
+  }
+
+  &-header {
+    height: 48px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &--left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      height: 100%;
+    }
+
+    &--right {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    &-button {
+      @include icon-size-small;
+      @include background-template;
+      margin: 0 8px;
+
+      &.important {
+        background-image: url('../../../../../../assets/icons/icon-important.svg');
+      }
+
+      &.urgent {
+        background-image: url('../../../../../../assets/icons/icon-urgent.svg');
+      }
+    }
+  }
+
+  &-input {
+    margin-bottom: 16px;
+
+    input {
+      border: none;
+      font-size: 20px;
+      font-weight: 700;
+    }
+  }
+
+  &-widget {
+    color: $color-blue;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+
+    &-icon {
+      @include background-template;
+      @include icon-size-default;
+
+      &.desc {
+        background-image: url('../../../../../../assets/icons/icon-list.svg');
+      }
+
+      &.add {
+        background-image: url('../../../../../../assets/icons/icon-add-blue.svg');
+      }
+    }
+  }
+
+  &-selector {
+    margin: 16px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &--half {
+      width: 50%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    &-icon {
+      @include background-template;
+      @include icon-size-large;
+
+      &.assignee {
+        background-image: url('../../../../../../assets/icons/icon-pick-doer.svg');
+      }
+
+      &.date {
+        background-image: url('../../../../../../assets/icons/icon-pick-date.svg');
+      }
+    }
+  }
+
+  &-extra {
+    margin-right: -24px;
+    padding: 12px 24px 12px 12px;
+    border-bottom: 1px solid $color-grey;
+    background-color: $color-grey-light;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    cursor: pointer;
+
+    &-icon {
+      @include background-template;
+      @include icon-size-default;
+
+      &.related {
+        background-image: url('../../../../../../assets/icons/icon-related.svg');
+      }
+    }
+  }
+}

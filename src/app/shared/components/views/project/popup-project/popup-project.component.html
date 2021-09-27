@@ -1,42 +1,29 @@
-<div class="popup--project">
-    <app-text-field
-      [inputLabel]="popupProjectVar.PopupTextFieldNameLabel"
-      [inputPlaceholder]="popupProjectVar.PopupTextFieldNamePlaceholder"
-      [isRequired]="true"
-    ></app-text-field>
-  
-    <div class="text-field__group">
-      <app-text-field
-        [inputLabel]="popupProjectVar.PopupTextFieldDepartmentLabel"
-        [inputPlaceholder]="popupProjectVar.PopupTextFieldDepartmentPlaceholder"
-        [ngStyle]="{width: '50%'}"
-        [isRequired]="true"
-      ></app-text-field>
-  
-      <app-text-field
-        [inputLabel]="popupProjectVar.PopupTextFieldFromDateLabel"
-        [inputPlaceholder]="popupProjectVar.PopupTextFieldFromDatePlaceholder"
-        [ngStyle]="{width: '25%'}"
-      ></app-text-field>
-  
-      <app-text-field
-        [inputLabel]="popupProjectVar.PopupTextFieldToDateLabel"
-        [inputPlaceholder]="popupProjectVar.PopupTextFieldToDatePlaceholder"
-        [ngStyle]="{width: '25%'}"
-      ></app-text-field>
-    </div>
-  
-    <app-text-field
-    [inputLabel]="popupProjectVar.PopupTextFieldDescriptionLabel"
-    [inputPlaceholder]="popupProjectVar.PopupTextFieldDescriptionPlaceholder"
-    [textFieldHeight]="'78px'"
-    [textArea]="true"
-    ></app-text-field>
-  
-    <app-text-field
-      [inputLabel]="popupProjectVar.PopupTextFieldMemberLabel"
-      [inputPlaceholder]="popupProjectVar.PopupTextFieldMemberPlaceholder"
-    ></app-text-field>
+<div class="popup-project">
+  <app-text-field [inputLabel]="popupProjectVar.PopupTextFieldNameLabel"
+    [inputPlaceholder]="popupProjectVar.PopupTextFieldNamePlaceholder" [isRequired]="true"></app-text-field>
+
+  <div class="text-field__group">
+    <app-text-field [inputLabel]="popupProjectVar.PopupTextFieldDepartmentLabel"
+      [inputPlaceholder]="popupProjectVar.PopupTextFieldDepartmentPlaceholder" [ngStyle]="{width: '50%'}"
+      [isRequired]="true"></app-text-field>
+
+    <app-text-field [inputLabel]="popupProjectVar.PopupTextFieldFromDateLabel"
+      [inputPlaceholder]="popupProjectVar.PopupTextFieldFromDatePlaceholder" [ngStyle]="{width: '25%'}">
+    </app-text-field>
+
+    <app-text-field [inputLabel]="popupProjectVar.PopupTextFieldToDateLabel"
+      [inputPlaceholder]="popupProjectVar.PopupTextFieldToDatePlaceholder" [ngStyle]="{width: '25%'}"></app-text-field>
   </div>
-  
-  
+
+  <app-text-field [inputLabel]="popupProjectVar.PopupTextFieldDescriptionLabel"
+    [inputPlaceholder]="popupProjectVar.PopupTextFieldDescriptionPlaceholder" [textFieldHeight]="'78px'"
+    [textArea]="true"></app-text-field>
+
+  <app-text-field [inputLabel]="popupProjectVar.PopupTextFieldMemberLabel"
+    [inputPlaceholder]="popupProjectVar.PopupTextFieldMemberPlaceholder"></app-text-field>
+
+  <app-popup-footer></app-popup-footer>
+</div>
+
+<app-popup [popupWidth]="popupProjectVar.PopupProjectWidth">
+</app-popup>

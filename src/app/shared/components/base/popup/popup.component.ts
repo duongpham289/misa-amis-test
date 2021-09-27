@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import POPUP_ENUM from '../../../resources/popup-resources'
+import { PopupService } from 'src/app/shared/services/popup-service';
 
 @Component({
   selector: 'app-popup',
@@ -8,41 +8,25 @@ import POPUP_ENUM from '../../../resources/popup-resources'
 })
 export class PopupComponent implements OnInit {
 
-  currentTemplate: string = 'departmentTemplate';
-
+  @Input() popupWidth: number = 0;
+  @Input() popupTitle: string = '';
   @Input() isPopupOpen = false;
 
-  @Output() isPopupClose = new EventEmitter<boolean>();
-
-  popupWidth: any;
-  popupVariables: any;
-  popupTitle: any;
-
-  constructor() {
-    this.popupVariables = POPUP_ENUM;
-
-    if (this.currentTemplate === 'departmentTemplate') {
-      this.popupTitle = this.popupVariables.PopupDepartmentTitle;
-      this.popupWidth = this.popupVariables.PopupDepartmentWidth;
-    } else if (this.currentTemplate === 'projectTemplate') {
-      this.popupTitle = this.popupVariables.PopupProjectTitle;
-      this.popupWidth = this.popupVariables.PopupProjectWidth;
-    } else {
-      this.popupTitle = this.popupVariables.PopupTaskTitle;
-      this.popupWidth = this.popupVariables.PopupTaskWidth;
-    }
-   }
+  constructor(private _popupService: PopupService) { }
 
   ngOnInit(): void {
   }
 
   /**
-   * Hàm mở popup
-   * CreatedBy: PHDUONG(23/09/2021)
+   * Phương thức call service để đóng popup
+   * CreatedBy: PHDUONG (27/09/2021)
    */
-  closePopup() {
-    this.isPopupClose.emit(false);
-    // this.isPopupOpen = false
+   closePopup() {
+    const popupVisible = false;
+
+    const popupMode = undefined;
+
+    this._popupService.setPopupMode(popupMode, popupVisible);
   }
 
 }

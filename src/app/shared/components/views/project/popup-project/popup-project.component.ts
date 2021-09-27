@@ -7,9 +7,9 @@ import POPUP_ENUM from 'src/app/shared/resources/popup-resources';
   styleUrls: ['./popup-project.component.scss']
 })
 export class PopupProjectComponent implements OnInit {
+
   popupProjectVar: any;
   
-
   constructor() { 
     this.popupProjectVar = POPUP_ENUM
   }

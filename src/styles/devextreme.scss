@@ -259,40 +259,6 @@
   }
 }
 
-// .dx-datagrid {
-//   border-radius: 0 0 8px 8px;
-//   color: $color-text;
-//   font-family: "GoogleSans-Light", sans-serif;
-//   font-size: 15px;
-// }
-
-// .dx-datagrid-headers {
-//   font-size: 16px;
-//   color: $color-text;
-//   font-family: "GoogleSans-Bold", sans-serif;
-//   background-color: $color-grid-bg;
-// }
-
-// .dx-datagrid-content .dx-datagrid-table.dx-datagrid-table-fixed {
-//   height: 42px;
-// }
-
-// .dx-datagrid-content .dx-datagrid-table .dx-row > td,
-// .dx-datagrid-content .dx-datagrid-table .dx-row > tr > td {
-//   height: 44px;
-//   padding: 11px 16px;
-//   box-sizing: border-box;
-// }
-
-// .dx-datagrid-headers .dx-datagrid-table .dx-row > td,
-// .dx-datagrid .dx-row-lines > td {
-//   border-bottom: 0.5px solid $color-grey;
-// }
-
-// .dx-datagrid .dx-column-lines > td {
-//   border-right: 0.5px solid $color-grey;
-// }
-
 .dx-row.dx-data-row.dx-row-lines.dx-column-lines.dx-state-hover {
   @include table-row-shadow;
   background-color: $color-blue-light;
@@ -328,4 +294,19 @@
   color: #1f1f1f;
   line-height: 29px;
   padding-left: 16px;
+}
+
+.ms-report__chart {
+
+  .dxc-arg-elements,
+  .dxc-val-title,
+  .dxc-item {
+    fill: $color-text !important;
+
+    text {
+      font-family: "GoogleSans-Light", sans-serif !important;
+      font-size: 13px !important;
+      fill: $color-text !important;
+    }
+  }
 }
