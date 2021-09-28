@@ -296,6 +296,10 @@
   padding-left: 16px;
 }
 
+.dx-datagrid-content .dx-datagrid-table .dx-row > td:first-child, .dx-datagrid-content .dx-datagrid-table .dx-row > tr > td:first-child {
+  padding: 7px;
+}
+
 .ms-report__chart {
 
   .dxc-arg-elements,

@@ -1,0 +1,21 @@
+<dx-pie-chart
+  type="doughnut"
+  [palette]="['rgb(93, 199, 72)', 'rgb(183, 205, 223)']"
+  [dataSource]="data"
+  [startAngle]="90"
+>
+  <dxo-size
+    [height]="doughnutSize['width']"
+    [width]="doughnutSize['height']">
+  </dxo-size>
+
+  <dxo-animation
+    [enabled]="false"
+  ></dxo-animation>
+
+  <dxi-series
+    argumentField="region">
+  </dxi-series>
+  <dxo-legend
+    [visible]="false"></dxo-legend>
+</dx-pie-chart>

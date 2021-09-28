@@ -1,3 +1,6 @@
+
+@use '../../../styles/mixins' as *;
+
 ::ng-deep .ms-project {
   &.grid-task {
     width: 100%;
@@ -103,5 +106,22 @@
 
   &__content {
     height: calc(100vh - 135px);
+  }
+
+  &__icon {
+    @include icon-size-default;
+    @include background-template;
+
+    &.add-col {
+      background-image: url('../../../../assets/icons/icon-add-col.svg');
+    }
+
+    &.success {
+      background-image: url('../../../../assets/icons/icon-success.svg');
+    }
+
+    &.date {
+      background-image: url('../../../../assets/icons/icon-date.svg');
+    }
   }
 }
