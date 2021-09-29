@@ -20,7 +20,7 @@ export class ProjectComponent implements OnInit {
 
   constructor(taskService: TaskService,private mock_service: MockDataService) {
     this.tasksData = mock_service.getCustomers();
-    // this.tasks = taskService.getTasks();
+    
     this.taskColumns = TaskColumns;
     this.gridConst = GRID_CONSTANTS;
    }

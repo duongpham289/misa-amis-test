@@ -1,11 +1,33 @@
-<div class="popup-department">
-  <app-text-field [inputLabel]="popupDepartmentVar.PopupTextFieldNameLabel"
-    [inputPlaceholder]="popupDepartmentVar.PopupTextFieldNamePlaceholder" [isRequired]="true"></app-text-field>
 
-  <app-text-field [inputLabel]="popupDepartmentVar.PopupTextFieldMemberLabel"
-    [inputPlaceholder]="popupDepartmentVar.PopupTextFieldMemberPlaceholder"></app-text-field>
+<dx-popup class="ms-popup" [width]="popupWidth" height="auto" [shadingColor]="'rgba(0, 0, 0, 0.45)'" [dragEnabled]="true"
+  (onHidden)="closePopup()" [visible]="isPopupOpen" (onShown)="inputAutoFocus()" contentTemplate="currentTemplate" titleTemplate="title">
 
-  <app-popup-footer></app-popup-footer>
-</div>
-
-<app-popup [popupWidth]="popupDepartmentVar.PopupDepartmentWidth"></app-popup>
+  <div *dxTemplate="let data of 'currentTemplate'">
+    <div class="popup-department">
+      <app-text-field #name [inputLabel]="popupDepartmentVar.PopupTextFieldNameLabel"
+        [inputPlaceholder]="popupDepartmentVar.PopupTextFieldNamePlaceholder" [isRequired]="true"></app-text-field>
+    
+      <app-text-field [inputLabel]="popupDepartmentVar.PopupTextFieldMemberLabel"
+        [inputPlaceholder]="popupDepartmentVar.PopupTextFieldMemberPlaceholder"></app-text-field>
+    
+        <div class="ms-modal__footer">
+          <div
+            class="ms-modal__button--secondary"
+            (click)="closePopup()"
+          >
+            {{ popupDepartmentVar.PopupCloseButton }}
+          </div>
+        
+          <app-button [buttonText]="popupDepartmentVar.PopupSaveButton">
+          </app-button>
+        </div>
+    </div>
+  </div>
+  
+  <div *dxTemplate="let data of 'title'">
+    <div class="popup-header d-flex content-between align-center">
+      <div class="popup-title">{{popupTitle}}</div>
+      <div class="button-close dx-icon-close" (click)="closePopup()"></div>
+    </div>
+  </div>
+</dx-popup>

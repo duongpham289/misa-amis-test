@@ -1120,7 +1120,7 @@ export class MockDataService {
       TaskDependent: null,
       TaskID: 120379,
       TaskIDDuplicate: 0,
-      TaskName: "Tìm hiểu Lifecycle Hooks",
+      TaskName: "Tìm hiểu Lifecycle Hook",
       TaskStatus: 1,
       TaskStatusDisplay: null,
       TaskStatusView: null,

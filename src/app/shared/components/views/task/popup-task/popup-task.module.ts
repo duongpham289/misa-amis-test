@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PopupTaskComponent } from './popup-task.component';
-import { PopupFooterModule } from '../../../base/popup/popup-footer/popup-footer.module';
+import { ButtonModule } from '../../../base/button/button.module';
+import { DxPopupModule } from 'devextreme-angular';
 
 
 
@@ -9,7 +10,9 @@ import { PopupFooterModule } from '../../../base/popup/popup-footer/popup-footer
   declarations: [PopupTaskComponent],
   imports: [
     CommonModule,
-    PopupFooterModule
+    
+    ButtonModule,
+    DxPopupModule,
   ], 
   exports: [PopupTaskComponent]
 })

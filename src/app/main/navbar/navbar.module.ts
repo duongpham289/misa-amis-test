@@ -20,8 +20,7 @@ import { PopupTaskModule } from 'src/app/shared/components/views/task/popup-task
   imports: [
     CommonModule,
     RouterModule,
-
-    PopupModule,
+    
     PopupDepartmentModule,
     PopupProjectModule,
     PopupTaskModule,

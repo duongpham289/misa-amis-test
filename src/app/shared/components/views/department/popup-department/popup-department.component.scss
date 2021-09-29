@@ -1,3 +1,38 @@
+@use "../../../../../../styles/colors.scss"as *;
+
 .popup-department {
-    padding: 0 24px;
+  padding: 0 24px;
+}
+
+.popup-header {
+  color: #1f1f1f !important;
+  font-weight: 700;
+  font-size: 24px;
+  padding: 16px 24px;
+
+  .popup-title {
+    font-family: 'GoogleSans-Regular';
   }
+
+  .dx-icon-close {
+    font: 20px/1 DXIcons;
+    cursor: pointer;
+  }
+}
+
+.ms-modal__footer {
+  padding: 16px 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+.ms-modal__button--secondary {
+  color: $color-blue;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

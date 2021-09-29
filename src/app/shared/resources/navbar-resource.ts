@@ -34,3 +34,12 @@ export const NavbarDropdownIcons: iconNavbar[] = [
     iconName: 'Thêm dự án/nhóm'
   }
 ]
+
+export const NavbarTexts =
+  {
+    Edit: "Tùy chỉnh",
+    PersonalProject: "Tùy chỉnh",
+    List: "Danh sách",
+    Report: "Báo cáo",
+    Add:"Thêm công việc"
+  }

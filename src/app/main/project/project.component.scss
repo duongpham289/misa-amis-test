@@ -113,15 +113,15 @@
     @include background-template;
 
     &.add-col {
-      background-image: url('../../../../assets/icons/icon-add-col.svg');
+      background-image: url('../../../assets/icons/icon-add-col.svg');
     }
 
     &.success {
-      background-image: url('../../../../assets/icons/icon-success.svg');
+      background-image: url('../../../assets/icons/icon-success.svg');
     }
 
     &.date {
-      background-image: url('../../../../assets/icons/icon-date.svg');
+      background-image: url('../../../assets/icons/icon-date.svg');
     }
   }
 }

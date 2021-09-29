@@ -6,7 +6,6 @@ export default {
 
     //popup-project
     PopupProjectTitle: "Thêm mới dự án/nhóm",
-    PopupProjectWidth: 620,
 
     PopupTextFieldNameLabel: 'Tên dự án/nhóm',
     PopupTextFieldNamePlaceholder: 'Tên dự án/nhóm',
@@ -28,7 +27,6 @@ export default {
 
     //popup-department
     PopupDepartmentTitle: "Thêm phòng ban",
-    PopupDepartmentWidth: 500,
     
     ModalFieldNameLabel: 'Tên phòng ban',
     ModalFieldNamePlaceholder: 'Nhập tên phòng ban...',
@@ -39,7 +37,6 @@ export default {
 
     //popup-task
     PopupTaskTitle: "Thêm công việc",
-    PopupTaskWidth: 620,
 
 
 }

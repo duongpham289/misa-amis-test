@@ -5,7 +5,7 @@
     <!-- Nút tùy chỉnh -->
     <div class="ms-nav__button">
       <div class="ms-nav__button-icon edit"></div>
-      Tuỳ chỉnh
+      {{navbarTexts.Edit}}
     </div>
   </div>
 
@@ -26,7 +26,7 @@
         <div class="logo-user d-flex content-center align-center">
           <div class="icon-user"></div>
         </div>
-        <div class="project-title text-overflow">Công việc cá nhân</div>
+        <div class="project-title text-overflow">{{navbarTexts.PersonalProject}}</div>
         <div class="icon-caret-down"></div>
 
         <!-- Nút setting -->
@@ -39,11 +39,11 @@
 
         <!-- Nút chuyển trang danh sách -->
         <div class="project-items" routerLink="/project" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
-          true}">Danh sách</div>
+          true}">{{navbarTexts.List}}</div>
 
         <!-- Nút chuyển trang báo cáo -->
         <div class="project-items" routerLink="/report" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
-          true}">Báo cáo</div>
+          true}">{{navbarTexts.Report}}</div>
       </div>
     </div>
   </div>
@@ -53,9 +53,9 @@
     <div class="ms-nav__button-group d-flex align-center">
 
       <!-- Nút thêm công việc -->
-      <div class="ms-nav__button ms-nav__button--add d-flex align-center" (click)="addTask()">
+      <div class="ms-nav__button ms-nav__button--add d-flex align-center" (click)="openPopupTask()">
         <div class="ms-nav__button-icon add"></div>
-        Thêm công việc
+        {{navbarTexts.Add}}
       </div>
       <div class="ms-nav__button-separator"></div>
       <!-- Dropdown thêm phòng ban/dự án -->
@@ -70,7 +70,7 @@
       <div *dxTemplate="let data of 'content'">
         <dx-list [dataSource]="dropdownIcons">
           <div *dxTemplate="let item of 'item'">
-            <div class="ms-nav__dropdown-item" (click)="addFunction(item.iconId)">
+            <div class="ms-nav__dropdown-item" (click)="openPopup(item.iconId)">
               <div class="ms-nav__dropdown-icon {{item.iconClass}}"></div>
               <div>{{item.iconName}}</div>
             </div>
@@ -87,11 +87,11 @@
 
 </div>
 
-<app-popup [isPopupOpen]="isPopupOpen" (onPopupHidden)="isPopupOpen = false" [popupWidth]="popupWidth" 
-[popupTitle]="popupTitle">
-  <app-popup-department *ngIf="currentPopupType === popupEnums.PopupDepartment"></app-popup-department>
+<app-popup-department *ngIf="currentPopupType === popupEnums.PopupDepartment" [isPopupOpen]="isPopupOpen"
+  [popupWidth]="popupWidth" [popupTitle]="popupTitle"></app-popup-department>
 
-  <app-popup-project *ngIf="currentPopupType === popupEnums.PopupProject"></app-popup-project>
+<app-popup-project *ngIf="currentPopupType === popupEnums.PopupProject" [isPopupOpen]="isPopupOpen"
+  [popupWidth]="popupWidth" [popupTitle]="popupTitle"></app-popup-project>
 
-  <app-popup-task *ngIf="currentPopupType === popupEnums.PopupTask"></app-popup-task>
-</app-popup>
+<app-popup-task *ngIf="currentPopupType === popupEnums.PopupTask" [isPopupOpen]="isPopupOpen" [popupWidth]="popupWidth"
+  [popupTitle]="popupTitle"></app-popup-task>
