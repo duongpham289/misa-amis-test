@@ -6,6 +6,7 @@ import { NavbarDropdownIcons, NavbarIcons, NavbarTexts } from 'src/app/shared/re
 import popupResources from 'src/app/shared/resources/popup-resources';
 import { POPUP_ENUMS } from 'src/app/shared/enum/popup-enum';
 import { PopupService } from 'src/app/shared/services/popup-service';
+import { HeaderLinks } from 'src/app/shared/models/header-links';
 
 @Component({
   selector: 'app-navbar',
@@ -32,10 +33,13 @@ export class NavbarComponent implements OnInit {
 
   popupTitle: string = '';
   navbarTexts: any;
+  headerLinks: any;
+  currentLink: number = 0;
 
 
 
   constructor(private _popupService: PopupService) {
+    this.headerLinks = HeaderLinks;
     this.navbarIcons = NavbarIcons;
     this.navbarTexts = NavbarTexts;
     this.dropdownIcons = NavbarDropdownIcons;
@@ -87,4 +91,13 @@ export class NavbarComponent implements OnInit {
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
   }
+  
+  /**
+  * Phương thức style link tương ứng ở từng page
+  * @param linkIndex
+  * Author: NQMinh (25/09/2021)
+  */
+ activeLink(linkIndex: number) {
+   this.currentLink = linkIndex;
+ }
 }

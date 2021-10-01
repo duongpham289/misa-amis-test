@@ -28,27 +28,28 @@
 
     <!-- Phần hiển thị phòng ban/dự án -->
     <div class="sidebar-scroll">
-      <dx-tree-view [items]="departments" itemTemplate="itemTemplate">
+      <dx-tree-view [dataSource]="departments" itemTemplate="itemTemplate" itemsExpr="ListProjects">
 
         <!-- Phần hiển thị Phòng ban -->
         <div class="sidebar-scroll__main" *dxTemplate="let itemObj of 'itemTemplate'">
-          <div class="sidebar-scroll__department" *ngIf="itemObj.items">
+          <div class="sidebar-scroll__department" *ngIf="itemObj.ListProjects">
             <div class="sidebar-scroll__department-content d-flex content-between align-center h-100">
               <div class="sidebar-scroll__department-dropdown d-flex content-center align-center h-100">
               </div>
-              <div class="sidebar-scroll__department-title">{{itemObj.text}}</div>
+              <div class="sidebar-scroll__department-title">{{itemObj.DepartmentName}}</div>
             </div>
           </div>
 
           <!-- Phần hiển thị Dự án -->
-          <div class="sidebar-scroll__department-project" *ngIf="!itemObj.items">
+          <div class="sidebar-scroll__department-project" *ngIf="!itemObj.ListProjects">
             <div class="sidebar-scroll__project d-flex align-center">
               <div class="sidebar-scroll__project-content  d-flex align-center content-center"
-                [routerLink]="'/project'">
+                [routerLink]="['/project']"
+                [queryParams]="{Type: 1, ProjectId: itemObj.ProjectId, DepartmentId: itemObj.DepartmentId}">
                 <div class="sidebar-scroll__project-icon d-flex align-center content-center">
                   <div class="person-icon"></div>
                 </div>
-                <div class="sidebar-scroll__project-title">{{itemObj.text}}</div>
+                <div class="sidebar-scroll__project-title">{{itemObj.ProjectName}}</div>
               </div>
             </div>
 

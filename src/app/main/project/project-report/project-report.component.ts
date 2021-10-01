@@ -3,11 +3,11 @@ import { REPORT_CONSTANTS } from 'src/app/shared/constants/report';
 import { ReportService } from 'src/app/shared/services/report-service';
 
 @Component({
-  selector: 'app-report',
-  templateUrl: './report.component.html',
-  styleUrls: ['./report.component.scss']
+  selector: 'app-project-report',
+  templateUrl: './project-report.component.html',
+  styleUrls: ['./project-report.component.scss']
 })
-export class ReportComponent implements OnInit {
+export class ProjectReportComponent implements OnInit {
   reportData: any;
   reportConst: any;
 

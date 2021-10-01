@@ -2,24 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectComponent } from './project.component';
 import { NavbarModule } from '../navbar/navbar.module';
-
-import { DxDataGridModule, DxTemplateModule } from 'devextreme-angular';
-import { DxiColumnModule } from 'devextreme-angular/ui/nested';
-import { ChartDoughnutModule } from 'src/app/shared/components/base/chart-doughnut/chart-doughnut.module';
+import { ProjectGridModule } from './project-grid/project-grid.module';
+import { ProjectReportModule } from './project-report/project-report.module';
 
 
 @NgModule({
   declarations: [
-    ProjectComponent
+    ProjectComponent,
   ],
   imports: [
     CommonModule,
+
     NavbarModule,
-    ChartDoughnutModule,
-    
-    DxDataGridModule,
-    DxiColumnModule,
-    DxTemplateModule
+
+    ProjectGridModule,
+    ProjectReportModule,
   ],
   exports: [
     ProjectComponent

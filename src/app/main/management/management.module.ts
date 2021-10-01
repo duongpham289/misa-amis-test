@@ -7,7 +7,6 @@ import { ManagementComponent } from './management.component';
 import { DashboardModule } from '../dashboard/dashboard.module';
 import { RouterModule } from '@angular/router';
 import { ProjectModule } from '../project/project.module';
-import { ReportModule } from '../report/report.module';
 
 
 
@@ -23,7 +22,6 @@ import { ReportModule } from '../report/report.module';
     //components import
     DashboardModule,
     ProjectModule,
-    ReportModule,
   ],
   exports: [
     ManagementComponent

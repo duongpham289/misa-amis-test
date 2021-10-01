@@ -6,7 +6,6 @@ import { DxListModule, DxPopoverModule, DxTemplateModule } from 'devextreme-angu
 
 import { NavbarComponent } from './navbar.component';
 
-import { PopupModule } from 'src/app/shared/components/base/popup/popup.module';
 import { PopupDepartmentModule } from 'src/app/shared/components/views/department/popup-department/popup-department.module';
 import { PopupProjectModule } from 'src/app/shared/components/views/project/popup-project/popup-project.module';
 import { PopupTaskModule } from 'src/app/shared/components/views/task/popup-task/popup-task.module';

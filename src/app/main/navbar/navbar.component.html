@@ -38,12 +38,14 @@
       <div class="project-grids  d-flex content-center align-center">
 
         <!-- Nút chuyển trang danh sách -->
-        <div class="project-items" routerLink="/project" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
-          true}">{{navbarTexts.List}}</div>
+        <div class="project-items" *ngFor="let link of headerLinks; let linkIndex = index"
+        [routerLink]="['/project']" [queryParams]="{Type: link['Type']}" queryParamsHandling="merge"
+        [ngClass]="{'active-link': currentLink === linkIndex}"
+        (click)="activeLink(linkIndex)">{{ link['Name'] }}</div>
 
         <!-- Nút chuyển trang báo cáo -->
-        <div class="project-items" routerLink="/report" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
-          true}">{{navbarTexts.Report}}</div>
+        <!-- <div class="project-items" routerLink="/report" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:
+          true}">{{navbarTexts.Report}}</div> -->
       </div>
     </div>
   </div>

@@ -13,13 +13,21 @@ export class SidebarComponent implements OnInit {
   departments: Department[] = []
   mainMenuItems!: any
 
-  constructor(service: DepartmentService) {
-    this.departments = service.getDepartments();
+  constructor(private service: DepartmentService) {
     this.mainMenuItems = MENU_ITEMS;
   }
 
 
   ngOnInit(): void {
+    this.getDepartments();
   }
 
+  click() :void{
+    console.log(this.departments);
+    
+  }
+
+  getDepartments(): void {
+    this.service.getDepartments().subscribe(departments => this.departments = departments);
+  }
 }
