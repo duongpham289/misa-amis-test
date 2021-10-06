@@ -1,6 +1,6 @@
-import { Component, DoCheck, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { User, UserService } from 'src/app/services/user.service';
 import popupResources from 'src/app/shared/resources/popup-resources';
-import { PopupService } from 'src/app/shared/services/popup-service';
 import { TextFieldComponent } from '../../../base/text-field/text-field.component';
 
 @Component({
@@ -23,6 +23,8 @@ export class PopupDepartmentComponent implements OnInit {
   selectMemberButton: any;
   nameInput: string = '';
   popoverWidth: string = '450px';
+  
+  @Input() userList: User[] = [];
 
 
   constructor() {
@@ -33,7 +35,7 @@ export class PopupDepartmentComponent implements OnInit {
       onClick: () => {
         this.popupMemberOpen.emit(true);
       }
-    }
+    };
   } 
 
   /**
@@ -58,6 +60,11 @@ export class PopupDepartmentComponent implements OnInit {
    */
   saveData(){
     console.log(this.nameInput);
+  }
+
+  addUserList(user: User){
+    this.userList.push(user);
+    
   }
 
   ngOnInit(): void {

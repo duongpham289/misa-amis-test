@@ -86,13 +86,13 @@
 </div>
 
 <app-popup-department *ngIf="currentPopupType === popupEnums.PopupDepartment" [popupVisible]="popupVisible"
-  [popupWidth]="popupWidth" [popupTitle]="popupTitle" (popupClose)="closePopup()" (popupMemberOpen)="openPopupMember($event)"></app-popup-department>
+  [popupWidth]="popupWidth" [popupTitle]="popupTitle" [userList]="userList" (popupClose)="closePopup()" (popupMemberOpen)="openPopupMember($event)"></app-popup-department>
 
 <app-popup-project *ngIf="currentPopupType === popupEnums.PopupProject"  [popupVisible]="popupVisible"
-  [popupWidth]="popupWidth" [popupTitle]="popupTitle" (popupClose)="closePopup()" (popupMemberOpen)="openPopupMember($event)"></app-popup-project>
+  [popupWidth]="popupWidth" [popupTitle]="popupTitle" [departmentOptions]="departmentOptionsForProject" [userList]="userList" (popupClose)="closePopup()" (popupMemberOpen)="openPopupMember($event)"></app-popup-project>
 
 <app-popup-task *ngIf="currentPopupType === popupEnums.PopupTask" [popupVisible]="popupVisible"
-  [popupWidth]="popupWidth" [popupTitle]="popupTitle" (popupClose)="closePopup()"></app-popup-task>
+  [popupWidth]="popupWidth" [popupTitle]="popupTitle" [departmentOptions]="departmentOptionsForTask" [userList]="userList" (popupClose)="closePopup()"></app-popup-task>
 
 <app-popup-member [popupVisible]="popupMemberVisible" [popupWidth]="popupMemberWidth" [popupTitle]="popupMemberTitle"
   (popupClose)="closeMemberPopup()"></app-popup-member>

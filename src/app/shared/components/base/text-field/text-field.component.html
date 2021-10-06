@@ -17,7 +17,7 @@
     <div *dxTemplate="let data of 'content'">
       <dx-list [dataSource]="userList">
         <div *dxTemplate="let item of 'item'">
-          <div class="ms-text-field__dropdown-item">
+          <div class="ms-text-field__dropdown-item" (click)="addUser(item)">
             <div class="ms-text-field__dropdown-icon " [ngStyle]="{backgroundColor: item['AvatarColor']}">
               {{item.Avatar}}</div>
             <div class="ms-text-field__dropdown-text d-flex">

@@ -78,6 +78,10 @@
   }
 }
 
+.popup__task-popover.deadline .dx-popup-content{
+  padding: 0 16px;
+}
+
 .text-field__popover .dx-popup-content{
     max-height: 300px !important;
 }
@@ -247,8 +251,14 @@
 //endregion
 
 //popover region
+
+
+
 .dx-popover-arrow {
   display: none;
+}
+.popup__task-popover .dx-popover-arrow {
+  display: block;
 }
 .dx-popover-wrapper .dx-overlay-content {
   top: -9px !important
@@ -278,3 +288,8 @@
   background-color: unset;
 }
 //endregion
+
+
+.dx-calendar{
+  min-width:unset;
+}

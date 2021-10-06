@@ -5,6 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 
 export interface User {
+  UserId: string;
   FullName: string;
   EmployeeCode: string;
   EndDate: Date;

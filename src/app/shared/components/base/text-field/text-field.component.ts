@@ -9,13 +9,13 @@ import { User, UserService } from 'src/app/services/user.service';
 })
 export class TextFieldComponent implements OnInit {
 
-  @ViewChild(DxTextBoxComponent) focusInput!: DxTextBoxComponent;
+  @ViewChild(DxTextBoxComponent) textBoxInput!: DxTextBoxComponent;
 
 
   @Input() inputLabel!: string;
   @Input() inputPlaceholder!: string;
   @Input() isRequired: boolean = false;
-  
+
   @Input() textFieldHeight: string = '40px';
   @Input() textFieldWidth: string = '40px';
   @Input() popoverWidth: string = '';
@@ -28,7 +28,10 @@ export class TextFieldComponent implements OnInit {
   @Input() model: string = '';
   @Output() modelChange = new EventEmitter<string>();
 
+  @Output() userListChange = new EventEmitter<User>();
+
   userList: User[] = [];
+  userSelected: User[] = [];
   dropdownVisible: boolean = false;
 
   constructor(private userService: UserService) {
@@ -42,13 +45,36 @@ export class TextFieldComponent implements OnInit {
   valueChanged(data: any) {
 
     var className = data.element.className;
-    
+
     if (className.includes("ms-text-field__with-list")) {
-      this.userService.getUserByName(data.value).subscribe(users => this.userList = users);
+      this.userService.getUserByName(data.value).subscribe(users => {
+
+        this.userList = users;
+        this.userSelected.forEach(userSelected => {
+          users.forEach(user => {
+            if (userSelected.UserId == user.UserId) {
+              this.userList.splice(this.userList.indexOf(user), 1);
+            }
+          });
+        });
+      });
       this.dropdownVisible = true;
-    }else{
+
+    } else {      
       this.modelChange.emit(data.value);
     }
+  }
+
+  /**
+   * 
+   * @param user 
+   */
+  addUser(user: User) {
+    this.dropdownVisible = false;
+
+    this.userListChange.emit(user);
+
+    this.userSelected.push(user)
   }
 
   /**
@@ -56,7 +82,7 @@ export class TextFieldComponent implements OnInit {
    * CreatedBy: PHDUONG(04/10/2021)
    */
   setFocus() {
-    this.focusInput.instance.focus();
+    this.textBoxInput.instance.focus();
   }
 
   /**
@@ -64,7 +90,7 @@ export class TextFieldComponent implements OnInit {
    * CreatedBy: PHDUONG(04/10/2021)
    */
   resetInput() {
-    this.focusInput.instance.reset();
+    this.textBoxInput.instance.reset();
   }
 
   ngOnInit(): void {

@@ -28,10 +28,10 @@
 
       <app-text-field [inputLabel]="popupProjectVar.PopupProjectMemberLabel"
         [inputPlaceholder]="popupProjectVar.PopupProjectMemberPlaceholder" [popoverWidth]="popoverWidth"
-        bonusClass="ms-text-field__with-list" [bonusButton]="selectMemberButton"></app-text-field>
+        bonusClass="ms-text-field__with-list" [bonusButton]="selectMemberButton" (userListChange)="addUserList($event)"></app-text-field>
 
 
-      <app-user-list></app-user-list>
+      <app-user-list [userList]="userList"></app-user-list>
 
       <div class="ms-modal__footer">
         <div class="ms-modal__button--secondary" (click)="closePopup()">

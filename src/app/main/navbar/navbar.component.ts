@@ -7,6 +7,8 @@ import popupResources from 'src/app/shared/resources/popup-resources';
 import { POPUP_ENUMS } from 'src/app/shared/enum/popup-enum';
 import { PopupService } from 'src/app/shared/services/popup-service';
 import { HeaderLinks } from 'src/app/shared/models/header-links';
+import { Department, DepartmentService } from 'src/app/services/department.service';
+import { User, UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -14,8 +16,6 @@ import { HeaderLinks } from 'src/app/shared/models/header-links';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-
-
 
   dropdownVisible: boolean = false;
 
@@ -39,22 +39,40 @@ export class NavbarComponent implements OnInit {
   headerLinks: any;
   currentLink: number = 0;
 
+  departmentOptionsForProject:  Department[] = [];
+  departmentOptionsForTask:  Department[] = [];
+
+  userList: User[] = [];
+  userId: string = "6827e1c0-5b98-6d19-831b-27d9d367aeb0";
 
 
-  constructor(private _popupService: PopupService) {
+  constructor(private service: DepartmentService,private userService: UserService) {
     this.headerLinks = HeaderLinks;
     this.navbarIcons = NavbarIcons;
     this.navbarTexts = NavbarTexts;
     this.dropdownIcons = NavbarDropdownIcons;
     this.popupEnums = POPUP_ENUMS;
 
+    
+    this.userService.getUserById(this.userId).subscribe(users => this.userList.push(users));
   }
 
   ngOnInit(): void {
-    // this._popupService.popupVisible$.subscribe(popupVisible => {
-    //   this.popupVisible = popupVisible;
-    // });
+    this.getDepartments();
   }
+
+  
+
+  getDepartments(): void {
+    this.service.getDepartmentByUserId(this.userId).subscribe(departments => {
+      this.departmentOptionsForTask = departments;
+      departments.forEach(department => {
+        if (department.IsBelongToCurrentUser) {
+          this.departmentOptionsForProject.push(department);
+        }
+      });
+    });
+  } 
 
   /**
    * Phương thức call service để popup thêm công việc

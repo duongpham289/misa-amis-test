@@ -20,15 +20,29 @@ body {
 .required {
   color: #e8384f !important;
 }
+
 .active-link {
   border-bottom: 3px solid #2196f3;
 }
-.inactive{
+
+.inactive {
   color: gray !important;
 }
 
 .backgr-white {
   background-color: white !important;
+}
+
+.font-13 {
+  font-size: 13px !important
+}
+
+.gap-8 {
+  gap: 8px !important;
+}
+
+.cursor-pointer{
+  cursor: pointer !important;
 }
 
 .backgr-blue {
