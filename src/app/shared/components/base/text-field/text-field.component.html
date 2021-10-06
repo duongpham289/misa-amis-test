@@ -1,11 +1,35 @@
 <div class="text-field">
-  <div class="text-field__label" (click)="setFocus()">
+  <div class="text-field__label">
     {{ inputLabel }}
     <span *ngIf="isRequired" class="required">
       *
     </span>
   </div>
 
-  <dx-text-box #name *ngIf="!textArea" [placeholder]="inputPlaceholder" [height]="textFieldHeight"></dx-text-box>
+  <dx-text-box *ngIf="!textArea" [placeholder]="inputPlaceholder" [class]="bonusClass" [id]="bonusClass"
+    [height]="textFieldHeight" [mode]="inputMode" valueChangeEvent="keyup" (onValueChanged)="valueChanged($event)"
+    [(value)]="model">
+    <dxi-button *ngIf="bonusButton" name="extra" location="after" [options]="bonusButton"></dxi-button>
+  </dx-text-box>
+
+  <dx-popover target="#ms-text-field__with-list" class="text-field__popover" position="bottom" [width]="popoverWidth"
+    [visible]="dropdownVisible" (onHidden)="dropdownVisible = false">
+    <div *dxTemplate="let data of 'content'">
+      <dx-list [dataSource]="userList">
+        <div *dxTemplate="let item of 'item'">
+          <div class="ms-text-field__dropdown-item">
+            <div class="ms-text-field__dropdown-icon " [ngStyle]="{backgroundColor: item['AvatarColor']}">
+              {{item.Avatar}}</div>
+            <div class="ms-text-field__dropdown-text d-flex">
+              <span class="main-text">{{item.FullName}}</span>
+              <span>{{item.Email}}</span>
+
+            </div>
+          </div>
+        </div>
+      </dx-list>
+    </div>
+  </dx-popover>
+
   <dx-text-area *ngIf="textArea" [placeholder]="inputPlaceholder" [height]="textFieldHeight"></dx-text-area>
 </div>

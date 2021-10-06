@@ -25,13 +25,16 @@ export class NavbarComponent implements OnInit {
 
   popupEnums: any;
 
-  isPopupOpen: boolean = false;
-
+  popupVisible: boolean = false;
+  popupMemberVisible: boolean = false;
+  
   currentPopupType: number = 0;
 
   popupWidth: number = 0;
-
   popupTitle: string = '';
+  popupMemberTitle: string = '';
+  popupMemberWidth: number = 0;
+  
   navbarTexts: any;
   headerLinks: any;
   currentLink: number = 0;
@@ -48,9 +51,9 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._popupService.popupVisible$.subscribe(popupVisible => {
-      this.isPopupOpen = popupVisible;
-    });
+    // this._popupService.popupVisible$.subscribe(popupVisible => {
+    //   this.popupVisible = popupVisible;
+    // });
   }
 
   /**
@@ -58,9 +61,20 @@ export class NavbarComponent implements OnInit {
    * CreatedBy: PHDUONG (27/09/2021)
    */
   openPopupTask() {
-    this.isPopupOpen = true;
+    this.popupVisible = true;
     this.currentPopupType = POPUP_ENUMS.PopupTask;
     this.popupWidth = POPUP_ENUMS.PopupLarge;
+    this.popupTitle = "";
+  }
+
+  /**
+   * Phương thức call service để popup thêm công việc
+   * CreatedBy: PHDUONG (27/09/2021)
+   */
+   openPopupMember(open: boolean) {
+    this.popupMemberVisible = open;
+    this.popupMemberWidth = POPUP_ENUMS.PopupHuge;
+    this.popupMemberTitle = popupResources.PopupMemberTitle;
   }
 
   /**
@@ -69,7 +83,7 @@ export class NavbarComponent implements OnInit {
     * CreatedBy: PHDUONG (27/09/2021)
     */
   openPopup(itemId: number) {
-    this.isPopupOpen = true;
+    this.popupVisible = true;
 
     this.dropdownVisible = false;
 
@@ -82,6 +96,22 @@ export class NavbarComponent implements OnInit {
       this.popupWidth = POPUP_ENUMS.PopupBig;
       this.popupTitle = popupResources.PopupProjectTitle;
     }
+  }
+
+  /**
+   * Đóng popup
+   * CreatedBy: PHDUONG(04/10/2021)
+   */
+  closePopup(){
+    this.popupVisible = false;
+  }
+
+  /**
+   * Đóng popup
+   * CreatedBy: PHDUONG(04/10/2021)
+   */
+  closeMemberPopup(){
+    this.popupMemberVisible = false;
   }
 
   /**

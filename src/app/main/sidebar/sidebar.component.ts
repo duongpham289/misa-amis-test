@@ -12,6 +12,7 @@ export class SidebarComponent implements OnInit {
 
   departments: Department[] = []
   mainMenuItems!: any
+  userId: string = "6827e1c0-5b98-6d19-831b-27d9d367aeb0"
 
   constructor(private service: DepartmentService) {
     this.mainMenuItems = MENU_ITEMS;
@@ -28,6 +29,6 @@ export class SidebarComponent implements OnInit {
   }
 
   getDepartments(): void {
-    this.service.getDepartments().subscribe(departments => this.departments = departments);
+    this.service.getDepartmentByUserId(this.userId).subscribe(departments => this.departments = departments);
   }
 }

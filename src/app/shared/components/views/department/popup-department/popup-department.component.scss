@@ -11,7 +11,7 @@
   padding: 16px 24px;
 
   .popup-title {
-    font-family: 'GoogleSans-Regular';
+    font-family: "GoogleSans-Bold", sans-serif;
   }
 
   .dx-icon-close {
@@ -21,7 +21,7 @@
 }
 
 .ms-modal__footer {
-  padding: 16px 0 24px;
+  padding: 24px 0 16px;
   display: flex;
   align-items: center;
   justify-content: flex-end;

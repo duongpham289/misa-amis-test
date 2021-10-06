@@ -5,6 +5,7 @@ import { TextFieldModule } from '../../../base/text-field/text-field.module';
 import { PopupDepartmentComponent } from './popup-department.component';
 import { DxPopupModule } from 'devextreme-angular';
 import { ButtonModule } from '../../../base/button/button.module';
+import { UserListModule } from '../../../base/user-list/user-list.module';
 
 
 
@@ -15,6 +16,7 @@ import { ButtonModule } from '../../../base/button/button.module';
   imports: [
     CommonModule,
     
+    UserListModule,
     TextFieldModule,
     ButtonModule,
     DxPopupModule,

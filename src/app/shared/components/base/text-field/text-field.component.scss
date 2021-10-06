@@ -1,3 +1,6 @@
+@use '../../../../../styles/mixins'as *;
+@use '../../../../../styles/colors'as *;
+
 .text-field {
   font-family: 'GoogleSans-Regular';
   margin-bottom: 16px;
@@ -7,5 +10,43 @@
     font-size: 15px;
     font-weight: 500;
     margin-bottom: 8px;
+  }
+
+
+
+}
+
+.ms-text-field {
+  &__dropdown-item {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .icon-add-project {
+      background-image: url("../../../../../assets/icons/icon-add-project.svg");
+    }
+
+    .icon-add-department {
+      background-image: url("../../../../../assets/icons/icon-add-department.svg");
+    }
+  }
+
+  &__dropdown-icon {
+    @include icon-size-large;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $color-white;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
+  &__dropdown-text {
+    flex-direction: column !important;
+
+    .main-text {
+      font-family: GoogleSans-Medium;
+    }
   }
 }

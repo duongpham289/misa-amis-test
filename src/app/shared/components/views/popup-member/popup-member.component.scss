@@ -1,17 +1,21 @@
-
-  @use "../../../../../../styles/colors.scss" as *;
+@use "../../../../../styles/colors.scss" as *;
   
-.popup-project {
-  padding: 0 24px;
-}
 
-.text-field {
-  &__group {
-    display: flex;
-    gap: 0.5rem;
-    //justify-content: space-between;
+.ms-modal__member {
+    padding: 0 24px;
+  
+    &-filter {
+      display: flex;
+      gap: 16px;
+    }
+  
+    &-selection {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 4px;
+    }
   }
-}
+  
 
 .popup-header {
   color: #1f1f1f !important;

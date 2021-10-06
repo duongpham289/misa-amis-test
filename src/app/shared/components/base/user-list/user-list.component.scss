@@ -1,0 +1,37 @@
+@use '../../../../../styles/colors' as *;
+@use '../../../../../styles/mixins' as *;
+
+.ms-user-list {
+  margin-top: -16px;
+  border: 1px solid $color-grey;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+
+  &__items {
+    height: auto;
+    max-height: 231px;
+  }
+
+  &__item {
+    padding: 13px 12px 13px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .ms-user-info {
+    width: 75%;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+
+    &__avatar {
+      @include icon-size-large;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $color-white;
+      border-radius: 50%;
+    }
+  }
+}

@@ -24,14 +24,14 @@ export const NavbarIcons: iconNavbar[] = [
 ]
 export const NavbarDropdownIcons: iconNavbar[] = [
   {
-    iconId: 0,
-    iconClass: 'icon-add-department',
-    iconName: 'Thêm phòng ban'
-  },
-  {
     iconId: 1,
     iconClass: 'icon-add-project',
     iconName: 'Thêm dự án/nhóm'
+  },
+  {
+    iconId: 0,
+    iconClass: 'icon-add-department',
+    iconName: 'Thêm phòng ban'
   }
 ]
 

@@ -36,7 +36,7 @@
             <div class="sidebar-scroll__department-content d-flex content-between align-center h-100">
               <div class="sidebar-scroll__department-dropdown d-flex content-center align-center h-100">
               </div>
-              <div class="sidebar-scroll__department-title">{{itemObj.DepartmentName}}</div>
+              <div class="sidebar-scroll__department-title" [ngClass]="{'inactive' : !itemObj.IsBelongToCurrentUser}" >{{itemObj.DepartmentName}}</div>
             </div>
           </div>
 

@@ -1,0 +1,25 @@
+<div class="ms-user-list">
+    <dx-scroll-view
+      [scrollByContent]="true"
+      [scrollByThumb]="true"
+      showScrollbar="always"
+    >
+      <div class="ms-user-list__items">
+        <div *ngFor="let user of userList" class="ms-user-list__item">
+          <div class="ms-user-info">
+            <div
+              class="ms-user-info__avatar"
+              [ngStyle]="{backgroundColor: user['AvatarColor']}"
+            >{{user.Avatar}}</div>
+            <div class="ms-user-info__text">
+              <div><strong>{{ user['FullName'] }}</strong></div>
+              <div>{{ user['Email'] }}</div>
+            </div>
+          </div>
+          <div class="ms-user-access">
+          </div>
+        </div>
+      </div>
+    </dx-scroll-view>
+  </div>
+  

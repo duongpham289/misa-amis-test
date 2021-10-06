@@ -7,36 +7,39 @@ export default {
     //popup-project
     PopupProjectTitle: "Thêm mới dự án/nhóm",
 
-    PopupTextFieldNameLabel: 'Tên dự án/nhóm',
-    PopupTextFieldNamePlaceholder: 'Tên dự án/nhóm',
+    PopupProjectNameLabel: 'Tên dự án/nhóm',
+    PopupProjectNamePlaceholder: 'Tên dự án/nhóm',
 
-    PopupTextFieldDepartmentLabel: 'Chọn phòng ban',
-    PopupTextFieldDepartmentPlaceholder: 'Chọn phòng ban',
+    PopupProjectDepartmentLabel: 'Chọn phòng ban',
+    PopupProjectDepartmentPlaceholder: 'Chọn phòng ban',
 
-    PopupTextFieldFromDateLabel: 'Từ ngày',
-    PopupTextFieldFromDatePlaceholder: 'Từ ngày',
+    PopupProjectFromDateLabel: 'Từ ngày',
+    PopupProjectFromDatePlaceholder: 'Từ ngày',
 
-    PopupTextFieldToDateLabel: 'Đến ngày',
-    PopupTextFieldToDatePlaceholder: 'Đến ngày',
+    PopupProjectToDateLabel: 'Đến ngày',
+    PopupProjectToDatePlaceholder: 'Đến ngày',
 
-    PopupTextFieldDescriptionLabel: 'Mô tả',
-    PopupTextFieldDescriptionPlaceholder: 'Mô tả',
+    PopupProjectDescriptionLabel: 'Mô tả',
+    PopupProjectDescriptionPlaceholder: 'Mô tả',
 
-    PopupTextFieldMemberLabel: 'Thành viên',
-    PopupTextFieldMemberPlaceholder: 'Tìm theo tên hoặc email để thêm nhanh',
+    PopupProjectMemberLabel: 'Thành viên',
+    PopupProjectMemberPlaceholder: 'Tìm theo tên hoặc email để thêm nhanh',
 
     //popup-department
     PopupDepartmentTitle: "Thêm phòng ban",
     
-    ModalFieldNameLabel: 'Tên phòng ban',
-    ModalFieldNamePlaceholder: 'Nhập tên phòng ban...',
+    PopupDepartmentNameLabel: 'Tên phòng ban',
+    PopupDepartmentNamePlaceholder: 'Nhập tên phòng ban...',
 
-    ModalFieldMemberLabel: 'Thành viên',
-    ModalFieldMemberPlaceholder: 'Tìm theo tên hoặc email để thêm nhanh',
+    PopupDepartmentMemberLabel: 'Thành viên',
+    PopupDepartmentMemberPlaceholder: 'Tìm theo tên hoặc email để thêm nhanh',
 
 
     //popup-task
     PopupTaskTitle: "Thêm công việc",
+
+    //popup-member
+    PopupMemberTitle: "Chọn nhân viên theo cơ cấu tổ chức",
 
 
 }

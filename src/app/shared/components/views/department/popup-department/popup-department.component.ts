@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, DoCheck, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import popupResources from 'src/app/shared/resources/popup-resources';
 import { PopupService } from 'src/app/shared/services/popup-service';
 import { TextFieldComponent } from '../../../base/text-field/text-field.component';
@@ -11,19 +11,37 @@ import { TextFieldComponent } from '../../../base/text-field/text-field.componen
 export class PopupDepartmentComponent implements OnInit {
   
   @ViewChild('name') focusInput!: TextFieldComponent;
+  @ViewChild(TextFieldComponent) inputTextField!: TextFieldComponent;
 
   @Input() popupWidth: number = 0;
   @Input() popupTitle: string = '';
-  @Input() isPopupOpen = false;
+  @Input() popupVisible = false;
+  @Output() popupClose = new EventEmitter<boolean>();
+  @Output() popupMemberOpen = new EventEmitter<boolean>();
+
   popupDepartmentVar: any;
+  selectMemberButton: any;
+  nameInput: string = '';
+  popoverWidth: string = '450px';
 
 
-  constructor(private _popupService: PopupService) {
-    this.popupDepartmentVar = popupResources
-  }
+  constructor() {
+    this.popupDepartmentVar = popupResources;
+    this.selectMemberButton = {
+      icon: '../../../assets/icons/icon-pick-doer-blue.svg',
+      text: 'Chọn',
+      onClick: () => {
+        this.popupMemberOpen.emit(true);
+      }
+    }
+  } 
 
-  inputAutoFocus() {    
+  /**
+   * Tái thiết lập Input
+   */
+  resetInput() {    
     this.focusInput.setFocus();
+    this.inputTextField.resetInput();
   }
 
   /**
@@ -31,11 +49,15 @@ export class PopupDepartmentComponent implements OnInit {
    * CreatedBy: PHDUONG (27/09/2021)
    */
   closePopup() {
-    const popupVisible = false;
+    this.popupClose.emit(false);
+  }
 
-    const popupMode = undefined;
-
-    this._popupService.setPopupMode(popupMode, popupVisible);
+  /**
+   * Phương thức call service để save Data
+   * CreatedBy: PHDUONG (06/10/2021)
+   */
+  saveData(){
+    console.log(this.nameInput);
   }
 
   ngOnInit(): void {

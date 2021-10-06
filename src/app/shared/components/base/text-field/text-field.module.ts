@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DxTextAreaModule, DxTextBoxModule } from 'devextreme-angular';
+import { DxListModule, DxPopoverModule, DxTextAreaModule, DxTextBoxModule } from 'devextreme-angular';
 import { TextFieldComponent } from './text-field.component';
 
 
@@ -12,7 +12,9 @@ import { TextFieldComponent } from './text-field.component';
   imports: [
     CommonModule,
     DxTextBoxModule,
-    DxTextAreaModule
+    DxTextAreaModule,
+    DxPopoverModule,
+    DxListModule,
   ],
   exports:[
     TextFieldComponent

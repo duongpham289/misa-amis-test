@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Department, DepartmentService } from 'src/app/services/department.service';
 import popupResources from 'src/app/shared/resources/popup-resources';
 import { PopupService } from 'src/app/shared/services/popup-service';
 import { TextFieldComponent } from '../../../base/text-field/text-field.component';
@@ -11,18 +12,40 @@ import { TextFieldComponent } from '../../../base/text-field/text-field.componen
 export class PopupProjectComponent implements OnInit {
 
   @ViewChild('name') focusInput!: TextFieldComponent;
+  @ViewChild(TextFieldComponent) inputTextField!: TextFieldComponent;
 
   @Input() popupWidth: number = 0;
   @Input() popupTitle: string = '';
-  @Input() isPopupOpen = false;
-  popupProjectVar: any;
+  @Input() popupVisible = false;
+  @Output() popupClose = new EventEmitter<boolean>();
+  @Output() popupMemberOpen = new EventEmitter<boolean>();
   
-  constructor(private _popupService: PopupService) { 
-    this.popupProjectVar = popupResources
+  popupProjectVar: any;
+  selectMemberButton: any;
+  nameInput: string = '';
+  popoverWidth: string = '570px';
+
+  
+  departmentOptions: Department[] = [];
+  userId: string = "6827e1c0-5b98-6d19-831b-27d9d367aeb0";
+  
+  constructor(private service: DepartmentService) { 
+    this.popupProjectVar = popupResources;
+    this.selectMemberButton = {
+      icon: '../../../assets/icons/icon-pick-doer-blue.svg',
+      text: 'Chọn',
+      onClick: () => {        
+        this.popupMemberOpen.emit(true);
+      }
+    }
   }
 
-  inputAutoFocus() {    
+  /**
+   * Tái thiết lập Input
+   */
+   resetInput() {    
     this.focusInput.setFocus();
+    this.inputTextField.resetInput();
   }
 
   /**
@@ -30,13 +53,21 @@ export class PopupProjectComponent implements OnInit {
    * CreatedBy: PHDUONG (27/09/2021)
    */
   closePopup() {
-    const popupVisible = false;
-
-    const popupMode = undefined;
-
-    this._popupService.setPopupMode(popupMode, popupVisible);
+    this.popupClose.emit();
   }
+
+  getDepartments(): void {
+    this.service.getDepartmentByUserId(this.userId).subscribe(departments => {
+      departments.forEach(department => {
+        if (department.IsBelongToCurrentUser) {
+          this.departmentOptions.push(department);
+        }
+      });
+    });
+  }
+
   ngOnInit(): void {
+    this.getDepartments();
   }
 
 }

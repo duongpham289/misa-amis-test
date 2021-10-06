@@ -1,5 +1,5 @@
 <dx-popup class="ms-popup" [width]="popupWidth" height="auto" [shadingColor]="'rgba(0, 0, 0, 0.45)'"
-  [dragEnabled]="true" (onHidden)="closePopup()" [visible]="isPopupOpen" contentTemplate="currentTemplate" titleTemplate="title">
+  [dragEnabled]="true" (onHidden)="closePopup()" [visible]="popupVisible" contentTemplate="currentTemplate" titleTemplate="title">
 
   <div *dxTemplate="let data of 'currentTemplate'">
     <div class="popup__task">

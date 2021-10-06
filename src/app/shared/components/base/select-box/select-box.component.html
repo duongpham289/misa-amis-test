@@ -1,0 +1,21 @@
+<div
+  class="ms-select-box"
+>
+  <div class="ms-select-box__label">
+    {{ selectBoxLabel }}
+    <span *ngIf="isRequired" class="required">
+        *
+      </span>
+  </div>
+
+  <dx-select-box
+    [placeholder]="inputPlaceholder"
+    width="100%"
+    [height]="inputHeight"
+    [searchEnabled]="true"
+    [dataSource]="selectBoxData"
+    [displayExpr]="selectBoxDisplayExpression"
+    [valueExpr]="selectBoxValueExpression"
+    (onValueChanged)="changeValue($event)"
+  ></dx-select-box>
+</div>

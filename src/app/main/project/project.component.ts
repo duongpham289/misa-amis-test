@@ -28,6 +28,7 @@ export class ProjectComponent implements OnInit {
         this.currentProject = params.ProjectId;
       }
     );
+    
     this.taskService.getTasks(this.currentProject).subscribe(tasks => this.tasksData = tasks);
   }
 

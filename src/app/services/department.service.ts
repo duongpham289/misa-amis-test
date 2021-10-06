@@ -8,6 +8,7 @@ export interface Department {
   DepartmentId: number;
   DepartmentName: string;
   ListProjects: Project[];
+  IsBelongToCurrentUser: number;
 }
 export interface Project {
   ProjectId: number;
@@ -22,8 +23,11 @@ export class DepartmentService {
 
   private departmentsUrl = 'https://localhost:44357/api/v1/departments';
 
-  getDepartments(): Observable<Department[]> {
-    return this.http.get<Department[]>(this.departmentsUrl).pipe(
+  getDepartmentByUserId(id: string): Observable<Department[]> {
+    
+    const departmentsUrl = `${this.departmentsUrl}/${id}`;
+
+    return this.http.get<Department[]>(departmentsUrl).pipe(
       catchError(this.handleError<Department[]>('getDepartments', []))
     );
   }

@@ -4,34 +4,46 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 
-export interface Task {
-  TaskId: number;
-  TaskName: string;
-  Process: number;
+export interface User {
+  FullName: string;
+  EmployeeCode: string;
   EndDate: Date;
   AssigneeName: string;
+  Mobile: string;
+  Email: string;
+  Avatar: string;
+  AvatarColor: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class TaskService {
+export class UserService {
   constructor(private http: HttpClient) { }
 
-  private tasksUrl = 'https://localhost:44357/api/v1/tasks/getByProjectId';
-
-
-  /**
-   * Lấy dữ liệu công việc dựa trên Id
-   * @param id TaskId
-   * @returns 
-   */
-  getTasks(id: number): Observable<Task[]> {
-    const tasksUrl = `${this.tasksUrl}/${id}`;
-    return this.http.get<Task[]>(tasksUrl).pipe(
-      catchError(this.handleError<Task[]>('getTasks', []))
+  private usersUrl = 'https://localhost:44357/api/v1/users';
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.usersUrl).pipe(
+      catchError(this.handleError<User[]>('getUsers', []))
     );
-     
+
+  }
+  getUserByName(name: string): Observable<User[]> {
+
+    const usersUrl = `${this.usersUrl}/getUserByName?username=${name}`;
+    return this.http.get<User[]>(usersUrl).pipe(
+      catchError(this.handleError<User[]>('getUsers', []))
+    );
+
+  }
+
+  getUserById(id: string): Observable<User> {
+
+    const usersUrl = `${this.usersUrl}/${id}`;
+    return this.http.get<User>(usersUrl).pipe(
+      catchError(this.handleError<User>('getUsers'))
+    );
+
   }
 
   /**
@@ -53,5 +65,4 @@ export class TaskService {
       return of(result as T);
     };
   }
-
 }

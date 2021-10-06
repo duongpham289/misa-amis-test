@@ -1,0 +1,19 @@
+<div
+  class="ms-date-box"
+>
+  <div
+    class="ms-date-box__label"
+  >
+    {{ dateBoxLabel }}
+  </div>
+
+  <dx-date-box
+    [placeholder]="inputPlaceholder"
+    width="100%"
+    [height]="inputHeight"
+    pickerType="calendar"
+    type="date"
+    displayFormat="dd/MM/yyyy"
+    (onValueChanged)="changeValue($event)"
+  ></dx-date-box>
+</div>

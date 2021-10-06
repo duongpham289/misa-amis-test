@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import popupResources from 'src/app/shared/resources/popup-resources';
 import { PopupService } from 'src/app/shared/services/popup-service';
 
@@ -11,7 +11,8 @@ export class PopupTaskComponent implements OnInit {
   
   @Input() popupWidth: number = 0;
   @Input() popupTitle: string = '';
-  @Input() isPopupOpen = false;
+  @Input() popupVisible = false;
+  @Output() popupClose = new EventEmitter<boolean>();
   popupTaskVar: any;
   
   constructor(private _popupService: PopupService) { 
@@ -23,12 +24,9 @@ export class PopupTaskComponent implements OnInit {
    * CreatedBy: PHDUONG (27/09/2021)
    */
   closePopup() {
-    const popupVisible = false;
-
-    const popupMode = undefined;
-
-    this._popupService.setPopupMode(popupMode, popupVisible);
+    this.popupClose.emit(false);
   }
+  
   ngOnInit(): void {
   }
 
