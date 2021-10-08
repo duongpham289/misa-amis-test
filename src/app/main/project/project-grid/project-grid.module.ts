@@ -14,8 +14,10 @@ import { ChartDoughnutModule } from 'src/app/shared/components/base/chart-doughn
   imports: [
     CommonModule,
     
-    
+    //Component's Module import
     ChartDoughnutModule,
+
+    //Devextreme's Module import
     DxDataGridModule,
     DxiColumnModule,
     DxTemplateModule

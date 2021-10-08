@@ -9,6 +9,8 @@ import { DxChartModule } from 'devextreme-angular';
   declarations: [ProjectReportComponent],
   imports: [
     CommonModule,
+    
+    //Devextreme's Module import
     DxChartModule
   ],
   exports: [ProjectReportComponent]

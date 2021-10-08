@@ -16,12 +16,15 @@ import { PopupMemberModule } from '../../popup-member/popup-member.module';
   imports: [
     CommonModule,
     
+    //Component's Module import
     PopupMemberModule,
     UserListModule,
     TextFieldModule,
     SelectBoxModule,
     DateBoxModule,
     ButtonModule,
+    
+    //Devextreme's Module import
     DxPopupModule,
   ],
   exports: [PopupProjectComponent]

@@ -134,7 +134,7 @@
                 <dx-calendar width="100%" [(value)]="deadlineValue" (onValueChanged)="changeCalendarValue($event)">
                 </dx-calendar>
                 <div class="ms-popover__footer">
-                  <div class="ms-popover__button--secondary" (click)="closePopup()">
+                  <div class="ms-popover__button--secondary" (click)="dropdownDeadlineVisible = false">
                     {{ popupTaskVar.PopupCloseButton }}
                   </div>
 

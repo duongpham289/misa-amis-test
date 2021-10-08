@@ -37,6 +37,7 @@
       </div>
       <div class="project-grids  d-flex content-center align-center">
 
+        <!-- Các đường link trang project -->
         <div class="project-items" *ngFor="let link of headerLinks; let linkIndex = index" [routerLink]="['/project']"
           [queryParams]="{Type: link['Type']}" queryParamsHandling="merge"
           [ngClass]="{'active-link': currentLink === linkIndex}" (click)="activeLink(linkIndex)">{{ link['Name'] }}
@@ -63,10 +64,10 @@
     </div>
 
     <!-- Popover thêm phòng ban/dự án -->
-    <dx-popover target="#ms-nav__dropdown-button" position="bottom" [width]="234" [visible]="dropdownVisible"
-      (onHidden)="dropdownVisible = false">
+    <dx-popover target="#ms-nav__dropdown-button" position="bottom" [width]="234" [visible]="popoverVisible"
+      (onHidden)="popoverVisible = false">
       <div *dxTemplate="let data of 'content'">
-        <dx-list [dataSource]="dropdownIcons">
+        <dx-list [dataSource]="navbarDropdownIcons">
           <div *dxTemplate="let item of 'item'">
             <div class="ms-nav__dropdown-item" (click)="openPopup(item.iconId)">
               <div class="ms-nav__dropdown-icon {{item.iconClass}}"></div>
@@ -85,14 +86,25 @@
 
 </div>
 
+
+<!-- Popup thêm phòng ban -->
 <app-popup-department *ngIf="currentPopupType === popupEnums.PopupDepartment" [popupVisible]="popupVisible"
-  [popupWidth]="popupWidth" [popupTitle]="popupTitle" [userList]="userList" (popupClose)="closePopup()" (popupMemberOpen)="openPopupMember($event)"></app-popup-department>
+  [popupWidth]="popupWidth" [popupTitle]="popupTitle" [userList]="userList" (popupClose)="closePopup()"
+  (popupMemberOpen)="openPopupMember($event)"></app-popup-department>
 
-<app-popup-project *ngIf="currentPopupType === popupEnums.PopupProject"  [popupVisible]="popupVisible"
-  [popupWidth]="popupWidth" [popupTitle]="popupTitle" [departmentOptions]="departmentOptionsForProject" [userList]="userList" (popupClose)="closePopup()" (popupMemberOpen)="openPopupMember($event)"></app-popup-project>
 
+<!-- Popup thêm dự án -->
+<app-popup-project *ngIf="currentPopupType === popupEnums.PopupProject" [popupVisible]="popupVisible"
+  [popupWidth]="popupWidth" [popupTitle]="popupTitle" [departmentOptions]="departmentOptionsForProject"
+  [userList]="userList" (popupClose)="closePopup()" (popupMemberOpen)="openPopupMember($event)"></app-popup-project>
+
+
+<!-- Popup thêm công việc -->
 <app-popup-task *ngIf="currentPopupType === popupEnums.PopupTask" [popupVisible]="popupVisible"
-  [popupWidth]="popupWidth" [popupTitle]="popupTitle" [departmentOptions]="departmentOptionsForTask" [userList]="userList" (popupClose)="closePopup()"></app-popup-task>
+  [popupWidth]="popupWidth" [popupTitle]="popupTitle" [departmentOptions]="departmentOptionsForTask"
+  [userList]="userList" (popupClose)="closePopup()"></app-popup-task>
 
-<app-popup-member [popupVisible]="popupMemberVisible" [popupWidth]="popupMemberWidth" [popupTitle]="popupMemberTitle"
-  (popupClose)="closeMemberPopup()"></app-popup-member>
+
+<!-- Popup thêm Member -->
+<app-popup-member [popupVisible]="popupMemberVisible" [selectedMembers]="selectedMembers" [popupWidth]="popupMemberWidth" [popupTitle]="popupMemberTitle"
+  (popupClose)="closeMemberPopup()" (onModalSubmitted)="renderMembersInfo($event)" ></app-popup-member>

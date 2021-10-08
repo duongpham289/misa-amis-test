@@ -1,8 +1,11 @@
-import { DatePipe, formatDate } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { locale } from 'devextreme/localization';
-import { Department, Project } from 'src/app/services/department.service';
-import { User } from 'src/app/services/user.service';
+import {  DatePipe} from '@angular/common';
+import {  Component,  EventEmitter,  Input,  OnInit,  Output} from '@angular/core';
+import {  locale} from 'devextreme/localization';
+import {  TaskService} from 'src/app/services/task.service';
+import { Department } from 'src/app/shared/models/department';
+import { Project } from 'src/app/shared/models/project';
+import { User } from 'src/app/shared/models/user';
+import { Task } from 'src/app/shared/models/task';
 import popupResources from 'src/app/shared/resources/popup-resources';
 
 @Component({
@@ -22,45 +25,85 @@ export class PopupTaskComponent implements OnInit {
   popupTaskVar: any;
   dropdownDepartmentVisible: boolean = false;
   dropdownUserVisible: boolean = false;
-  projectDefault!: Project;
+
+  projectDefault: Project = <Project>{};
   userDefault: User = <User>{};
   dropdownDeadlineVisible!: boolean;
   taskName: string = '';
 
   pipe = new DatePipe('en-US');
 
-  deadline:any;
+  deadline: any;
   deadlineValue: any;
   deadlineTextValue: any;
 
-  constructor() {
+  constructor(private taskService: TaskService) {
     this.popupTaskVar = popupResources;
   }
 
+  /**
+  * Hàm Chọn dự án
+  * CreatedBy: PHDUONG(23/09/2021)
+  */
+  chooseProject(project: Project) {
+    this.projectDefault = project;
+    this.dropdownDepartmentVisible = false;
+  }
+
+  /**
+   * Nhận gá trị taskName
+   * CreatedBy: PHDUONG(23/09/2021)
+   */
+  onInputTaskname(event: any) { // without type info
+    this.taskName = event.target.value;
+  }
+
+  /**
+   * Hàm chọn User
+   * CreatedBy: PHDUONG(23/09/2021)
+   */
+  chooseUser(user: User) {
+    if (this.userDefault == user) {
+      this.userDefault = <User>{};
+    } else {
+      this.userDefault = user;
+    }
+    this.dropdownUserVisible = false;
+  }
+
+  /**
+   * Hàm Thay đổi giá trị deadline trên lịch
+   * CreatedBy: PHDUONG(23/09/2021)
+   */
   changeCalendarValue(data: any): void {
     this.deadlineTextValue = this.pipe.transform(new Date(data.value), 'dd/MM/yyyy');
   }
 
+  /**
+   * Hàm Thay đổi giá trị deadline trên input
+   * CreatedBy: PHDUONG(23/09/2021)
+   */
   changeDate(data: any) {
     var datearray = data.split("/");
 
     var newdate = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
-    
+
     if (this.deadlineValue != new Date(newdate)) {
       this.deadlineValue = new Date(newdate);
     }
   }
 
-  saveDate(){
+  /**
+   * Hàm Lưu giá trị deadline
+   * CreatedBy: PHDUONG(23/09/2021)
+   */
+  saveDate() {
     this.deadline = this.deadlineTextValue;
     this.dropdownDeadlineVisible = false;
   }
 
-  onInputTaskname(event: any) { // without type info
-    this.taskName = event.target.value;
-  }
   /**
-   * Hàm mở/đóng dropdown 
+   * Hàm mở/đóng popover
    * CreatedBy: PHDUONG(23/09/2021)
    */
   toggleDropdown(dropdownMode: number) {
@@ -91,30 +134,23 @@ export class PopupTaskComponent implements OnInit {
     this.popupClose.emit(false);
   }
 
-  chooseProject(project: Project) {
-    this.projectDefault = project;
-    this.dropdownDepartmentVisible = false;
-  }
+  /**
+   * Hàm mở/đóng dropdown 
+   * CreatedBy: PHDUONG(23/09/2021)
+   */
+  saveTask() {
 
-  chooseUser(user: User) {
-    if (this.userDefault == user) {
-      this.userDefault = <User>{};
-    } else {
-      this.userDefault = user;
-    }
-    this.dropdownUserVisible = false;
-  }
+    var task = <Task>{};
+    task.ProjectId = this.projectDefault.ProjectId;
+    task.TaskName = this.taskName;
+    task.EndDate = new Date(this.deadlineValue);
+    task.AssigneeId = this.userDefault.UserId;
+    task.AssigneeName = this.userDefault.FullName;
+    task.AssigneeEmail = this.userDefault.Email;
 
-  saveTask(){
-    var temp = [];
-    temp.push(this.projectDefault.ProjectId);
-    temp.push(this.taskName);
-    temp.push(this.deadline);
-    temp.push(this.userDefault.UserId);
-    temp.push(this.userDefault.FullName);
-    temp.push(this.userDefault.Email);
-    console.log(temp);
-    
+    this.taskService.addTask(task).subscribe(task => {
+      this.closePopup()
+    });
   }
 
   ngOnInit(): void {

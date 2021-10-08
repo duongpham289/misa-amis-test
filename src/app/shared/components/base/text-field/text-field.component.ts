@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter, DoCheck } from '@angular/core';
 import { DxTextBoxComponent } from 'devextreme-angular';
-import { User, UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-text-field',
@@ -9,8 +10,8 @@ import { User, UserService } from 'src/app/services/user.service';
 })
 export class TextFieldComponent implements OnInit {
 
-  @ViewChild(DxTextBoxComponent) textBoxInput!: DxTextBoxComponent;
-
+  @ViewChild('textBox') textBoxInput!: DxTextBoxComponent;
+  @ViewChild('textArea') textAreaInput!: DxTextBoxComponent;
 
   @Input() inputLabel!: string;
   @Input() inputPlaceholder!: string;
@@ -28,11 +29,16 @@ export class TextFieldComponent implements OnInit {
   @Input() model: string = '';
   @Output() modelChange = new EventEmitter<string>();
 
+  @Input() modelArea: string = '';
+  @Output() modelAreaChange = new EventEmitter<string>();
+
   @Output() userListChange = new EventEmitter<User>();
 
   userList: User[] = [];
   userSelected: User[] = [];
   dropdownVisible: boolean = false;
+
+  userId: string = "6827e1c0-5b98-6d19-831b-27d9d367aeb0";
 
   constructor(private userService: UserService) {
   }
@@ -46,28 +52,47 @@ export class TextFieldComponent implements OnInit {
 
     var className = data.element.className;
 
-    if (className.includes("ms-text-field__with-list")) {
+    if (className.includes("ms-text-field__with-list") && data.value != '') {
       this.userService.getUserByName(data.value).subscribe(users => {
-
         this.userList = users;
-        this.userSelected.forEach(userSelected => {
+        if (users) {
+
           users.forEach(user => {
-            if (userSelected.UserId == user.UserId) {
+            if (this.userId == user.UserId) {
               this.userList.splice(this.userList.indexOf(user), 1);
             }
           });
-        });
+
+          this.userSelected.forEach(userSelected => {
+            users.forEach(user => {
+              if (userSelected.UserId == user.UserId) {
+                this.userList.splice(this.userList.indexOf(user), 1);
+              }
+            });
+          });
+        }
+
+
       });
       this.dropdownVisible = true;
 
-    } else {      
+    } else {
       this.modelChange.emit(data.value);
     }
   }
+  /**
+   * Bắt sự kiện thay đổi input
+   * @param data input object
+   * CreatedBy: PHDUONG(04/10/2021)
+   */
+  valueAreaChanged(data: any) {
+    this.modelAreaChange.emit(data.value);
+  }
 
   /**
-   * 
+   * Thêm user Vào UserList
    * @param user 
+   * CreatedBy: PHDUONG(04/10/2021)
    */
   addUser(user: User) {
     this.dropdownVisible = false;
@@ -90,7 +115,11 @@ export class TextFieldComponent implements OnInit {
    * CreatedBy: PHDUONG(04/10/2021)
    */
   resetInput() {
-    this.textBoxInput.instance.reset();
+    if (this.textBoxInput) {
+      this.textBoxInput.instance.reset();
+    } else if (this.textAreaInput) {
+      this.textAreaInput.instance.reset();
+    }
   }
 
   ngOnInit(): void {

@@ -1,14 +1,14 @@
 <dx-popup class="ms-popup" [width]="popupWidth" height="auto" [shadingColor]="'rgba(0, 0, 0, 0.45)'"
-  [dragEnabled]="true" (onHidden)="closePopup()" [visible]="popupVisible" (onShown)="resetInput()"
+  [dragEnabled]="true" [visible]="popupVisible" (onShown)="focusInput()"
   contentTemplate="currentTemplate" titleTemplate="title">
 
   <div *dxTemplate="let data of 'currentTemplate'">
     <div class="popup-department">
-      <app-text-field #name [inputLabel]="popupDepartmentVar.PopupDepartmentNameLabel"
+      <app-text-field #departmentNameInput [inputLabel]="popupDepartmentVar.PopupDepartmentNameLabel"
         [inputPlaceholder]="popupDepartmentVar.PopupDepartmentNamePlaceholder" [isRequired]="true" [(model)]="nameInput">
       </app-text-field>
 
-      <app-text-field [inputLabel]="popupDepartmentVar.PopupDepartmentMemberLabel"
+      <app-text-field #memberInput [inputLabel]="popupDepartmentVar.PopupDepartmentMemberLabel"
         [inputPlaceholder]="popupDepartmentVar.PopupDepartmentMemberPlaceholder" [popoverWidth]="popoverWidth"
         bonusClass="ms-text-field__with-list" [bonusButton]="selectMemberButton" (userListChange)="addUserList($event)"></app-text-field>
 

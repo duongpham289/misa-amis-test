@@ -6,7 +6,7 @@
     </span>
   </div>
 
-  <dx-text-box *ngIf="!textArea" [placeholder]="inputPlaceholder" [class]="bonusClass" [id]="bonusClass"
+  <dx-text-box #textBox *ngIf="!textArea" [placeholder]="inputPlaceholder" [class]="bonusClass" [id]="bonusClass"
     [height]="textFieldHeight" [mode]="inputMode" valueChangeEvent="keyup" (onValueChanged)="valueChanged($event)"
     [(value)]="model">
     <dxi-button *ngIf="bonusButton" name="extra" location="after" [options]="bonusButton"></dxi-button>
@@ -31,5 +31,5 @@
     </div>
   </dx-popover>
 
-  <dx-text-area *ngIf="textArea" [placeholder]="inputPlaceholder" [height]="textFieldHeight"></dx-text-area>
+  <dx-text-area #textArea *ngIf="textArea" [placeholder]="inputPlaceholder" [height]="textFieldHeight" [(value)]="modelArea" (onValueChanged)="valueAreaChanged($event)"></dx-text-area>
 </div>

@@ -1,29 +1,62 @@
 import { Injectable } from '@angular/core';
+
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-export interface Project {
-  ProjectId: number;
-  ProjectName: string;
-}
+import { Project } from '../shared/models/project';
+import { ProjectUser } from '../shared/models/project-user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectService {
+  
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  }
+
   constructor(private http: HttpClient) { }
 
-  private departmentsUrl = 'https://localhost:44357/api/v1/departments';
+  private projectsUrl = 'https://localhost:44385/api/v1/projects';
 
-  getDepartmentByUserId(id: string): Observable<Project[]> {
+  getProjectByUserId(id: string): Observable<Project[]> {
     
-    const departmentsUrl = `${this.departmentsUrl}/${id}`;
+    const projectsUrl = `${this.projectsUrl}/${id}`;
 
-    return this.http.get<Project[]>(departmentsUrl).pipe(
-      catchError(this.handleError<Project[]>('getDepartments', []))
+    return this.http.get<Project[]>(projectsUrl).pipe(
+      catchError(this.handleError<Project[]>('getProjectByUserId', []))
     );
   }
+  
+
+   /**
+   * Thêm mới phòng ban
+   * @param id TaskId
+   * @returns 
+   */
+    addProject(project: Project): Observable<string> {    
+      return this.http.post<string>(this.projectsUrl, project, this.httpOptions).pipe(
+        catchError(this.handleError<string>('addProject' ))
+      );
+  
+    }
+
+   /**
+   * Thêm mới phòng ban
+   * @param id TaskId
+   * @returns 
+   */
+    addProjectUser(projectUser: ProjectUser): Observable<ProjectUser> { 
+
+      const projectsUrl = `${this.projectsUrl}/addProjectUser`;
+
+      return this.http.post<ProjectUser>(projectsUrl, projectUser, this.httpOptions).pipe(
+        catchError(this.handleError<ProjectUser>('addProjectUser', projectUser))
+      );
+  
+    }
+
   /**
  * Handle Http operation that failed.
  * Let the app continue.

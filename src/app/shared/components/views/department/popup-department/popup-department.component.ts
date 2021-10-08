@@ -1,7 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { User, UserService } from 'src/app/services/user.service';
+import { Component, EventEmitter, Input, OnInit, Output, QueryList, ViewChild } from '@angular/core';
+
 import popupResources from 'src/app/shared/resources/popup-resources';
 import { TextFieldComponent } from '../../../base/text-field/text-field.component';
+
+import { DepartmentService } from 'src/app/services/department.service';
+import { Department } from 'src/app/shared/models/department';
+import { DepartmentUser } from 'src/app/shared/models/department-user';
+
+import { User } from 'src/app/shared/models/user';
+import { ReloadDepartmentService } from 'src/app/data-tranfer/reload-department.service';
 
 @Component({
   selector: 'app-popup-department',
@@ -9,13 +16,14 @@ import { TextFieldComponent } from '../../../base/text-field/text-field.componen
   styleUrls: ['./popup-department.component.scss']
 })
 export class PopupDepartmentComponent implements OnInit {
-  
-  @ViewChild('name') focusInput!: TextFieldComponent;
-  @ViewChild(TextFieldComponent) inputTextField!: TextFieldComponent;
+
+  @ViewChild('departmentNameInput') departmentNameInput!: TextFieldComponent;
+  @ViewChild('memberInput') memberInput!: TextFieldComponent;
 
   @Input() popupWidth: number = 0;
   @Input() popupTitle: string = '';
   @Input() popupVisible = false;
+
   @Output() popupClose = new EventEmitter<boolean>();
   @Output() popupMemberOpen = new EventEmitter<boolean>();
 
@@ -23,11 +31,12 @@ export class PopupDepartmentComponent implements OnInit {
   selectMemberButton: any;
   nameInput: string = '';
   popoverWidth: string = '450px';
-  
+
+  userId: string = "6827e1c0-5b98-6d19-831b-27d9d367aeb0";
+
   @Input() userList: User[] = [];
 
-
-  constructor() {
+  constructor(private departmentService: DepartmentService, private reloadDepartment: ReloadDepartmentService) {
     this.popupDepartmentVar = popupResources;
     this.selectMemberButton = {
       icon: '../../../assets/icons/icon-pick-doer-blue.svg',
@@ -36,14 +45,14 @@ export class PopupDepartmentComponent implements OnInit {
         this.popupMemberOpen.emit(true);
       }
     };
-  } 
+  }
 
   /**
    * Tái thiết lập Input
+   * CreatedBy: PHDUONG(04/10/2021)
    */
-  resetInput() {    
-    this.focusInput.setFocus();
-    this.inputTextField.resetInput();
+  focusInput() {
+    this.departmentNameInput.setFocus();
   }
 
   /**
@@ -51,6 +60,8 @@ export class PopupDepartmentComponent implements OnInit {
    * CreatedBy: PHDUONG (27/09/2021)
    */
   closePopup() {
+    this.departmentNameInput.resetInput();
+    this.memberInput.resetInput();
     this.popupClose.emit(false);
   }
 
@@ -58,16 +69,43 @@ export class PopupDepartmentComponent implements OnInit {
    * Phương thức call service để save Data
    * CreatedBy: PHDUONG (06/10/2021)
    */
-  saveData(){
-    console.log(this.nameInput);
+  saveData() {
+
+    var listId = new Array<string>();
+    this.userList.forEach(user => {
+      listId.push(user.UserId);
+    });
+
+    var department = <Department>{};
+    department.DepartmentName = this.nameInput;
+    department.UserId = this.userId;
+
+
+    this.departmentService
+      .addDepartment(department)
+      .subscribe(departmentId => {
+
+        var departmentUser = <DepartmentUser>{};
+        departmentUser.DepartmentId = departmentId;
+        departmentUser.ListUserId = listId;
+
+        this.departmentService.addDepartmentUser(departmentUser).subscribe(departmentUser => {
+          this.reloadDepartment.callComponentMethod();
+          this.closePopup()
+        });
+
+      });
   }
 
-  addUserList(user: User){
+  /**
+   * Thêm user vào UserList
+   * @param user 
+   * CreatedBy: PHDUONG(04/10/2021)
+   */
+  addUserList(user: User) {
     this.userList.push(user);
-    
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

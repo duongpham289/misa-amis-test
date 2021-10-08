@@ -2,19 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-
-
-export interface User {
-  UserId: string;
-  FullName: string;
-  EmployeeCode: string;
-  EndDate: Date;
-  AssigneeName: string;
-  Mobile: string;
-  Email: string;
-  Avatar: string;
-  AvatarColor: string;
-}
+import { User } from '../shared/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +10,7 @@ export interface User {
 export class UserService {
   constructor(private http: HttpClient) { }
 
-  private usersUrl = 'https://localhost:44357/api/v1/users';
+  private usersUrl = 'https://localhost:44385/api/v1/users';
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.usersUrl).pipe(
       catchError(this.handleError<User[]>('getUsers', []))

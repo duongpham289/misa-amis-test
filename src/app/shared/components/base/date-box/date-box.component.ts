@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { DxDateBoxComponent } from 'devextreme-angular';
 import { locale } from 'devextreme/localization';
 
 @Component({
@@ -7,6 +8,8 @@ import { locale } from 'devextreme/localization';
   styleUrls: ['./date-box.component.scss']
 })
 export class DateBoxComponent implements OnInit {
+  @ViewChild(DxDateBoxComponent) dateBoxInput!: DxDateBoxComponent;
+  
   @Input() dateBoxName: string = '';
   @Input() dateBoxLabel: string = '';
   @Input() inputPlaceholder: string = '';
@@ -22,13 +25,21 @@ export class DateBoxComponent implements OnInit {
 
   /**
    * Phương thức xử lý sự kiện khi giá trị thay đổi
-   * Author: NQMinh (03/10/2021)
+   * CreatedBy: PHDUONG(04/10/2021)
    */
   changeValue(data: any): void {
     this.onValueChanged.emit({
       inputName: this.dateBoxName,
       inputValue: data.value
     })
+  }
+
+  /**
+   * Hàm đặt lại Input
+   * CreatedBy: PHDUONG(04/10/2021)
+   */
+   resetInput() {
+    this.dateBoxInput.instance.reset();
   }
 
 }

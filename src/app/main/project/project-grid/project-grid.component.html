@@ -1,29 +1,31 @@
 <div class="grid-task">
+  <!-- Phần header của Grid -->
     <div class="grid-task__header d-flex align-center content-between">
       <div class="grid-task__filter-group d-flex align-center">
         <div class="grid-task__quick-filter d-flex align-center">
           <div class="icon-grid-filter"></div>
-          <div class="m-l-8 m-r-8">Tất cả công việc</div>
+          <div class="m-l-8 m-r-8">{{gridConst.WidgetFilter}}</div>
           <div class="icon-carret-down "></div>
         </div>
         <div class="grid-task__status-filter d-flex align-center">
             <div class="icon-grid-status-done "></div>
-            <div class="m-l-8 m-r-8">Trạng thái hoàn thành<b class="m-l-4">Tất cả</b>
+            <div class="m-l-8 m-r-8">{{gridConst.WidgetStatus}}<b class="m-l-4">{{gridConst.WidgetAll}}</b>
             </div>
             <div class="icon-carret-down "></div>
         </div>
         <div class="grid-task__sort-order d-flex align-center">
           <div class="icon-grid-sort"></div>
-          <div class="m-l-8 m-r-8">Sắp xếp <b>Thứ tự công việc
-              con</b></div>
+          <div class="m-l-8 m-r-8">{{gridConst.WidgetSort}} <b>{{gridConst.WidgetChild}}</b></div>
           <div class="icon-carret-down "></div>
         </div>
         <div class="grid-task__choose-many d-flex align-center">
           <div class="icon-grid-choose-many "></div>
-          <div class="m-l-8 m-r-8">Chọn nhiều</div>
+          <div class="m-l-8 m-r-8">{{gridConst.WidgetSelector}}</div>
         </div>
       </div>
     </div>
+
+    <!-- Phần Content của Grid -->
     <div class="grid-task__content">
       <dx-data-grid [dataSource]="gridData" keyExpr="TaskId" height=100% [allowColumnResizing]="true"
         [hoverStateEnabled]="true">
@@ -34,7 +36,7 @@
           <div class="grid-task__icon add-col"></div>
         </div>
 
-        <dxi-column *ngFor="let column of taskColumns; trackBy:getColumnId" alignment="left"
+        <dxi-column *ngFor="let column of taskColumns" alignment="left"
           [caption]="column['ColName']" [dataField]="column['ColField']" [width]="column['ColWidth']"
           [dataType]="column['ColDataType']" [format]="column['ColFormat']" [cellTemplate]="column['CellTemplate']">
         </dxi-column>

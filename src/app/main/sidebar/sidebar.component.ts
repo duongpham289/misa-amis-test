@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Department, DepartmentService } from 'src/app/services/department.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Department } from 'src/app/shared/models/department';
 
 import { MENU_ITEMS } from '../../shared/resources/menu-resources'
 
@@ -10,25 +10,14 @@ import { MENU_ITEMS } from '../../shared/resources/menu-resources'
 })
 export class SidebarComponent implements OnInit {
 
-  departments: Department[] = []
-  mainMenuItems!: any
-  userId: string = "6827e1c0-5b98-6d19-831b-27d9d367aeb0"
+  @Input() departments: Department[] = [];
 
-  constructor(private service: DepartmentService) {
+  mainMenuItems!: any
+
+  constructor() {
     this.mainMenuItems = MENU_ITEMS;
   }
 
-
   ngOnInit(): void {
-    this.getDepartments();
-  }
-
-  click() :void{
-    console.log(this.departments);
-    
-  }
-
-  getDepartments(): void {
-    this.service.getDepartmentByUserId(this.userId).subscribe(departments => this.departments = departments);
   }
 }

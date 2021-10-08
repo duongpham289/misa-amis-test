@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+
+import { HeaderLinks } from 'src/app/shared/models/header-links';
 
 import { iconNavbar } from 'src/app/shared/interfaces/navbar-icon';
 import { NavbarDropdownIcons, NavbarIcons, NavbarTexts } from 'src/app/shared/resources/navbar-resource';
+import { POPUP_ENUMS } from 'src/app/shared/enum/popup-enum';
 
 import popupResources from 'src/app/shared/resources/popup-resources';
-import { POPUP_ENUMS } from 'src/app/shared/enum/popup-enum';
-import { PopupService } from 'src/app/shared/services/popup-service';
-import { HeaderLinks } from 'src/app/shared/models/header-links';
-import { Department, DepartmentService } from 'src/app/services/department.service';
-import { User, UserService } from 'src/app/services/user.service';
+import { Department } from 'src/app/shared/models/department';
+import { User } from 'src/app/shared/models/user';
 
 @Component({
   selector: 'app-navbar',
@@ -17,93 +17,93 @@ import { User, UserService } from 'src/app/services/user.service';
 })
 export class NavbarComponent implements OnInit {
 
-  dropdownVisible: boolean = false;
+  @Input() userList: User[] = [];
+  @Input() userDefault: User[] = [];
+
+  @Input() departmentOptionsForProject: Department[] = [];
+  @Input() departmentOptionsForTask: Department[] = [];
+
+  popoverVisible: boolean = false;
+
+  headerLinks: any;
 
   navbarIcons: iconNavbar[];
-
-  dropdownIcons: iconNavbar[];
+  navbarTexts: any;
+  navbarDropdownIcons: iconNavbar[];
 
   popupEnums: any;
 
   popupVisible: boolean = false;
   popupMemberVisible: boolean = false;
-  
+
   currentPopupType: number = 0;
 
   popupWidth: number = 0;
   popupTitle: string = '';
   popupMemberTitle: string = '';
   popupMemberWidth: number = 0;
-  
-  navbarTexts: any;
-  headerLinks: any;
+
   currentLink: number = 0;
 
-  departmentOptionsForProject:  Department[] = [];
-  departmentOptionsForTask:  Department[] = [];
+  selectedMembers: User[] = [];
 
-  userList: User[] = [];
-  userId: string = "6827e1c0-5b98-6d19-831b-27d9d367aeb0";
-
-
-  constructor(private service: DepartmentService,private userService: UserService) {
+  constructor() {
     this.headerLinks = HeaderLinks;
+
     this.navbarIcons = NavbarIcons;
     this.navbarTexts = NavbarTexts;
-    this.dropdownIcons = NavbarDropdownIcons;
-    this.popupEnums = POPUP_ENUMS;
+    this.navbarDropdownIcons = NavbarDropdownIcons;
 
-    
-    this.userService.getUserById(this.userId).subscribe(users => this.userList.push(users));
+    this.popupEnums = POPUP_ENUMS;
   }
 
   ngOnInit(): void {
-    this.getDepartments();
   }
 
-  
-
-  getDepartments(): void {
-    this.service.getDepartmentByUserId(this.userId).subscribe(departments => {
-      this.departmentOptionsForTask = departments;
-      departments.forEach(department => {
-        if (department.IsBelongToCurrentUser) {
-          this.departmentOptionsForProject.push(department);
-        }
-      });
-    });
-  } 
-
   /**
-   * Phương thức call service để popup thêm công việc
+   * Mở popup thêm công việc
    * CreatedBy: PHDUONG (27/09/2021)
    */
   openPopupTask() {
-    this.popupVisible = true;
+    this.popupVisible = popupResources.Visible;
     this.currentPopupType = POPUP_ENUMS.PopupTask;
     this.popupWidth = POPUP_ENUMS.PopupLarge;
     this.popupTitle = "";
   }
 
   /**
-   * Phương thức call service để popup thêm công việc
+   * Mở popup thêm member
+    * @param open
    * CreatedBy: PHDUONG (27/09/2021)
    */
-   openPopupMember(open: boolean) {
+  openPopupMember(open: boolean) {
     this.popupMemberVisible = open;
     this.popupMemberWidth = POPUP_ENUMS.PopupHuge;
     this.popupMemberTitle = popupResources.PopupMemberTitle;
   }
 
   /**
-    * Phương thức call service để mở popup modal tương ứng
+   * Phương thức lưu thông tin thành viên vào list
+   * CreatedBy: PHDUONG (27/09/2021)
+   */
+  renderMembersInfo(data: User[]): void {
+    this.popupMemberVisible = popupResources.Invisible;
+    data.forEach(user => {
+      this.userList.push(user);
+      console.log(this.userDefault);
+      
+    });
+  }
+
+  /**
+    * Mở popup modal tương ứng
     * @param itemId
     * CreatedBy: PHDUONG (27/09/2021)
     */
   openPopup(itemId: number) {
-    this.popupVisible = true;
+    this.popupVisible = popupResources.Visible;
 
-    this.dropdownVisible = false;
+    this.popoverVisible = popupResources.Invisible;
 
     this.currentPopupType = itemId;
     if (this.currentPopupType === POPUP_ENUMS.PopupDepartment) {
@@ -120,32 +120,34 @@ export class NavbarComponent implements OnInit {
    * Đóng popup
    * CreatedBy: PHDUONG(04/10/2021)
    */
-  closePopup(){
-    this.popupVisible = false;
+  closePopup() {
+    this.userList = Object.assign([], this.userDefault);;
+    this.popupVisible = popupResources.Invisible;
+    this.selectedMembers = [];
   }
 
   /**
-   * Đóng popup
+   * Đóng Member popup
    * CreatedBy: PHDUONG(04/10/2021)
    */
-  closeMemberPopup(){
-    this.popupMemberVisible = false;
+  closeMemberPopup() {
+    this.popupMemberVisible = popupResources.Invisible;
   }
 
   /**
-   * Hàm mở/đóng dropdown 
+   * Hàm mở/đóng Popover 
    * CreatedBy: PHDUONG(23/09/2021)
    */
   toggleDropdown() {
-    this.dropdownVisible = !this.dropdownVisible;
+    this.popoverVisible = !this.popoverVisible;
   }
-  
+
   /**
   * Phương thức style link tương ứng ở từng page
   * @param linkIndex
   * Author: NQMinh (25/09/2021)
   */
- activeLink(linkIndex: number) {
-   this.currentLink = linkIndex;
- }
+  activeLink(linkIndex: number) {
+    this.currentLink = linkIndex;
+  }
 }

@@ -16,9 +16,12 @@ import { UserListModule } from '../../../base/user-list/user-list.module';
   imports: [
     CommonModule,
     
+    //Component's Module import
     UserListModule,
     TextFieldModule,
     ButtonModule,
+    
+    //Devextreme's Module import
     DxPopupModule,
   ],
   exports:[

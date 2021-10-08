@@ -3,8 +3,8 @@
 <div class="ms-dashboard">
 
   <!-- Phần navbar -->
-  <app-navbar></app-navbar>
+  <app-navbar [userList]="userList" [userDefault]="userDefault" [departmentOptionsForProject]="departmentOptionsForProject" [departmentOptionsForTask]="departmentOptionsForTask" ></app-navbar>
 </div>
 
 <!-- Phần sidebar -->
-<app-sidebar></app-sidebar>
+<app-sidebar [departments]="departments"></app-sidebar>

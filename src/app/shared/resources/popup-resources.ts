@@ -1,5 +1,7 @@
 export default {
     //popup
+    Visible: true,
+    Invisible: false,
 
     PopupCloseButton: "Hủy",
     PopupSaveButton: "Lưu",

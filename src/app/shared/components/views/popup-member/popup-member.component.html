@@ -1,48 +1,45 @@
 <dx-popup class="ms-popup" [width]="popupWidth" height="auto" [shadingColor]="'rgba(0, 0, 0, 0.45)'"
-  [dragEnabled]="true" (onHidden)="closePopup()" [visible]="popupVisible" (onShown)="resetInput()"
+  [dragEnabled]="true" [visible]="popupVisible" (onShown)="focusInput()" (onShowing)="reloadGridData()"
   contentTemplate="currentTemplate" titleTemplate="title">
 
   <div *dxTemplate="let data of 'currentTemplate'">
+
     <div class="ms-modal__member">
       <!-- Các công cụ lọc dữ liệu bảng -->
       <div class="ms-modal__member-filter">
         <app-text-field #search [ngStyle]="{width: '60%'}" inputMode="search"
           [inputPlaceholder]="modalConst['ModalFieldSearchPlaceholder']"></app-text-field>
-
-        <app-text-field [ngStyle]="{width: '40%'}"></app-text-field>
       </div>
 
       <!-- Thông tin số lượng chọn -->
-      <div class="ms-modal__member-selection">
-        <div>0 {{ modalConst['SelectingMember'] }}</div>
+      <div class="ms-modal__member-selection" [ngClass]="{'visible-count': selectedMembers.length == 0}">
+        <div><b>{{ selectedMembers.length }}</b> {{ modalConst['SelectingMember'] }}</div>
         <div>{{ modalConst['SelectionUndo'] }}</div>
       </div>
 
       <!-- Danh sách nhân viên dạng bảng -->
-      <dx-data-grid [dataSource]="gridData" keyExpr="UserId" height="273" [allowColumnResizing]="false"
+      <dx-data-grid #gridMember [dataSource]="gridData" keyExpr="UserId" height="273" [allowColumnResizing]="false"
         [showBorders]="false" [showRowLines]="false" [showColumnLines]="false" [hoverStateEnabled]="true"
-        [rowAlternationEnabled]="true">
+        [rowAlternationEnabled]="true" [(selectedRowKeys)]="selectedMemberIds"
+        (onSelectionChanged)="selectionChangedHandler($event)">
         <dxo-sorting mode="none"></dxo-sorting>
 
         <dxo-scrolling [scrollByContent]="true" [scrollByThumb]="true" showScrollbar="always" mode="virtual">
         </dxo-scrolling>
 
-        <dxo-selection mode="multiple"></dxo-selection>
+        <dxo-selection showCheckBoxesMode="always" mode="multiple"></dxo-selection>
 
         <dxi-column *ngFor="let column of gridColumns" alignment="left" [caption]="column['ColName']"
           [dataField]="column['ColField']" width="auto"></dxi-column>
       </dx-data-grid>
 
       <!-- Footer của modal -->
-      <!-- <app-tms-popup-modal-footer
-      (onPopupHidden)="hidePopup()"
-    ></app-tms-popup-modal-footer> -->
       <div class="ms-modal__footer">
         <div class="ms-modal__button--secondary" (click)="closePopup()">
           {{ popupMemberVar.PopupCloseButton }}
         </div>
 
-        <app-button [buttonText]="popupMemberVar.PopupSaveButton">
+        <app-button [buttonText]="popupMemberVar.PopupSaveButton" (click)="submitMembers()">
         </app-button>
       </div>
     </div>

@@ -1,34 +1,37 @@
 <dx-popup class="ms-popup" [width]="popupWidth" height="auto" [shadingColor]="'rgba(0, 0, 0, 0.45)'"
-  [dragEnabled]="true" (onHidden)="closePopup()" [visible]="popupVisible" (onShown)="resetInput()"
+  [dragEnabled]="true" (onHidden)="closePopup()" [visible]="popupVisible" (onShown)="focusInput()"
   contentTemplate="currentTemplate" titleTemplate="title">
 
   <div *dxTemplate="let data of 'currentTemplate'">
     <div class="popup-project">
-      <app-text-field #name [inputLabel]="popupProjectVar.PopupProjectNameLabel"
-        [inputPlaceholder]="popupProjectVar.PopupProjectNamePlaceholder" [isRequired]="true"></app-text-field>
+      <app-text-field #projectNameInput [inputLabel]="popupProjectVar.PopupProjectNameLabel"
+        [inputPlaceholder]="popupProjectVar.PopupProjectNamePlaceholder" [isRequired]="true" [(model)]="nameInput">
+      </app-text-field>
 
       <div class="text-field__group">
 
-        <app-select-box selectBoxName="DepartmentId" [isRequired]="true"
-          [selectBoxLabel]="popupProjectVar.PopupProjectDepartmentLabel"
+        <app-select-box #selectBox selectBoxName="DepartmentId" [selectBoxLabel]="popupProjectVar.PopupProjectDepartmentLabel"
           [inputPlaceholder]="popupProjectVar.PopupProjectDepartmentPlaceholder" [selectBoxData]="departmentOptions"
           selectBoxValueExpression="DepartmentId" selectBoxDisplayExpression="DepartmentName"
-          [ngStyle]="{width: '50%'}"></app-select-box>
+          (onSelected)="bindData($event)" [isRequired]="true" [ngStyle]="{width: '50%'}"></app-select-box>
 
-        <app-date-box dateBoxName="StartDate" [dateBoxLabel]="popupProjectVar.PopupProjectFromDateLabel"
-          [inputPlaceholder]="popupProjectVar.PopupProjectFromDatePlaceholder" [ngStyle]="{width: '25%'}"></app-date-box>
+        <app-date-box #startDateInput dateBoxName="StartDate" [dateBoxLabel]="popupProjectVar.PopupProjectFromDateLabel"
+          [inputPlaceholder]="popupProjectVar.PopupProjectFromDatePlaceholder" (onValueChanged)="bindData($event)"
+          [ngStyle]="{width: '25%'}"></app-date-box>
 
-        <app-date-box dateBoxName="EndDate" [dateBoxLabel]="popupProjectVar.PopupProjectToDateLabel"
-          [inputPlaceholder]="popupProjectVar.PopupProjectToDatePlaceholder" [ngStyle]="{width: '25%'}"></app-date-box>
+        <app-date-box #endDateInput dateBoxName="EndDate" [dateBoxLabel]="popupProjectVar.PopupProjectToDateLabel"
+          [inputPlaceholder]="popupProjectVar.PopupProjectToDatePlaceholder" (onValueChanged)="bindData($event)"
+          [ngStyle]="{width: '25%'}"></app-date-box>
       </div>
 
-      <app-text-field [inputLabel]="popupProjectVar.PopupProjectDescriptionLabel"
+      <app-text-field #areaInput [inputLabel]="popupProjectVar.PopupProjectDescriptionLabel"
         [inputPlaceholder]="popupProjectVar.PopupProjectDescriptionPlaceholder" [textFieldHeight]="'78px'"
-        [textArea]="true"></app-text-field>
+        [textArea]="true" [(modelArea)]="descriptionInput"></app-text-field>
 
-      <app-text-field [inputLabel]="popupProjectVar.PopupProjectMemberLabel"
+      <app-text-field #memberInput [inputLabel]="popupProjectVar.PopupProjectMemberLabel"
         [inputPlaceholder]="popupProjectVar.PopupProjectMemberPlaceholder" [popoverWidth]="popoverWidth"
-        bonusClass="ms-text-field__with-list" [bonusButton]="selectMemberButton" (userListChange)="addUserList($event)"></app-text-field>
+        bonusClass="ms-text-field__with-list" [bonusButton]="selectMemberButton" (userListChange)="addUserList($event)">
+      </app-text-field>
 
 
       <app-user-list [userList]="userList"></app-user-list>
@@ -38,7 +41,7 @@
           {{ popupProjectVar.PopupCloseButton }}
         </div>
 
-        <app-button [buttonText]="popupProjectVar.PopupSaveButton">
+        <app-button [buttonText]="popupProjectVar.PopupSaveButton" (click)="saveData()">
         </app-button>
       </div>
     </div>
@@ -51,6 +54,3 @@
     </div>
   </div>
 </dx-popup>
-
-
-

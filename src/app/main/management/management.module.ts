@@ -17,9 +17,9 @@ import { ProjectModule } from '../project/project.module';
   imports: [
     CommonModule,
     RouterModule,
-    ManagementRoutingModule,
 
-    //components import
+    //Component's Module import
+    ManagementRoutingModule,
     DashboardModule,
     ProjectModule,
   ],

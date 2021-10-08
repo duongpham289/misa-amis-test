@@ -1,9 +1,12 @@
 <div class="ms-project">
-  <app-navbar></app-navbar>
+  <!-- Phần navbar custom cho project -->
+  <app-navbar [userList]="userList" [departmentOptionsForProject]="departmentOptionsForProject" [departmentOptionsForTask]="departmentOptionsForTask"></app-navbar>
 
+  <!-- Phần Danh sách công việc của project -->
   <app-project-grid *ngIf="router.url.includes('Type=' + projectPages['ProjectGrid'])" [gridData]="tasksData"
     [taskColumns]="taskColumns"></app-project-grid>
 
+  <!-- Phần báo cáo của project -->
   <app-project-report *ngIf="router.url.includes('Type=' + projectPages['ProjectReport'])"></app-project-report>
 
 </div>
