@@ -8,7 +8,7 @@ import { Department } from 'src/app/shared/models/department';
 import { DepartmentUser } from 'src/app/shared/models/department-user';
 
 import { User } from 'src/app/shared/models/user';
-import { ReloadDepartmentService } from 'src/app/data-tranfer/reload-department.service';
+import { ReloadDataService } from 'src/app/data-tranfer/reload-data.service';
 
 @Component({
   selector: 'app-popup-department',
@@ -36,7 +36,7 @@ export class PopupDepartmentComponent implements OnInit {
 
   @Input() userList: User[] = [];
 
-  constructor(private departmentService: DepartmentService, private reloadDepartment: ReloadDepartmentService) {
+  constructor(private departmentService: DepartmentService, private reloadData: ReloadDataService) {
     this.popupDepartmentVar = popupResources;
     this.selectMemberButton = {
       icon: '../../../assets/icons/icon-pick-doer-blue.svg',
@@ -90,7 +90,7 @@ export class PopupDepartmentComponent implements OnInit {
         departmentUser.ListUserId = listId;
 
         this.departmentService.addDepartmentUser(departmentUser).subscribe(departmentUser => {
-          this.reloadDepartment.callComponentMethod();
+          this.reloadData.reloadDepartmentData();
           this.closePopup()
         });
 

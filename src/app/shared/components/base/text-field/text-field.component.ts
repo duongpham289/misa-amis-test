@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, ViewChild, Output, EventEmitter, DoCheck } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
+
+import { ElementRef, AfterViewInit } from '@angular/core';
+
+import { fromEvent, Subscription } from 'rxjs';
+import { FormControl } from '@angular/forms';
+
+import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs/operators';
+
 import { DxTextBoxComponent } from 'devextreme-angular';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/shared/models/user';
@@ -43,6 +51,10 @@ export class TextFieldComponent implements OnInit {
   constructor(private userService: UserService) {
   }
 
+  ngOnInit(): void {
+
+  }
+
   /**
    * Bắt sự kiện thay đổi input
    * @param data input object
@@ -53,27 +65,36 @@ export class TextFieldComponent implements OnInit {
     var className = data.element.className;
 
     if (className.includes("ms-text-field__with-list") && data.value != '') {
-      this.userService.getUserByName(data.value).subscribe(users => {
-        this.userList = users;
-        if (users) {
 
-          users.forEach(user => {
-            if (this.userId == user.UserId) {
-              this.userList.splice(this.userList.indexOf(user), 1);
-            }
-          });
 
-          this.userSelected.forEach(userSelected => {
-            users.forEach(user => {
-              if (userSelected.UserId == user.UserId) {
-                this.userList.splice(this.userList.indexOf(user), 1);
+      fromEvent(this.textBoxInput.instance.element(), 'keyup')
+        .pipe(
+          filter(Boolean),
+          debounceTime(500),
+          distinctUntilChanged(),
+          tap((text) => {
+            this.userService.getUserByName(this.textBoxInput.instance.option("text")).subscribe(users => {
+              this.userList = users;
+              if (users) {
+                users.forEach(user => {
+                  if (this.userId == user.UserId) {
+                    this.userList.splice(this.userList.indexOf(user), 1);
+                  }
+                });
+    
+                this.userSelected.forEach(userSelected => {
+                  users.forEach(user => {
+                    if (userSelected.UserId == user.UserId) {
+                      this.userList.splice(this.userList.indexOf(user), 1);
+                    }
+                  });
+                });
               }
             });
-          });
-        }
+          })
+        )
+        .subscribe();
 
-
-      });
       this.dropdownVisible = true;
 
     } else {
@@ -120,9 +141,6 @@ export class TextFieldComponent implements OnInit {
     } else if (this.textAreaInput) {
       this.textAreaInput.instance.reset();
     }
-  }
-
-  ngOnInit(): void {
   }
 
 }

@@ -20,9 +20,18 @@ export class ProjectService {
 
   private projectsUrl = 'https://localhost:44385/api/v1/projects';
 
-  getProjectByUserId(id: string): Observable<Project[]> {
+  getById(id: string): Observable<Project> {
     
     const projectsUrl = `${this.projectsUrl}/${id}`;
+
+    return this.http.get<Project>(projectsUrl).pipe(
+      catchError(this.handleError<Project>('getProjectById'))
+    );
+  }
+
+  getProjectByUserId(id: string): Observable<Project[]> {
+    
+    const projectsUrl = `${this.projectsUrl}/getByUserId/${id}`;
 
     return this.http.get<Project[]>(projectsUrl).pipe(
       catchError(this.handleError<Project[]>('getProjectByUserId', []))

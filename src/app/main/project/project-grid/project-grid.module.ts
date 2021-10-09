@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProjectGridComponent } from './project-grid.component';
 
-import { DxDataGridModule, DxTemplateModule } from 'devextreme-angular';
+import { DxDataGridModule, DxTemplateModule, DxToastModule } from 'devextreme-angular';
 import { DxiColumnModule } from 'devextreme-angular/ui/nested';
 import { ChartDoughnutModule } from 'src/app/shared/components/base/chart-doughnut/chart-doughnut.module';
 
@@ -20,7 +20,8 @@ import { ChartDoughnutModule } from 'src/app/shared/components/base/chart-doughn
     //Devextreme's Module import
     DxDataGridModule,
     DxiColumnModule,
-    DxTemplateModule
+    DxTemplateModule,
+    DxToastModule
   ],
   exports:[
     ProjectGridComponent

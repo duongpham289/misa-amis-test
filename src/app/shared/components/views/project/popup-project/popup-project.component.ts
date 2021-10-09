@@ -10,7 +10,7 @@ import { Department } from 'src/app/shared/models/department';
 import { Project } from 'src/app/shared/models/project';
 import { User } from 'src/app/shared/models/user';
 import { ProjectUser } from 'src/app/shared/models/project-user';
-import { ReloadDepartmentService } from 'src/app/data-tranfer/reload-department.service';
+import { ReloadDataService } from 'src/app/data-tranfer/reload-data.service';
 
 
 @Component({
@@ -19,7 +19,6 @@ import { ReloadDepartmentService } from 'src/app/data-tranfer/reload-department.
   styleUrls: ['./popup-project.component.scss']
 })
 export class PopupProjectComponent implements OnInit {
-
   @ViewChild('projectNameInput') projectNameInput!: TextFieldComponent;
   @ViewChild('areaInput') areaInput!: TextFieldComponent;
   @ViewChild('memberInput') memberInput!: TextFieldComponent;
@@ -48,7 +47,7 @@ export class PopupProjectComponent implements OnInit {
 
   userId: string = "6827e1c0-5b98-6d19-831b-27d9d367aeb0";
 
-  constructor(private projectService: ProjectService, private reloadDepartment: ReloadDepartmentService) {
+  constructor(private projectService: ProjectService, private reloadData: ReloadDataService) {
     this.popupProjectVar = popupResources;
     this.selectMemberButton = {
       icon: '../../../assets/icons/icon-pick-doer-blue.svg',
@@ -131,7 +130,7 @@ export class PopupProjectComponent implements OnInit {
         projectUser.ListUserId = listId;
 
         this.projectService.addProjectUser(projectUser).subscribe(projectUser => {
-          this.reloadDepartment.callComponentMethod();
+          this.reloadData.reloadDepartmentData();
           this.closePopup()
         });
 

@@ -20,7 +20,7 @@ export class DepartmentService {
 
   getDepartmentByUserId(id: string): Observable<Department[]> {
     
-    const departmentsUrl = `${this.departmentsUrl}/${id}`;
+    const departmentsUrl = `${this.departmentsUrl}/getByUserId/${id}`;
 
     return this.http.get<Department[]>(departmentsUrl).pipe(
       catchError(this.handleError<Department[]>('getDepartmentByUserId', []))

@@ -95,6 +95,18 @@
     }
   }
 
+  &-assigner {
+    margin-bottom: 16px;
+
+    &-label {
+      margin-right: 4px;
+    }
+
+    &-name {
+      color: $color-blue;
+    }
+  }
+
   &-popover {
 
 
@@ -430,4 +442,101 @@
   flex-direction: column;
   padding: 16px;
   padding-bottom: unset;
+}
+
+.modal__progress-btn {
+  font-size: 15px;
+  height: 34px;
+  padding: 5px 8px 5px 12px;
+  border: 1px solid $color-text;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+
+  &--middle {
+    width: 1px;
+    height: 100%;
+    background-color: $color-text;
+  }
+
+  &--right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: "GoogleSans-Regular", sans-serif;
+  }
+
+  &-icon {
+    @include background-template;
+    @include icon-size-small;
+    background-image: url('../../../../../../assets/icons/icon-arrow-down-dark.svg');
+  }
+}
+
+
+.popover-progress {
+  &__container {
+    padding: 16px 24px;
+  }
+
+  &__title {
+    font-size: 17px;
+    font-family: "GoogleSans-Regular", sans-serif;
+    font-weight: 500;
+  }
+
+  &__slider {
+    &-bar {
+      width: 100%;
+      margin: 16px 0 5px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &-btn {
+      @include background-template;
+      @include icon-size-default;
+      cursor: pointer;
+
+      &.minus {
+        background-image: url('../../../../../../assets/icons/icon-minus.svg');
+      }
+
+      &.plus {
+        background-image: url('../../../../../../assets/icons/icon-add-blue.svg');
+      }
+    }
+  }
+
+  &__steps {
+    width: 95%;
+    margin: 0 0 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__step {
+    width: 20%;
+  }
+
+  &__input-field {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+    .text-field {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  &__footer {
+    margin-top: -8px;
+    display: flex;
+    justify-content: flex-end;
+  }
 }

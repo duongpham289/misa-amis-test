@@ -13,11 +13,21 @@ export class SidebarComponent implements OnInit {
   @Input() departments: Department[] = [];
 
   mainMenuItems!: any
+  
+  toastVisible: boolean = false;
+  type: string = "info";
+  toastMessage: string = '';
 
   constructor() {
     this.mainMenuItems = MENU_ITEMS;
   }
 
   ngOnInit(): void {
+  }
+
+  funcNotAvailable() {
+    this.toastMessage = "Chức năng trong giai đoạn phát triển";
+    this.type = "custom";
+    this.toastVisible = true;
   }
 }

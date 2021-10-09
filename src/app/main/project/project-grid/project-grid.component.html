@@ -1,78 +1,86 @@
 <div class="grid-task">
   <!-- Phần header của Grid -->
-    <div class="grid-task__header d-flex align-center content-between">
-      <div class="grid-task__filter-group d-flex align-center">
-        <div class="grid-task__quick-filter d-flex align-center">
-          <div class="icon-grid-filter"></div>
-          <div class="m-l-8 m-r-8">{{gridConst.WidgetFilter}}</div>
-          <div class="icon-carret-down "></div>
+  <div class="grid-task__header d-flex align-center content-between">
+    <div class="grid-task__filter-group d-flex align-center">
+      <div class="grid-task__quick-filter d-flex align-center cursor-pointer" (click)="funcNotAvailable()">
+        <div class="icon-grid-filter"></div>
+        <div class="m-l-8 m-r-8">{{gridConst.WidgetFilter}}</div>
+        <div class="icon-carret-down "></div>
+      </div>
+      <div class="grid-task__status-filter d-flex align-center cursor-pointer"  (click)="funcNotAvailable()">
+        <div class="icon-grid-status-done "></div>
+        <div class="m-l-8 m-r-8">{{gridConst.WidgetStatus}}<b class="m-l-4">{{gridConst.WidgetAll}}</b>
         </div>
-        <div class="grid-task__status-filter d-flex align-center">
-            <div class="icon-grid-status-done "></div>
-            <div class="m-l-8 m-r-8">{{gridConst.WidgetStatus}}<b class="m-l-4">{{gridConst.WidgetAll}}</b>
-            </div>
-            <div class="icon-carret-down "></div>
-        </div>
-        <div class="grid-task__sort-order d-flex align-center">
-          <div class="icon-grid-sort"></div>
-          <div class="m-l-8 m-r-8">{{gridConst.WidgetSort}} <b>{{gridConst.WidgetChild}}</b></div>
-          <div class="icon-carret-down "></div>
-        </div>
-        <div class="grid-task__choose-many d-flex align-center">
-          <div class="icon-grid-choose-many "></div>
-          <div class="m-l-8 m-r-8">{{gridConst.WidgetSelector}}</div>
-        </div>
+        <div class="icon-carret-down "></div>
+      </div>
+      <div class="grid-task__sort-order d-flex align-center cursor-pointer"  (click)="funcNotAvailable()">
+        <div class="icon-grid-sort"></div>
+        <div class="m-l-8 m-r-8">{{gridConst.WidgetSort}} <b>{{gridConst.WidgetChild}}</b></div>
+        <div class="icon-carret-down "></div>
+      </div>
+      <div class="grid-task__choose-many d-flex align-center cursor-pointer"  (click)="funcNotAvailable()">
+        <div class="icon-grid-choose-many "></div>
+        <div class="m-l-8 m-r-8">{{gridConst.WidgetSelector}}</div>
       </div>
     </div>
-
-    <!-- Phần Content của Grid -->
-    <div class="grid-task__content">
-      <dx-data-grid [dataSource]="gridData" keyExpr="TaskId" height=100% [allowColumnResizing]="true"
-        [hoverStateEnabled]="true">
-        <dxi-column caption="" width="48" minWidth="48" cellTemplate="cellTemplate" headerCellTemplate="headerTemplate"
-          alignment="center"></dxi-column>
-
-        <div *dxTemplate="let data of 'headerTemplate'">
-          <div class="grid-task__icon add-col"></div>
-        </div>
-
-        <dxi-column *ngFor="let column of taskColumns" alignment="left"
-          [caption]="column['ColName']" [dataField]="column['ColField']" [width]="column['ColWidth']"
-          [dataType]="column['ColDataType']" [format]="column['ColFormat']" [cellTemplate]="column['CellTemplate']">
-        </dxi-column>
-
-        <div *dxTemplate="let data of 'cellTemplate'">
-          {{ getRowId(data) }}
-        </div>
-
-        <!-- Những ô bình thường thể hiện dữ liệu dạng text -->
-        <div *dxTemplate="let data of 'normalCellTemplate'">
-          {{ getData(data) }}
-        </div>
-
-        <!-- Những ô khi nhấn thì hiện popup modal -->
-        <div *dxTemplate="let data of 'popupModalCellTemplate'" (click)="openModal(data)">
-          {{ getData(data) }}
-        </div>
-
-        <!-- Những ô hiển thị dữ liệu có biểu đồ donut -->
-        <div *dxTemplate="let data of 'donutChartCellTemplate'"
-          [ngStyle]="{display: 'flex', alignItems: 'center', gap: '8px'}">
-          <!-- Nếu công việc đã hoàn thành thì chỉ hiển thị dấu check -->
-          <div *ngIf="checkFinished(data)" class="grid-task__icon success"></div>
-
-          <!-- Nếu công việc chưa hoàn thành thì chỉ hiển thị biểu đồ donut -->
-          <app-chart-doughnut *ngIf="!checkFinished(data)" [doughnutSize]="getDoughnutSize()"
-            [doughnutData]="getDoughnutData(data)"></app-chart-doughnut>
-          {{ getDataStatus(data) }}
-        </div>
-
-        <!-- Những ô hiển thị dữ liệu dạng ngày tháng -->
-        <div *dxTemplate="let data of 'dateCellTemplate'"
-          [ngStyle]="{display: 'flex', alignItems: 'center', gap: '8px'}">
-          <div class="grid-task__icon date"></div>
-          {{ getData(data) }}
-        </div>
-      </dx-data-grid>
-    </div>
   </div>
+
+  <!-- Phần Content của Grid -->
+  <div class="grid-task__content">
+    <dx-data-grid [dataSource]="gridData" keyExpr="TaskId" height=100% [allowColumnResizing]="true"
+      [hoverStateEnabled]="true">
+      <dxi-column caption="" width="48" minWidth="48" cellTemplate="cellTemplate" headerCellTemplate="headerTemplate"
+        alignment="center"></dxi-column>
+
+      <div *dxTemplate="let data of 'headerTemplate'">
+        <div class="grid-task__icon add-col cursor-pointer"  (click)="funcNotAvailable()"></div>
+      </div>
+
+      <dxi-column *ngFor="let column of taskColumns" alignment="left" [caption]="column['ColName']"
+        [dataField]="column['ColField']" [width]="column['ColWidth']" [dataType]="column['ColDataType']"
+        [format]="column['ColFormat']" [cellTemplate]="column['CellTemplate']">
+      </dxi-column>
+
+      <div *dxTemplate="let data of 'cellTemplate'">
+        {{ getRowId(data) }}
+      </div>
+
+      <!-- Những ô bình thường thể hiện dữ liệu dạng text -->
+      <div *dxTemplate="let data of 'normalCellTemplate'">
+        {{ getData(data) }}
+      </div>
+
+      <!-- Những ô khi nhấn thì hiện popup modal -->
+      <div *dxTemplate="let data of 'popupModalCellTemplate'" (click)="openModal(data)">
+        {{ getData(data) }}
+      </div>
+
+      <!-- Những ô hiển thị dữ liệu có biểu đồ donut -->
+      <div *dxTemplate="let data of 'donutChartCellTemplate'"
+        [ngStyle]="{display: 'flex', alignItems: 'center', gap: '8px'}">
+        <!-- Nếu công việc đã hoàn thành thì chỉ hiển thị dấu check -->
+        <div *ngIf="checkFinished(data)" class="grid-task__icon success"></div>
+
+        <!-- Nếu công việc chưa hoàn thành thì chỉ hiển thị biểu đồ donut -->
+        <app-chart-doughnut *ngIf="!checkFinished(data)" [doughnutSize]="getDoughnutSize()"
+          [doughnutData]="getDoughnutData(data)"></app-chart-doughnut>
+        {{ getDataStatus(data) }}
+      </div>
+
+      <!-- Những ô hiển thị dữ liệu dạng ngày tháng -->
+      <div *dxTemplate="let data of 'dateCellTemplate'" [ngStyle]="{display: 'flex', alignItems: 'center', gap: '8px'}">
+        <div class="grid-task__icon date"></div>
+        {{ getData(data) }}
+      </div>
+    </dx-data-grid>
+  </div>
+</div>
+
+<dx-toast [(visible)]="toastVisible" [type]="type" [closeOnOutsideClick]=true [closeOnSwipe]=true [closeOnClick]=true
+  width=auto [displayTime]=2000>
+  <dxo-position my="bottom right" at="bottom right" of="window" offset="-20 -20">
+  </dxo-position>
+  <div *dxTemplate="let data of 'content'">
+    <span>{{toastMessage}}</span>
+  </div>
+</dx-toast>

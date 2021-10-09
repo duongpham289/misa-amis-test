@@ -23,9 +23,9 @@ export class TaskService {
    * @param id ProjectId
    * @returns 
    */
-  getTasks(id: number): Observable<Task[]> {
-    const tasksUrl = `${this.tasksUrl}/getByProjectId/${id}`;
-    return this.http.get<Task[]>(tasksUrl).pipe(
+  getTasks(id: string): Observable<Task[]> {
+    const getTasksByProjectIdUrl = `${this.tasksUrl}/getByProjectId/${id}`;
+    return this.http.get<Task[]>(getTasksByProjectIdUrl).pipe(
       catchError(this.handleError<Task[]>('getTasks', []))
     );
 
@@ -36,9 +36,24 @@ export class TaskService {
    * @param task Công việc
    * @returns 
    */
-  addTask(task: Task): Observable<Task> {    
-    return this.http.post<Task>(this.tasksUrl, task, this.httpOptions).pipe(
-      catchError(this.handleError<Task>('addTask', task))
+  addTask(task: Task): Observable<any> {
+    return this.http.post<any>(this.tasksUrl, task, this.httpOptions).pipe(
+      catchError(this.handleError<any>('addTask', task))
+    );
+
+  }
+
+  /**
+   * Thêm mới công việc
+   * @param task Công việc
+   * @returns 
+   */
+  updateTask(task: Task, taskId: string): Observable<any> {
+
+    const updateTasksUrl = `${this.tasksUrl}/${taskId}`;
+
+    return this.http.put<any>(updateTasksUrl, task, this.httpOptions).pipe(
+      catchError(this.handleError<any>('addTask', task))
     );
 
   }

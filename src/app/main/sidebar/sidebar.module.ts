@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './sidebar.component';
 import { RouterModule } from '@angular/router';
-import { DxTextBoxModule, DxTreeViewModule } from 'devextreme-angular';
+import { DxTextBoxModule, DxToastModule, DxTreeViewModule } from 'devextreme-angular';
 import { DxiItemModule } from 'devextreme-angular/ui/nested';
 
 
@@ -18,7 +18,8 @@ import { DxiItemModule } from 'devextreme-angular/ui/nested';
     //Devextreme's Module import
     DxTextBoxModule,
     DxTreeViewModule,
-    DxiItemModule
+    DxiItemModule,
+    DxToastModule
   ],
   exports: [
     SidebarComponent

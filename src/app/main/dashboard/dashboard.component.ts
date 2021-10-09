@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ReloadDepartmentService } from 'src/app/data-tranfer/reload-department.service';
+
+import { ReloadDataService } from 'src/app/data-tranfer/reload-data.service';
 import { DepartmentService } from 'src/app/services/department.service';
 import { UserService } from 'src/app/services/user.service';
+
 import { Department } from 'src/app/shared/models/department';
 import { User } from 'src/app/shared/models/user';
 
@@ -21,28 +23,30 @@ export class DashboardComponent implements OnInit {
   departmentOptionsForTask: Department[] = [];
   userDefault: User[] = [];
 
-  constructor(private reloadDepartment: ReloadDepartmentService, private departmentService: DepartmentService, private userService: UserService) { }
+  constructor(private reloadData: ReloadDataService, private departmentService: DepartmentService, private userService: UserService) { }
 
   /**
    * Lấy dữ liệu qua service 
    * CreatedBY: PHDUONG(07/10/2021)
    */
   ngOnInit(): void {
-    this.myFunction();
 
-    this.reloadDepartment.customObservable.subscribe(() => { this.myFunction() });
-  }
-
-  myFunction() {
     this.userService.getUserById(this.userId).subscribe(users => {
       this.userList.push(users);
       this.userDefault.push(users);
     });
 
+    this.getDepartmentsData();
+
+    this.reloadData.reloadDepartment.subscribe(() => { this.getDepartmentsData() });
+  }
+
+  getDepartmentsData() {
     this.departmentService.getDepartmentByUserId(this.userId).subscribe(departments => {
       this.departments = departments;
 
       this.departmentOptionsForTask = this.departments;
+      this.departmentOptionsForProject = Array<Department>();
       this.departments.forEach(department => {
         if (department.IsBelongToCurrentUser) {
           this.departmentOptionsForProject.push(department);

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { GRID_CONSTANTS } from 'src/app/shared/constants/grid';
 import { ICON_SIZES } from 'src/app/shared/enum/icon-size';
@@ -13,11 +13,21 @@ export class ProjectGridComponent implements OnInit {
   @Input() gridData: any;
   @Input() taskColumns: any;
 
+  @Output() openTaskEdit = new EventEmitter<any>();
+
   popupVisible: boolean = false;
   gridConst: any;
 
+  
+  toastVisible: boolean = false;
+  type: string = "info";
+  toastMessage: string = '';
+  
   constructor() {
     this.gridConst = GRID_CONSTANTS;
+  }
+  
+  ngOnInit(): void {
   }
 
   /**
@@ -71,7 +81,7 @@ export class ProjectGridComponent implements OnInit {
    * CreatedBy: PHDUONG(29/09/2021)
    */
   openModal(data: any) {
-    this.popupVisible = true;
+    this.openTaskEdit.emit(data);
   }
 
   /**
@@ -105,7 +115,10 @@ export class ProjectGridComponent implements OnInit {
     return doughnutData;
   }
 
-  ngOnInit(): void {
+  funcNotAvailable() {
+    this.toastMessage = "Chức năng trong giai đoạn phát triển";
+    this.type = "custom";
+    this.toastVisible = true;
   }
 
 }

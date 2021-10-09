@@ -9,6 +9,8 @@ import { POPUP_ENUMS } from 'src/app/shared/enum/popup-enum';
 import popupResources from 'src/app/shared/resources/popup-resources';
 import { Department } from 'src/app/shared/models/department';
 import { User } from 'src/app/shared/models/user';
+import { Task } from 'src/app/shared/models/task';
+import { Project } from 'src/app/shared/models/project';
 
 @Component({
   selector: 'app-navbar',
@@ -23,6 +25,10 @@ export class NavbarComponent implements OnInit {
   @Input() departmentOptionsForProject: Department[] = [];
   @Input() departmentOptionsForTask: Department[] = [];
 
+  @Input() popupTaskData = <Task>{};
+
+  @Input() currentProject = <Project>{};
+
   popoverVisible: boolean = false;
 
   headerLinks: any;
@@ -36,6 +42,7 @@ export class NavbarComponent implements OnInit {
   popupVisible: boolean = false;
   popupMemberVisible: boolean = false;
 
+
   currentPopupType: number = 0;
 
   popupWidth: number = 0;
@@ -46,6 +53,13 @@ export class NavbarComponent implements OnInit {
   currentLink: number = 0;
 
   selectedMembers: User[] = [];
+
+  editMode: boolean = false;
+  emptyTaskData = <Task>{};
+
+  toastVisible: boolean = false;
+  type: string = "info";
+  toastMessage: string = '';
 
   constructor() {
     this.headerLinks = HeaderLinks;
@@ -64,7 +78,8 @@ export class NavbarComponent implements OnInit {
    * Mở popup thêm công việc
    * CreatedBy: PHDUONG (27/09/2021)
    */
-  openPopupTask() {
+  openPopupTask(editMode: boolean) {
+    this.editMode = editMode;
     this.popupVisible = popupResources.Visible;
     this.currentPopupType = POPUP_ENUMS.PopupTask;
     this.popupWidth = POPUP_ENUMS.PopupLarge;
@@ -90,8 +105,6 @@ export class NavbarComponent implements OnInit {
     this.popupMemberVisible = popupResources.Invisible;
     data.forEach(user => {
       this.userList.push(user);
-      console.log(this.userDefault);
-      
     });
   }
 
@@ -121,7 +134,7 @@ export class NavbarComponent implements OnInit {
    * CreatedBy: PHDUONG(04/10/2021)
    */
   closePopup() {
-    this.userList = Object.assign([], this.userDefault);;
+    this.userList = Object.assign([], this.userDefault);
     this.popupVisible = popupResources.Invisible;
     this.selectedMembers = [];
   }
@@ -149,5 +162,11 @@ export class NavbarComponent implements OnInit {
   */
   activeLink(linkIndex: number) {
     this.currentLink = linkIndex;
+  }
+
+  funcNotAvailable() {
+    this.toastMessage = "Chức năng trong giai đoạn phát triển";
+    this.type = "custom";
+    this.toastVisible = true;
   }
 }

@@ -2,12 +2,12 @@
   <div class="sidebar-title d-flex align-center">
 
     <!-- Main Menu -->
-    <div class="sidebar-toggle icon-menu"></div>
+    <div class="sidebar-toggle icon-menu cursor-pointer" (click)="funcNotAvailable()"></div>
 
     <!-- Logo -->
     <div class="sidebar-logo d-flex align-center">
-      <div class="logo-sidebar"></div>
-      <div class="logo-name">Công việc</div>
+      <div class="logo-sidebar cursor-pointer" (click)="funcNotAvailable()"></div>
+      <div class="logo-name cursor-pointer" (click)="funcNotAvailable()">Công việc</div>
     </div>
   </div>
   <div class="sidebar-content">
@@ -21,9 +21,9 @@
     <!-- Sidebar search -->
     <div class="sidebar-search">
       <dx-text-box height="32px" width="188px" placeholder="Tìm kiếm" mode="search" stylingMode="underlined"
-        [showClearButton]="true"></dx-text-box>
+        [showClearButton]="true" (onKeyUp)="funcNotAvailable()"></dx-text-box>
 
-      <div class="sidebar-search__setting"></div>
+      <div class="sidebar-search__setting cursor-pointer" (click)="funcNotAvailable()"></div>
     </div>
 
     <!-- Phần hiển thị phòng ban/dự án -->
@@ -36,7 +36,7 @@
             <div class="sidebar-scroll__department-content d-flex content-between align-center h-100">
               <div class="sidebar-scroll__department-dropdown d-flex content-center align-center h-100">
               </div>
-              <div class="sidebar-scroll__department-title" [ngClass]="{'inactive' : !itemObj.IsBelongToCurrentUser}" >{{itemObj.DepartmentName}}</div>
+              <div class="sidebar-scroll__department-title" [ngClass]="{'inactive' : !itemObj.IsBelongToCurrentUser}" (click)="funcNotAvailable()">{{itemObj.DepartmentName}}</div>
             </div>
           </div>
 
@@ -60,3 +60,12 @@
 
   </div>
 </div>
+
+<dx-toast [(visible)]="toastVisible" [type]="type" [closeOnOutsideClick]=true [closeOnSwipe]=true [closeOnClick]=true
+  width=auto [displayTime]=2000>
+  <dxo-position my="bottom right" at="bottom right" of="window" offset="-20 -20">
+  </dxo-position>
+  <div *dxTemplate="let data of 'content'">
+    <span>{{toastMessage}}</span>
+  </div>
+</dx-toast>

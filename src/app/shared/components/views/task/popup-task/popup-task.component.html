@@ -1,5 +1,5 @@
 <dx-popup class="ms-popup" [width]="popupWidth" height="auto" [shadingColor]="'rgba(0, 0, 0, 0.45)'"
-  [dragEnabled]="true" (onHidden)="closePopup()" [visible]="popupVisible" contentTemplate="currentTemplate"
+  [dragEnabled]="true" [visible]="popupVisible" contentTemplate="currentTemplate" (onShown)="bindData()"
   titleTemplate="title">
 
   <div *dxTemplate="let data of 'currentTemplate'">
@@ -8,20 +8,29 @@
         <div class="popup__task--left">
           <div class="popup__task-header">
             <div class="popup__task-header--left">
+
+              <!-- Nút Dropdown chọn dự án -->
               <div id="popup__task-dropdown" class="popup__task-header-dropdown d-flex content-center align-center"
                 (click)="toggleDropdown(0)">
                 <div class="logo-user d-flex content-center align-center">
                   <div class="icon-user"></div>
                 </div>
-                <div class="project-title text-overflow">{{projectDefault.ProjectName}}</div>
+                <div class="project-title text-overflow">
+                  {{popupTaskData.ProjectName ? popupTaskData.ProjectName : projectDefault.ProjectName}}</div>
                 <div class="icon-caret-down"></div>
               </div>
+
+              <!-- Dropdown Chọn dự án -->
               <dx-popover target="#popup__task-dropdown" class="popup__task-popover" position="bottom" [width]="330"
                 [visible]="dropdownDepartmentVisible" titleTemplate="titleTemplate" [showTitle]="true"
                 (onHidden)="dropdownDepartmentVisible = false">
+
+                <!-- Title Dropdown Chọn dự án -->
                 <div *dxTemplate="let data of 'titleTemplate'">
-                  <div class="popup__task-popover-title"> Chọn dự án/nhóm </div>
+                  <div class="popup__task-popover-title"> {{ popupTaskConst['PopoverProjectSelector'] }} </div>
                 </div>
+
+                <!-- Content Dropdown Chọn dự án -->
                 <div *dxTemplate="let data of 'content'">
                   <div class="popup__task-popover-content">
                     <div class="popup__task-popover-department" *ngFor="let department of departmentOptions">
@@ -35,11 +44,13 @@
                           <div class="popover__project-title">{{project.ProjectName}}</div>
                         </div>
                         <div class="popover__project-selected icon-tick"
-                          [ngClass]="{'backgr-blue':projectDefault == project}"></div>
+                          [ngClass]="{'backgr-blue': popupTaskData.ProjectName ? popupTaskData.ProjectName == project.ProjectName : projectDefault == project}">
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
+
               </dx-popover>
             </div>
 
@@ -49,87 +60,113 @@
             </div>
           </div>
 
+          <!-- Input nhập tên công việc -->
           <div class="popup__task-input">
-            <input class="popup__task-task-name" type="text"  (keyup)="onInputTaskname($event)" placeholder="Nhập tên công việc">
+            <input #inputTaskName class="popup__task-task-name" type="text" [(ngModel)]="popupTaskData.TaskName"
+              placeholder="Nhập tên công việc">
+          </div>
+
+          <!-- Mục người giao việc, chỉ xuất hiện ở modal sửa -->
+          <div class="popup__task-assigner" *ngIf="editMode">
+            <span class="popup__task-assigner-label">{{ popupTaskConst['AssignerLabel'] }} </span>
+            <span class="popup__task-assigner-name">{{ popupTaskData.AssignerName }}</span>
           </div>
 
           <div class="popup__task-widget">
             <div class="popup__task-widget-icon desc"></div>
-            Nhập mô tả
+            {{ popupTaskConst['WidgetAddDesc'] }}
           </div>
 
           <div class="popup__task-widget">
             <div class="popup__task-widget-icon add"></div>
-            Thêm checklist
+            {{ popupTaskConst['WidgetAddChecklist'] }}
           </div>
 
           <div class="popup__task-selector">
+
+            <!-- Chỉnh sửa người thực hiện -->
             <div id="popup__task-assignee" class="popup__task-selector--half selector-assignee"
               (click)="toggleDropdown(1)">
-              <div *ngIf="!userDefault.FullName" class="d-flex align-center gap-8">
+              <div *ngIf="!popupTaskData.AssigneeName" class="d-flex align-center gap-8">
                 <div class="popup__task-selector-icon assignee"></div>
-                Chọn người thực hiện
+                {{ popupTaskConst['WidgetAssigneeSelector'] }}
               </div>
-              <div *ngIf="userDefault.FullName">
+              <div *ngIf="popupTaskData.AssigneeName">
                 <div class="ms-assignee-info d-flex  align-center">
-                  <div class="ms-assignee-info__avatar" [ngStyle]="{backgroundColor: userDefault['AvatarColor']}">
-                    {{userDefault.Avatar}}
+                  <div class="ms-assignee-info__avatar" [ngStyle]="{backgroundColor: popupTaskData['AssigneeAvatarColor']}">
+                    {{popupTaskData.AssigneeAvatar}}
                   </div>
                   <div class="ms-assignee-info__text">
-                    <div>Nguời thực hiện</div>
-                    <div><strong>{{ userDefault['FullName'] }}</strong></div>
+                    <div>{{ popupTaskConst['WidgetAssigneeLabel'] }}</div>
+                    <div>
+                      <strong>{{ popupTaskData.AssigneeName }}</strong>
+                    </div>
                   </div>
                 </div>
               </div>
-
             </div>
+
+            <!-- Dropdown Chỉnh sửa người thực hiện -->
             <dx-popover target="#popup__task-assignee" class="popup__task-popover" position="bottom" [width]="305"
               [visible]="dropdownUserVisible" titleTemplate="titleTemplate" [showTitle]="true"
               (onHidden)="dropdownUserVisible = false">
+
+              <!-- Title Dropdown -->
               <div *dxTemplate="let data of 'titleTemplate'">
-                <div class="popup__task-popover-title"> Chọn người thực hiện </div>
+                <div class="popup__task-popover-title">{{ popupTaskConst['PopoverAssigneeSelector'] }} </div>
               </div>
+
+              <!-- Content Dropdown -->
               <div *dxTemplate="let data of 'content'">
                 <div class="ms-user-info d-flex  align-center" *ngFor="let user of userList" (click)="chooseUser(user)">
-                  <div class="ms-user-info__avatar" [ngStyle]="{backgroundColor: user['AvatarColor']}">{{user.Avatar}}
+                  <div class="ms-user-info__avatar" [ngStyle]="{backgroundColor: user.AvatarColor}">
+                    {{popupTaskData.AssigneeAvatar}}
                   </div>
                   <div class="ms-user-info__text">
                     <div><strong>{{ user['FullName'] }}</strong></div>
                     <div class="font-13">{{ user['Email'] }}</div>
                   </div>
-                  <div class="ms-user-info__icon icon-tick" [ngClass]="{'backgr-blue':userDefault == user}"></div>
+                  <div class="ms-user-info__icon icon-tick"
+                    [ngClass]="{'backgr-blue':popupTaskData.AssigneeName == user['FullName']}"></div>
                 </div>
               </div>
             </dx-popover>
 
+            <!-- Chỉnh sửa hạn hoàn thành -->
             <div id="popup__task-deadline" class="popup__task-selector--half cursor-pointer"
               (click)="toggleDropdown(2)">
-              <div *ngIf="!deadline" class="d-flex align-center gap-8">
+              <div *ngIf="!popupTaskData.EndDate" class="d-flex align-center gap-8">
                 <div class="popup__task-selector-icon date"></div>
-                Chọn hạn hoàn thành
+                {{ popupTaskConst['WidgetDateSelector'] }}
               </div>
-              <div *ngIf="deadline">
+              <div *ngIf="popupTaskData.EndDate">
                 <div class="ms-date-info d-flex  align-center">
                   <div class="ms-date-info__avatar">
                     <div class="icon-calendar-small-white"></div>
                   </div>
                   <div class="ms-date-info__text">
-                    <div>Hạn hoàn thành</div>
-                    <div><strong>{{ deadline }}</strong></div>
+                    <div>{{ popupTaskConst['WidgetDateLabel'] }}</div>
+                    <div><strong>{{ popupTaskData.EndDate | date: 'dd/MM/yyyy' }}</strong></div>
                   </div>
                 </div>
               </div>
             </div>
-            <dx-popover target="#popup__task-deadline" class="popup__task-popover deadline" position="bottom" [width]="305"
-              [visible]="dropdownDeadlineVisible" titleTemplate="titleTemplate" [showTitle]="true"
+
+            <!-- Dropdown Chỉnh sửa hạn hoàn thành -->
+            <dx-popover target="#popup__task-deadline" class="popup__task-popover deadline" position="bottom"
+              [width]="305" [visible]="dropdownDeadlineVisible" titleTemplate="titleTemplate" [showTitle]="true"
               (onHidden)="dropdownDeadlineVisible = false">
+
+              <!-- Title Dropdown -->
               <div *dxTemplate="let data of 'titleTemplate'">
                 <div class="ms-calendar__header">
-                  Hạn hoàn thành
+                  {{ popupTaskConst['WidgetDateLabel'] }}
                   <app-text-field #focusInput [ngStyle]="{ width: '50%' }" [model]="deadlineTextValue"
-                    (modelChange)="changeDate($event)"></app-text-field>
+                    (modelChange)="changeInputDate($event)"></app-text-field>
                 </div>
               </div>
+
+              <!-- Content Dropdown -->
               <div *dxTemplate="let data of 'content'">
                 <dx-calendar width="100%" [(value)]="deadlineValue" (onValueChanged)="changeCalendarValue($event)">
                 </dx-calendar>
@@ -138,7 +175,7 @@
                     {{ popupTaskVar.PopupCloseButton }}
                   </div>
 
-                  <app-button [buttonText]="popupTaskVar.PopupSaveButton" (click)="saveDate()" >
+                  <app-button [buttonText]="popupTaskVar.PopupSaveButton" (click)="saveDate()">
                   </app-button>
                 </div>
               </div>
@@ -148,19 +185,19 @@
 
           <div class="popup__task-widget">
             <div class="popup__task-widget-icon add"></div>
-            Thêm công việc con
+            {{ popupTaskConst['WidgetAddSubtask'] }}
           </div>
         </div>
 
         <div class="popup__task--right">
           <div class="popup__task-extra">
             <div class="popup__task-extra-icon related"></div>
-            Người liên quan
+            {{ popupTaskConst['WidgetPeopleRelated'] }}
           </div>
         </div>
       </div>
 
-      <div class="ms-modal__footer">
+      <div *ngIf="!editMode" class="ms-modal__footer">
         <div class="ms-modal__button--secondary" (click)="closePopup()">
           {{ popupTaskVar.PopupCloseButton }}
         </div>
@@ -168,13 +205,65 @@
         <app-button [buttonText]="popupTaskVar.PopupSaveButton" (click)="saveTask()">
         </app-button>
       </div>
+
     </div>
   </div>
 
+  <!-- Title Popup -->
   <div *dxTemplate="let data of 'title'">
     <div class="popup-header d-flex content-between align-center">
-      <div class="popup-title">{{popupTitle}}</div>
+      <div *ngIf="!editMode" class="popup-title">{{popupTitle}}</div>
+
+      <!-- Nút tùy chỉnh tiến độ, chỉ xuất hiện ở modal sửa thông tin công việc -->
+      <div *ngIf="editMode" class="modal__progress-btn">
+        <div class="modal__progress-btn--left">{{ popupTaskConst['ProgressStatusUnfinished'] }}</div>
+
+        <div class="modal__progress-btn--middle"></div>
+
+        <div id="popover-progress" class="modal__progress-btn--right" (click)="toggleDropdown(3)">
+          {{ popupTaskData.Process }}%
+          <div class="modal__progress-btn-icon"></div>
+        </div>
+
+
+      </div>
+
+      <!-- Nút đóng popup -->
       <div class="button-close dx-icon-close" (click)="closePopup()"></div>
     </div>
   </div>
 </dx-popup>
+
+<dx-popover target="#popover-progress" position="bottom" [width]="398" [visible]="dropdownProgressVisible"
+  (onHidden)="dropdownProgressVisible = false">
+  <div class="popover-progress__container">
+    <div class="popover-progress__title">Tiến độ công việc</div>
+
+    <div class="popover-progress__slider-bar">
+      <div class="popover-progress__slider-btn minus" (click)="minusFromValue()"></div>
+
+      <dx-slider class="popover-progress__slider" [min]="0" [max]="100" width="100%" height="28px"
+        [value]="processValue" (onValueChanged)="changeValueBySlider($event)"></dx-slider>
+
+      <div class="popover-progress__slider-btn plus" (click)="addToValue()"></div>
+    </div>
+
+    <div class="popover-progress__steps">
+      <div class="popover-progress__step">0 %</div>
+      <div class="popover-progress__step">25 %</div>
+      <div class="popover-progress__step">50 %</div>
+      <div class="popover-progress__step">75 %</div>
+      <div class="popover-progress__step">100 %</div>
+    </div>
+
+    <div class="popover-progress__input-field">
+      Nhập tiến độ
+      <app-text-field #focusInput [ngStyle]="{width: '78px'}" [(model)]="processValue"
+        (onTyping)="changeValueByInput($event)"></app-text-field>
+    </div>
+
+    <div class="popover-progress__footer">
+      <app-button buttonText="Xác nhận" (click)="submitProgress()"></app-button>
+    </div>
+  </div>
+</dx-popover>

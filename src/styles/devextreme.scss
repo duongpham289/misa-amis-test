@@ -78,12 +78,12 @@
   }
 }
 
-.popup__task-popover.deadline .dx-popup-content{
+.popup__task-popover.deadline .dx-popup-content {
   padding: 0 16px;
 }
 
-.text-field__popover .dx-popup-content{
-    max-height: 300px !important;
+.text-field__popover .dx-popup-content {
+  max-height: 300px !important;
 }
 
 .dx-toolbar-label>div {
@@ -233,25 +233,18 @@
   height: 42px;
 }
 
-.dx-datagrid-content .dx-datagrid-table .dx-row > td,
-.dx-datagrid-content .dx-datagrid-table .dx-row > tr > td {
-  height: 44px;
-  padding: 12px 16px 0;
-  box-sizing: border-box;
-}
-
-.dx-datagrid-content .dx-datagrid-table .dx-row > td:first-child,
-.dx-datagrid-content .dx-datagrid-table .dx-row > tr > td:first-child {
+.dx-datagrid-content .dx-datagrid-table .dx-row>td:first-child,
+.dx-datagrid-content .dx-datagrid-table .dx-row>tr>td:first-child {
   padding-left: 12px;
   padding-right: 12px;
 }
 
-.dx-datagrid-headers .dx-datagrid-table .dx-row > td,
-.dx-datagrid .dx-row-lines > td {
+.dx-datagrid-headers .dx-datagrid-table .dx-row>td,
+.dx-datagrid .dx-row-lines>td {
   border-bottom: 1px solid $color-grey;
 }
 
-.dx-datagrid .dx-column-lines > td {
+.dx-datagrid .dx-column-lines>td {
   border-right: 0.5px solid $color-grey;
 }
 
@@ -262,7 +255,7 @@
   cursor: pointer;
 }
 
-  .dx-datagrid-rowsview.dx-datagrid-nowrap.dx-command-select {
+.dx-datagrid-rowsview.dx-datagrid-nowrap.dx-command-select {
   width: 40px !important;
   min-width: 40px !important;
   border: none;
@@ -271,9 +264,10 @@
 .ms-modal__member .dx-checkbox-container .dx-checkbox-icon {
   height: 16px !important;
   width: 16px !important;
-  margin-right: 10px!important;
+  margin-right: 10px !important;
   border: 1px solid #9e9e9e !important;
 }
+
 //endregion
 
 //region Button
@@ -330,25 +324,31 @@
 .dx-popover-arrow {
   display: none;
 }
+
 .popup__task-popover .dx-popover-arrow {
   display: block;
 }
+
 .dx-popover-wrapper .dx-overlay-content {
   top: -9px !important
 }
 
-.text-field__popover.dx-list .dx-empty-message, .dx-list-item-content {
+.text-field__popover.dx-list .dx-empty-message,
+.dx-list-item-content {
   height: 40px;
   padding: 7px 9px;
 }
+
 //endregion
 
 //datebox region
-.dx-dropdowneditor.dx-state-active .dx-dropdowneditor-icon, .dx-dropdowneditor.dx-state-hover:not(.dx-custom-button-hovered) .dx-dropdowneditor-icon {
+.dx-dropdowneditor.dx-state-active .dx-dropdowneditor-icon,
+.dx-dropdowneditor.dx-state-hover:not(.dx-custom-button-hovered) .dx-dropdowneditor-icon {
   background-color: unset;
 }
 
-.dx-dropdowneditor-button.dx-state-active .dx-dropdowneditor-icon, .dx-dropdowneditor.dx-dropdowneditor-active .dx-dropdowneditor-icon {
+.dx-dropdowneditor-button.dx-state-active .dx-dropdowneditor-icon,
+.dx-dropdowneditor.dx-dropdowneditor-active .dx-dropdowneditor-icon {
   background-color: unset;
 }
 
@@ -360,9 +360,77 @@
 .dx-list:not(.dx-list-select-decorator-enabled) .dx-list-item.dx-state-focused.dx-list-item-selected {
   background-color: unset;
 }
+
 //endregion
 
 
-.dx-calendar{
-  min-width:unset;
+.dx-calendar {
+  min-width: unset;
 }
+
+
+//region Slider
+.dx-slider {
+  &-bar {
+    height: 12px;
+    border-radius: 8px;
+    margin: 7px 0 0;
+  }
+
+  &-range {
+    height: 100%;
+    border-radius: 8px !important;
+    background-color: $color-grey;
+
+    &.dx-slider-range-visible {
+      background-color: $color-blue;
+    }
+  }
+
+  &-handle {
+    margin-top: -7px;
+    width: 20px;
+    height: 20px;
+    border: 1px solid $color-white;
+    background-color: $color-white;
+    box-shadow: 0 1px 5px 2px #9e9e9e;
+    border-radius: 8px;
+  }
+
+  & .dx-state-active {
+    &.dx-slider-handle {
+      background-color: $color-white;
+    }
+  }
+
+  & .dx-state-hover,
+  & .dx-state-focused {
+    &.dx-slider-handle:not(.dx-state-active) {
+      background-color: $color-white;
+    }
+  }
+}
+
+//endregion
+
+
+//region toast
+.dx-toast-custom {
+  background-color: #3e3e3a;
+}
+
+.dx-toast-custom .dx-toast-icon {
+  display: none
+}
+
+.dx-toast-custom>.dx-template-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.dx-toast-custom>.dx-template-wrapper span {
+  padding: 0 14px;
+  color: #c7c7c7;
+}
+
+//endregion

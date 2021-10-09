@@ -1,12 +1,17 @@
-import {  DatePipe} from '@angular/common';
-import {  Component,  EventEmitter,  Input,  OnInit,  Output} from '@angular/core';
-import {  locale} from 'devextreme/localization';
-import {  TaskService} from 'src/app/services/task.service';
+import { DatePipe } from '@angular/common';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { locale } from 'devextreme/localization';
+
+import { TaskService } from 'src/app/services/task.service';
 import { Department } from 'src/app/shared/models/department';
+
 import { Project } from 'src/app/shared/models/project';
 import { User } from 'src/app/shared/models/user';
 import { Task } from 'src/app/shared/models/task';
+
 import popupResources from 'src/app/shared/resources/popup-resources';
+import { POPUP_TASK_RESOURCES } from 'src/app/shared/resources/popup-task-resources';
+import { ReloadDataService } from 'src/app/data-tranfer/reload-data.service';
 
 @Component({
   selector: 'app-popup-task',
@@ -14,6 +19,11 @@ import popupResources from 'src/app/shared/resources/popup-resources';
   styleUrls: ['./popup-task.component.scss']
 })
 export class PopupTaskComponent implements OnInit {
+  @ViewChild('inputTaskName') inputTaskName!: ElementRef;
+
+  @Input() editMode: boolean = false;
+  @Input() popupTaskData = <Task>{};
+  @Input() currentProject = <Project>{};
 
   @Input() popupWidth: number = 0;
   @Input() popupTitle: string = '';
@@ -23,22 +33,30 @@ export class PopupTaskComponent implements OnInit {
   @Output() popupClose = new EventEmitter<boolean>();
 
   popupTaskVar: any;
+  popupTaskConst: any;
+
   dropdownDepartmentVisible: boolean = false;
   dropdownUserVisible: boolean = false;
+  dropdownDeadlineVisible!: boolean;
+  dropdownProgressVisible!: boolean;
 
   projectDefault: Project = <Project>{};
-  userDefault: User = <User>{};
-  dropdownDeadlineVisible!: boolean;
   taskName: string = '';
 
   pipe = new DatePipe('en-US');
 
-  deadline: any;
   deadlineValue: any;
   deadlineTextValue: any;
 
-  constructor(private taskService: TaskService) {
+  processValue: any;
+
+  constructor(private cdRef: ChangeDetectorRef, private taskService: TaskService, private reloadData: ReloadDataService) {
     this.popupTaskVar = popupResources;
+    this.popupTaskConst = POPUP_TASK_RESOURCES;
+  }
+
+  ngAfterViewChecked() {
+    this.cdRef.detectChanges();
   }
 
   /**
@@ -46,16 +64,9 @@ export class PopupTaskComponent implements OnInit {
   * CreatedBy: PHDUONG(23/09/2021)
   */
   chooseProject(project: Project) {
-    this.projectDefault = project;
+    this.popupTaskData.ProjectId = project.ProjectId;
+    this.popupTaskData.ProjectName = project.ProjectName;
     this.dropdownDepartmentVisible = false;
-  }
-
-  /**
-   * Nhận gá trị taskName
-   * CreatedBy: PHDUONG(23/09/2021)
-   */
-  onInputTaskname(event: any) { // without type info
-    this.taskName = event.target.value;
   }
 
   /**
@@ -63,10 +74,18 @@ export class PopupTaskComponent implements OnInit {
    * CreatedBy: PHDUONG(23/09/2021)
    */
   chooseUser(user: User) {
-    if (this.userDefault == user) {
-      this.userDefault = <User>{};
+    if (this.popupTaskData.AssigneeName == user.FullName) {
+      this.popupTaskData.AssigneeId = '';
+      this.popupTaskData.AssigneeEmail = '';
+      this.popupTaskData.AssigneeName = '';
+      this.popupTaskData.AssigneeAvatar = '';
+      this.popupTaskData.AssigneeAvatarColor = '';
     } else {
-      this.userDefault = user;
+      this.popupTaskData.AssigneeId = user.UserId;
+      this.popupTaskData.AssigneeEmail = user.Email;
+      this.popupTaskData.AssigneeName = user.FullName;
+      this.popupTaskData.AssigneeAvatar = user.Avatar;
+      this.popupTaskData.AssigneeAvatarColor = user.AvatarColor;
     }
     this.dropdownUserVisible = false;
   }
@@ -83,14 +102,30 @@ export class PopupTaskComponent implements OnInit {
    * Hàm Thay đổi giá trị deadline trên input
    * CreatedBy: PHDUONG(23/09/2021)
    */
-  changeDate(data: any) {
-    var datearray = data.split("/");
+  changeInputDate(data: any) {
+    if (data.length === 10) {
+      var inputDate = data.split("/");
 
-    var newdate = datearray[1] + '/' + datearray[0] + '/' + datearray[2];
+      var inputDateFormated = inputDate[1] + '/' + inputDate[0] + '/' + inputDate[2];
 
-    if (this.deadlineValue != new Date(newdate)) {
-      this.deadlineValue = new Date(newdate);
+      if (this.deadlineValue != new Date(inputDateFormated)) {
+        this.deadlineValue = new Date(inputDateFormated);
+      }
     }
+  }
+
+  bindData() {
+    if (this.popupTaskData.EndDate) {
+      this.deadlineTextValue = this.pipe.transform(new Date(this.popupTaskData.EndDate), 'dd/MM/yyyy');
+      this.changeInputDate(this.deadlineTextValue);
+    } else {
+      this.deadlineTextValue = this.pipe.transform(new Date(), 'dd/MM/yyyy');
+
+      this.changeInputDate(this.deadlineTextValue);
+    }
+    this.processValue = this.popupTaskData.Process;
+
+    this.inputTaskName.nativeElement.focus();
   }
 
   /**
@@ -98,7 +133,7 @@ export class PopupTaskComponent implements OnInit {
    * CreatedBy: PHDUONG(23/09/2021)
    */
   saveDate() {
-    this.deadline = this.deadlineTextValue;
+    this.popupTaskData.EndDate = new Date(this.deadlineValue);
     this.dropdownDeadlineVisible = false;
   }
 
@@ -120,6 +155,10 @@ export class PopupTaskComponent implements OnInit {
 
         this.dropdownDeadlineVisible = !this.dropdownDeadlineVisible;
         break;
+      case 3:
+
+        this.dropdownProgressVisible = !this.dropdownProgressVisible;
+        break;
 
       default:
         break;
@@ -127,10 +166,67 @@ export class PopupTaskComponent implements OnInit {
   }
 
   /**
+   * Tăng giá trị tiến độ 5 đơn vị
+   * 
+   * CreatedBy: PHDUONG(23/09/2021)
+   */
+  addToValue(): void {
+    this.processValue += 5;
+  }
+
+  /**
+   * Giảm giá trị tiến độ 5 đơn vị
+   * 
+   * CreatedBy: PHDUONG(23/09/2021)
+   */
+  minusFromValue(): void {
+    this.processValue -= 5;
+  }
+
+  /**
+   * Thay đổi giá trị tiến độ bằng slider
+   * @param data
+   * 
+   * CreatedBy: PHDUONG(23/09/2021)
+   */
+  changeValueBySlider(data: any): void {
+    this.processValue = data.value;
+  }
+
+  /**
+   * Thay đổi giá trị tiến độ bằng input
+   * @param data
+   * 
+   * CreatedBy: PHDUONG(23/09/2021)
+   */
+  changeValueByInput(data: any): void {
+    this.processValue = data.inputValue;
+  }
+
+  /**
+   * Phương thức xử lý sự kiện khi người dùng muốn thay đổi tiến độ công việc
+   * 
+   * CreatedBy: PHDUONG(23/09/2021)
+   */
+  submitProgress(): void {
+    if (this.processValue > 100) {
+      this.processValue = 100
+    }
+
+    this.saveTask();
+
+    this.dropdownProgressVisible = !this.dropdownProgressVisible;
+
+  }
+
+  /**
    * Phương thức call service để đóng popup
    * CreatedBy: PHDUONG (27/09/2021)
    */
   closePopup() {
+    if (this.editMode) {
+      this.saveTask()
+    }
     this.popupClose.emit(false);
   }
 
@@ -141,21 +237,41 @@ export class PopupTaskComponent implements OnInit {
   saveTask() {
 
     var task = <Task>{};
-    task.ProjectId = this.projectDefault.ProjectId;
-    task.TaskName = this.taskName;
-    task.EndDate = new Date(this.deadlineValue);
-    task.AssigneeId = this.userDefault.UserId;
-    task.AssigneeName = this.userDefault.FullName;
-    task.AssigneeEmail = this.userDefault.Email;
+    task.TaskName = this.popupTaskData.TaskName;
+    task.EndDate = this.popupTaskData.EndDate;
+    task.AssigneeId = this.popupTaskData.AssigneeId;
+    task.AssigneeName = this.popupTaskData.AssigneeName;
+    task.AssigneeEmail = this.popupTaskData.AssigneeEmail;
+    task.AssigneeAvatar = this.userList[0].Avatar;
+    task.AssigneeAvatarColor = this.userList[0].AvatarColor;
+    task.AssignerName = this.userList[0].FullName;
+    task.ProjectId = this.popupTaskData.ProjectId ? this.popupTaskData.ProjectId : this.projectDefault.ProjectId;
+    task.ProjectName = this.popupTaskData.ProjectName ? this.popupTaskData.ProjectName : this.projectDefault.ProjectName;
 
-    this.taskService.addTask(task).subscribe(task => {
-      this.closePopup()
-    });
+    if (this.editMode) {
+      task.Process = this.processValue;
+      
+      this.taskService.updateTask(task, this.popupTaskData.TaskId).subscribe(task => {
+        this.reloadData.reloadTaskData();
+        this.popupTaskData.Process = this.processValue
+      });
+    } else {
+      this.taskService.addTask(task).subscribe(task => {
+        this.reloadData.reloadTaskData();
+        this.closePopup()
+      });
+    }
+
+
   }
 
   ngOnInit(): void {
     locale("vi-VN");
-    this.projectDefault = this.departmentOptions[0].ListProjects[0];
+    if (this.currentProject.ProjectId) {
+      this.projectDefault = this.currentProject;
+    } else {
+      this.projectDefault = this.departmentOptions[0].ListProjects[0];
+    }
   }
 
 }

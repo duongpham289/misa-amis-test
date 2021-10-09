@@ -32,7 +32,7 @@ export class PopupMemberComponent implements OnInit {
   @Input() popupVisible = false;
 
   @Output() popupClose = new EventEmitter<any>();
-  @Output() onModalSubmitted: EventEmitter<User[]> = new EventEmitter<User[]>();
+  @Output() onModalSubmitted = new EventEmitter<User[]>();
 
   constructor(private userService: UserService) {
     this.popupMemberVar = popupResources;
@@ -41,7 +41,6 @@ export class PopupMemberComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.reloadGridData();
   }
 
   /**
@@ -81,8 +80,6 @@ export class PopupMemberComponent implements OnInit {
    */
   submitMembers(): void {
     this.onModalSubmitted.emit(this.selectedMembers);
-
-    // this.clearSelectedRows();
   }
 
   clearSelectedRows() {

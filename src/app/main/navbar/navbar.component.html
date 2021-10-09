@@ -3,11 +3,15 @@
   <!-- Dashboard Header -->
   <div class="ms-nav--left dashboard">
     <!-- Nút tùy chỉnh -->
-    <div class="ms-nav__button">
+    <div class="ms-nav__button" (click)="funcNotAvailable()">
       <div class="ms-nav__button-icon edit"></div>
       {{navbarTexts.Edit}}
     </div>
+
   </div>
+
+
+
 
   <!-- Project Header -->
   <div class="ms-nav--left project">
@@ -15,7 +19,7 @@
       <div class="ms-nav__home d-flex">
 
         <!-- Nút mở menu -->
-        <div class="ms-nav__toggle icon-menu"></div>
+        <div class="ms-nav__toggle icon-menu cursor-pointer" (click)="funcNotAvailable()"></div>
 
         <!-- Nút về dashboard -->
         <div class="ms-nav__home icon-home" [routerLink]="['/dashboard']"></div>
@@ -26,11 +30,11 @@
         <div class="logo-user d-flex content-center align-center">
           <div class="icon-user"></div>
         </div>
-        <div class="project-title text-overflow">{{navbarTexts.PersonalProject}}</div>
+        <div class="project-title text-overflow">{{currentProject.ProjectName}}</div>
         <div class="icon-caret-down"></div>
 
         <!-- Nút setting -->
-        <div class="project-setting">
+        <div class="project-setting cursor-pointer" (click)="funcNotAvailable()">
           <div class="icon-setting">
           </div>
         </div>
@@ -52,7 +56,7 @@
     <div class="ms-nav__button-group d-flex align-center">
 
       <!-- Nút thêm công việc -->
-      <div class="ms-nav__button ms-nav__button--add d-flex align-center" (click)="openPopupTask()">
+      <div class="ms-nav__button ms-nav__button--add d-flex align-center" (click)="openPopupTask(false)">
         <div class="ms-nav__button-icon add"></div>
         {{navbarTexts.Add}}
       </div>
@@ -78,10 +82,10 @@
       </div>
     </dx-popover>
 
-    <div *ngFor="let item of navbarIcons" class="{{item.iconClass}} nav-icon">
+    <div *ngFor="let item of navbarIcons" class="{{item.iconClass}} nav-icon cursor-pointer" (click)="funcNotAvailable()">
     </div>
 
-    <div class="ava-icon">PD</div>
+    <div class="ava-icon cursor-pointer" (click)="funcNotAvailable()">PD</div>
   </div>
 
 </div>
@@ -101,10 +105,22 @@
 
 <!-- Popup thêm công việc -->
 <app-popup-task *ngIf="currentPopupType === popupEnums.PopupTask" [popupVisible]="popupVisible"
-  [popupWidth]="popupWidth" [popupTitle]="popupTitle" [departmentOptions]="departmentOptionsForTask"
+  [currentProject]="currentProject" [popupWidth]="popupWidth" [popupTitle]="popupTitle" [editMode]="editMode"
+  [popupTaskData]="editMode? popupTaskData: emptyTaskData" [departmentOptions]="departmentOptionsForTask"
   [userList]="userList" (popupClose)="closePopup()"></app-popup-task>
 
 
 <!-- Popup thêm Member -->
-<app-popup-member [popupVisible]="popupMemberVisible" [selectedMembers]="selectedMembers" [popupWidth]="popupMemberWidth" [popupTitle]="popupMemberTitle"
-  (popupClose)="closeMemberPopup()" (onModalSubmitted)="renderMembersInfo($event)" ></app-popup-member>
+<app-popup-member [popupVisible]="popupMemberVisible" [selectedMembers]="selectedMembers"
+  [popupWidth]="popupMemberWidth" [popupTitle]="popupMemberTitle" (popupClose)="closeMemberPopup()"
+  (onModalSubmitted)="renderMembersInfo($event)"></app-popup-member>
+
+
+<dx-toast [(visible)]="toastVisible" [type]="type" [closeOnOutsideClick]=true [closeOnSwipe]=true [closeOnClick]=true
+  width=auto [displayTime]=2000>
+  <dxo-position my="bottom right" at="bottom right" of="window" offset="-20 -20">
+  </dxo-position>
+  <div *dxTemplate="let data of 'content'">
+    <span>{{toastMessage}}</span>
+  </div>
+</dx-toast>

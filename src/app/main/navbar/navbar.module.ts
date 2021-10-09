@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-import { DxListModule, DxPopoverModule, DxTemplateModule } from 'devextreme-angular';
+import { DxListModule, DxPopoverModule, DxTemplateModule, DxToastModule } from 'devextreme-angular';
 
 import { NavbarComponent } from './navbar.component';
 import { PopupDepartmentModule } from 'src/app/shared/components/views/department/popup-department/popup-department.module';
@@ -29,7 +29,8 @@ import { PopupMemberModule } from 'src/app/shared/components/views/popup-member/
     //Devextreme's Module import
     DxPopoverModule,
     DxListModule,
-    DxTemplateModule
+    DxTemplateModule,
+    DxToastModule
   ],
   exports: [
     NavbarComponent

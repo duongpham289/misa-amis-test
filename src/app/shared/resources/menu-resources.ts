@@ -7,11 +7,11 @@ export const MENU_ITEMS = [
     {
         icon: "icon-task-active",
         text: "Việc của tôi",
-        link: "/project"
+        link: ""
     },
     {
         icon: "icon-report-active",
         text: "Báo cáo",
-        link: "/project"
+        link: ""
     }
 ]
