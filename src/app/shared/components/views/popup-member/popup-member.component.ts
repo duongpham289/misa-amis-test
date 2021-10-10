@@ -13,7 +13,7 @@ import { TextFieldComponent } from '../../base/text-field/text-field.component';
   styleUrls: ['./popup-member.component.scss']
 })
 export class PopupMemberComponent implements OnInit {
-
+  //region Declare
   @ViewChild('search') searchInput!: TextFieldComponent;
   @ViewChild('gridMember') gridMember!: DxDataGridComponent;
 
@@ -25,23 +25,25 @@ export class PopupMemberComponent implements OnInit {
   selectedMemberIds: string[] = [];
   @Input() selectedMembers: User[] = [];
 
-  userId: string = "6827e1c0-5b98-6d19-831b-27d9d367aeb0";
-
   @Input() popupWidth: number = 0;
   @Input() popupTitle: string = '';
   @Input() popupVisible = false;
 
   @Output() popupClose = new EventEmitter<any>();
   @Output() onModalSubmitted = new EventEmitter<User[]>();
+  //rendregion
 
+  //region Constructor
   constructor(private userService: UserService) {
     this.popupMemberVar = popupResources;
     this.gridColumns = MemberColumns;
     this.modalConst = MODAL_MEMBER_CONSTANTS;
   }
+  //endregion
 
-  ngOnInit(): void {
-  }
+  //region Methods
+
+  ngOnInit(): void { }
 
   /**
    * Tái thiết lập Input
@@ -49,7 +51,6 @@ export class PopupMemberComponent implements OnInit {
    */
   focusInput() {
     this.searchInput.setFocus();
-    // this.reloadGridData();
   }
 
   /**
@@ -57,7 +58,6 @@ export class PopupMemberComponent implements OnInit {
    * CreatedBy: PHDUONG (27/09/2021)
    */
   closePopup() {
-    // this.reloadGridData();
     this.searchInput.resetInput();
     this.popupClose.emit(false);
   }
@@ -94,7 +94,7 @@ export class PopupMemberComponent implements OnInit {
       if (users) {
 
         users.forEach(user => {
-          if (this.userId == user.UserId) {
+          if (this.userService.userId == user.UserId) {
             this.gridData.splice(this.gridData.indexOf(user), 1);
           }
         });
@@ -112,5 +112,5 @@ export class PopupMemberComponent implements OnInit {
       }
     });
   }
-
+  //endregion
 }

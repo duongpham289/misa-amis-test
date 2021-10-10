@@ -12,7 +12,7 @@ export class Task {
   ProjectId: string;
   ProjectName: string;
 
-  constructor(TaskId: string = '', TaskName: string = '', Process: number = 0, EndDate: Date, AssigneeId: string = '', AssigneeName: string = '', AssigneeEmail: string = '', AssigneeAvatar: string = '', AssigneeAvatarColor: string = '', AssignerName: string = '', ProjectId: string = '', ProjectName: string = '') {
+  constructor(TaskId: any = null, TaskName: string = '', Process: number = 0, EndDate: Date = new Date, AssigneeId: string = '', AssigneeName: string = '', AssigneeEmail: string = '', AssigneeAvatar: string = '', AssigneeAvatarColor: string = '', AssignerName: string = '', ProjectId: string = '', ProjectName: string = '') {
     this.TaskId = TaskId;
     this.TaskName = TaskName;
     this.Process = Process;

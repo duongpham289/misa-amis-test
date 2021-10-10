@@ -109,12 +109,13 @@
 
   &-popover {
 
-
     &-title {
       font-weight: 800;
       font-size: 17px;
-      padding: 24px 24px 8px;
+      padding: 16px 16px 8px 16px;
       font-family: "GoogleSans-Regular", sans-serif;
+
+
     }
 
     &-content {
@@ -337,6 +338,7 @@
 
   &__avatar {
     @include icon-size-large;
+    font-family: 'GoogleSans-Regular', sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -400,6 +402,7 @@
 
   &__avatar {
     @include icon-size-large;
+    font-family: 'GoogleSans-Regular', sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -539,4 +542,10 @@
     display: flex;
     justify-content: flex-end;
   }
+}
+
+.icon-done-green {
+  width: 24px;
+  height: 24px;
+  background: url('/assets/img/ICON.svg') -100px -196px no-repeat;
 }

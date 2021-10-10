@@ -9,6 +9,7 @@ import { PopupDepartmentModule } from 'src/app/shared/components/views/departmen
 import { PopupProjectModule } from 'src/app/shared/components/views/project/popup-project/popup-project.module';
 import { PopupTaskModule } from 'src/app/shared/components/views/task/popup-task/popup-task.module';
 import { PopupMemberModule } from 'src/app/shared/components/views/popup-member/popup-member.module';
+import { TextFieldModule } from 'src/app/shared/components/base/text-field/text-field.module';
 
 
 
@@ -25,6 +26,8 @@ import { PopupMemberModule } from 'src/app/shared/components/views/popup-member/
     PopupProjectModule,
     PopupTaskModule,
     PopupMemberModule,
+    TextFieldModule,
+    DxPopoverModule,
 
     //Devextreme's Module import
     DxPopoverModule,

@@ -41,8 +41,26 @@ body {
   gap: 8px !important;
 }
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer !important;
+}
+
+.complete {
+  border: none !important;
+  height: 40px !important;
+  color: #fff;
+  background-color: #28aa37;
+}
+
+.complete-icon{
+  
+  filter: brightness(5) !important;
+}
+
+.complete-middle-bar{
+  
+  height: 22px !important;
+  background-color: #fff !important;
 }
 
 .visible-count {

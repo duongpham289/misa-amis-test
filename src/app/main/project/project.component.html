@@ -1,14 +1,14 @@
 <div class="ms-project">
   <!-- Phần navbar custom cho project -->
   <app-navbar [currentProject]="currentProject" [userList]="userList" [userDefault]="userDefault"
-    [popupTaskData]="popupTaskData" [departmentOptionsForProject]="departmentOptionsForProject"
-    [departmentOptionsForTask]="departmentOptionsForTask"></app-navbar>
+    [popupTaskData]="popupTaskData" [departmentOptionsForProject]="departmentOptionsForProjectPopup"
+    [departmentOptionsForTask]="departmentOptionsForTaskPopup" (reloadProjectData)="reloadProjectData()"></app-navbar>
 
   <!-- Phần Danh sách công việc của project -->
   <app-project-grid *ngIf="router.url.includes('Type=' + projectPages['ProjectGrid'])" [gridData]="tasksData"
     [taskColumns]="taskColumns" (openTaskEdit)="openTaskEdit($event)"></app-project-grid>
 
   <!-- Phần báo cáo của project -->
-  <app-project-report *ngIf="router.url.includes('Type=' + projectPages['ProjectReport'])"></app-project-report>
+  <app-project-report *ngIf="router.url.includes('Type=' + projectPages['ProjectReport'])" [tasksData]="tasksData" ></app-project-report>
 
 </div>

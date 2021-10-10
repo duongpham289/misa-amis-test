@@ -11,6 +11,7 @@ import { Project } from 'src/app/shared/models/project';
 import { User } from 'src/app/shared/models/user';
 import { ProjectUser } from 'src/app/shared/models/project-user';
 import { ReloadDataService } from 'src/app/data-tranfer/reload-data.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -19,6 +20,9 @@ import { ReloadDataService } from 'src/app/data-tranfer/reload-data.service';
   styleUrls: ['./popup-project.component.scss']
 })
 export class PopupProjectComponent implements OnInit {
+
+  //region Declare
+
   @ViewChild('projectNameInput') projectNameInput!: TextFieldComponent;
   @ViewChild('areaInput') areaInput!: TextFieldComponent;
   @ViewChild('memberInput') memberInput!: TextFieldComponent;
@@ -45,9 +49,14 @@ export class PopupProjectComponent implements OnInit {
   popoverWidth: string = '570px';
   projectData = <Project>{};
 
-  userId: string = "6827e1c0-5b98-6d19-831b-27d9d367aeb0";
+  toastVisible: boolean = false;
+  type: string = "info";
+  toastMessage: string = '';
+  //endregion
 
-  constructor(private projectService: ProjectService, private reloadData: ReloadDataService) {
+
+  //region Constructor
+  constructor(private reloadData: ReloadDataService,private projectService: ProjectService ) {
     this.popupProjectVar = popupResources;
     this.selectMemberButton = {
       icon: '../../../assets/icons/icon-pick-doer-blue.svg',
@@ -57,9 +66,11 @@ export class PopupProjectComponent implements OnInit {
       }
     };
   }
+  //endregion
 
-  ngOnInit(): void {
-  }
+  //region Methods
+
+  ngOnInit(): void { }
 
   /**
    * Tái thiết lập Input
@@ -131,10 +142,23 @@ export class PopupProjectComponent implements OnInit {
 
         this.projectService.addProjectUser(projectUser).subscribe(projectUser => {
           this.reloadData.reloadDepartmentData();
+          this.addSuccess();
           this.closePopup()
         });
 
       });
   }
+
+  /**
+   * Hàm hiển thị Thêm thành công
+   * CreatedBy: PHDUONG(09/10/2021)
+   */
+   addSuccess() {
+    this.toastMessage = "Thêm dự án thành công";
+    this.type = "success";
+    this.toastVisible = true;
+  }
+
+  //endregion
 
 }

@@ -8,13 +8,15 @@ import { UserService } from "../../../../services/user.service";
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  
+
+  //region Declare
+
   @Input() userList: User[] = [];
+  //endregion
 
   constructor() {
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

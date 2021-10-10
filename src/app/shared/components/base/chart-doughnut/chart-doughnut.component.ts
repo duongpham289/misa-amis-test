@@ -7,28 +7,23 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ChartDoughnutComponent implements OnInit {
 
+  //region Declare
+
   fakeData: any[] = []
   data: any[] = [];
   @Input() doughnutSize: any;
   @Input() doughnutData: any;
+  
+  //endregion
 
+  //region Constructor
   constructor() {
-    this.fakeData = [
-      {
-        region: "Asia",
-        val: 4119626293
-      }, {
-        region: "Africa",
-        val: 1012956064
-      }
-    ]
     setTimeout(() => {
       this.data = this.doughnutData;
     }, 300)
   }
+  //endregion
 
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

@@ -2,6 +2,8 @@ import { DatePipe } from '@angular/common';
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { locale } from 'devextreme/localization';
 
+import { TextFieldComponent } from '../../../base/text-field/text-field.component';
+
 import { TaskService } from 'src/app/services/task.service';
 import { Department } from 'src/app/shared/models/department';
 
@@ -19,7 +21,11 @@ import { ReloadDataService } from 'src/app/data-tranfer/reload-data.service';
   styleUrls: ['./popup-task.component.scss']
 })
 export class PopupTaskComponent implements OnInit {
+
+  //region Declare
+
   @ViewChild('inputTaskName') inputTaskName!: ElementRef;
+  @ViewChild('search') searchInput!: TextFieldComponent;
 
   @Input() editMode: boolean = false;
   @Input() popupTaskData = <Task>{};
@@ -50,9 +56,28 @@ export class PopupTaskComponent implements OnInit {
 
   processValue: any;
 
+  toastVisible: boolean = false;
+  type: string = "info";
+  toastMessage: string = '';
+  //endregion
+
+  //region Constructor
+
   constructor(private cdRef: ChangeDetectorRef, private taskService: TaskService, private reloadData: ReloadDataService) {
     this.popupTaskVar = popupResources;
     this.popupTaskConst = POPUP_TASK_RESOURCES;
+  }
+  //endregion
+
+  //region Methods
+
+  ngOnInit() {
+    locale("vi-VN");
+    if (this.currentProject.ProjectId) {
+      this.projectDefault = this.currentProject;
+    } else {
+      this.projectDefault = this.departmentOptions[0].ListProjects[0];
+    }
   }
 
   ngAfterViewChecked() {
@@ -114,6 +139,10 @@ export class PopupTaskComponent implements OnInit {
     }
   }
 
+  /**
+   * Hàm bind dư liệu từ input, datepicker
+   * CreatedBy: PHDUONG(05/10/2021)
+   */
   bindData() {
     if (this.popupTaskData.EndDate) {
       this.deadlineTextValue = this.pipe.transform(new Date(this.popupTaskData.EndDate), 'dd/MM/yyyy');
@@ -127,19 +156,27 @@ export class PopupTaskComponent implements OnInit {
 
     this.inputTaskName.nativeElement.focus();
   }
+  /**
+   * Hàm focus vào input search
+   * CreatedBy: PHDUONG(05/10/2021)
+   */
+  inputSearchFocus() {
+    this.searchInput.setFocus();
+  }
 
   /**
    * Hàm Lưu giá trị deadline
-   * CreatedBy: PHDUONG(23/09/2021)
+   * CreatedBy: PHDUONG(05/10/2021)
    */
   saveDate() {
-    this.popupTaskData.EndDate = new Date(this.deadlineValue);
+    this.popupTaskData.EndDate = new Date(this.deadlineValue.setUTCHours(23, 59, 59, 999));
+
     this.dropdownDeadlineVisible = false;
   }
 
   /**
    * Hàm mở/đóng popover
-   * CreatedBy: PHDUONG(23/09/2021)
+   * CreatedBy: PHDUONG(05/10/2021)
    */
   toggleDropdown(dropdownMode: number) {
     switch (dropdownMode) {
@@ -150,6 +187,7 @@ export class PopupTaskComponent implements OnInit {
       case 1:
 
         this.dropdownUserVisible = !this.dropdownUserVisible;
+
         break;
       case 2:
 
@@ -167,8 +205,7 @@ export class PopupTaskComponent implements OnInit {
 
   /**
    * Tăng giá trị tiến độ 5 đơn vị
-   * 
-   * CreatedBy: PHDUONG(23/09/2021)
+   * CreatedBy: PHDUONG(05/10/2021)
    */
   addToValue(): void {
     this.processValue += 5;
@@ -176,8 +213,7 @@ export class PopupTaskComponent implements OnInit {
 
   /**
    * Giảm giá trị tiến độ 5 đơn vị
-   * 
-   * CreatedBy: PHDUONG(23/09/2021)
+   * CreatedBy: PHDUONG(05/10/2021)
    */
   minusFromValue(): void {
     this.processValue -= 5;
@@ -186,8 +222,7 @@ export class PopupTaskComponent implements OnInit {
   /**
    * Thay đổi giá trị tiến độ bằng slider
    * @param data
-   * 
-   * CreatedBy: PHDUONG(23/09/2021)
+   * CreatedBy: PHDUONG(05/10/2021)
    */
   changeValueBySlider(data: any): void {
     this.processValue = data.value;
@@ -196,8 +231,7 @@ export class PopupTaskComponent implements OnInit {
   /**
    * Thay đổi giá trị tiến độ bằng input
    * @param data
-   * 
-   * CreatedBy: PHDUONG(23/09/2021)
+   * CreatedBy: PHDUONG(05/10/2021)
    */
   changeValueByInput(data: any): void {
     this.processValue = data.inputValue;
@@ -205,33 +239,48 @@ export class PopupTaskComponent implements OnInit {
 
   /**
    * Phương thức xử lý sự kiện khi người dùng muốn thay đổi tiến độ công việc
-   * 
-   * CreatedBy: PHDUONG(23/09/2021)
+   * CreatedBy: PHDUONG(05/10/2021)
    */
   submitProgress(): void {
     if (this.processValue > 100) {
       this.processValue = 100
     }
-
     this.saveTask();
-
     this.dropdownProgressVisible = !this.dropdownProgressVisible;
-
   }
 
   /**
-   * Phương thức call service để đóng popup
+   * Hàm set công việc hoàn thành
+   * CreatedBy: PHDUONG(10/10/2021)
+   */
+  doneTask() {
+    this.processValue = 100;
+    this.saveTask();
+  }
+
+  /**
+   * Hàm set công việc chưa hoàn thành
+   * CreatedBy: PHDUONG(10/10/2021)
+   */
+  undoneTask() {
+    this.processValue = 0;
+    this.saveTask();
+  }
+
+  /**
+   * Phương thức đóng popup
    * CreatedBy: PHDUONG (27/09/2021)
    */
   closePopup() {
     if (this.editMode) {
-      this.saveTask()
+      this.saveTask();
     }
+    this.popupTaskData = <Task>{};
     this.popupClose.emit(false);
   }
 
   /**
-   * Hàm mở/đóng dropdown 
+   * Hàm call service lưu dữ liệu qua Api
    * CreatedBy: PHDUONG(23/09/2021)
    */
   saveTask() {
@@ -250,14 +299,16 @@ export class PopupTaskComponent implements OnInit {
 
     if (this.editMode) {
       task.Process = this.processValue;
-      
+
       this.taskService.updateTask(task, this.popupTaskData.TaskId).subscribe(task => {
         this.reloadData.reloadTaskData();
+        this.updateSuccess();
         this.popupTaskData.Process = this.processValue
       });
     } else {
       this.taskService.addTask(task).subscribe(task => {
         this.reloadData.reloadTaskData();
+        this.addSuccess();
         this.closePopup()
       });
     }
@@ -265,13 +316,36 @@ export class PopupTaskComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-    locale("vi-VN");
-    if (this.currentProject.ProjectId) {
-      this.projectDefault = this.currentProject;
-    } else {
-      this.projectDefault = this.departmentOptions[0].ListProjects[0];
-    }
+  /**
+   * Hàm hiển thị thông báo chức năng không khả dụng
+   * CreatedBy: PHDUONG(09/10/2021)
+   */
+  funcNotAvailable() {
+    this.toastMessage = "Chức năng trong giai đoạn phát triển";
+    this.type = "custom";
+    this.toastVisible = true;
   }
+
+  /**
+   * Hàm hiển thị Cập nhật thành công
+   * CreatedBy: PHDUONG(09/10/2021)
+   */
+  updateSuccess() {
+    this.toastMessage = "Cập nhật công việc thành công";
+    this.type = "success";
+    this.toastVisible = true;
+  }
+
+  /**
+   * Hàm hiển thị Thêm thành công
+   * CreatedBy: PHDUONG(09/10/2021)
+   */
+  addSuccess() {
+    this.toastMessage = "Thêm công việc thành công";
+    this.type = "success";
+    this.toastVisible = true;
+  }
+
+  //endregion
 
 }

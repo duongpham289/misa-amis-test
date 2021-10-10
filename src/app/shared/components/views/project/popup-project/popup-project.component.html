@@ -2,40 +2,50 @@
   [dragEnabled]="true" (onHidden)="closePopup()" [visible]="popupVisible" (onShown)="focusInput()"
   contentTemplate="currentTemplate" titleTemplate="title">
 
+  <!-- Phần popup custom content -->
   <div *dxTemplate="let data of 'currentTemplate'">
     <div class="popup-project">
+
+      <!-- Phần Input tên dự án -->
       <app-text-field #projectNameInput [inputLabel]="popupProjectVar.PopupProjectNameLabel"
         [inputPlaceholder]="popupProjectVar.PopupProjectNamePlaceholder" [isRequired]="true" [(model)]="nameInput">
       </app-text-field>
 
       <div class="text-field__group">
 
-        <app-select-box #selectBox selectBoxName="DepartmentId" [selectBoxLabel]="popupProjectVar.PopupProjectDepartmentLabel"
+        <!-- Phần dropdown chọn phòng ban -->
+        <app-select-box #selectBox selectBoxName="DepartmentId"
+          [selectBoxLabel]="popupProjectVar.PopupProjectDepartmentLabel"
           [inputPlaceholder]="popupProjectVar.PopupProjectDepartmentPlaceholder" [selectBoxData]="departmentOptions"
           selectBoxValueExpression="DepartmentId" selectBoxDisplayExpression="DepartmentName"
           (onSelected)="bindData($event)" [isRequired]="true" [ngStyle]="{width: '50%'}"></app-select-box>
 
+        <!-- Phần Input và chọn ngày bắt đầu -->
         <app-date-box #startDateInput dateBoxName="StartDate" [dateBoxLabel]="popupProjectVar.PopupProjectFromDateLabel"
           [inputPlaceholder]="popupProjectVar.PopupProjectFromDatePlaceholder" (onValueChanged)="bindData($event)"
           [ngStyle]="{width: '25%'}"></app-date-box>
 
+        <!-- Phần Input và chọn ngày kết thúc -->
         <app-date-box #endDateInput dateBoxName="EndDate" [dateBoxLabel]="popupProjectVar.PopupProjectToDateLabel"
           [inputPlaceholder]="popupProjectVar.PopupProjectToDatePlaceholder" (onValueChanged)="bindData($event)"
           [ngStyle]="{width: '25%'}"></app-date-box>
       </div>
 
+      <!-- Phần Input mô tả -->
       <app-text-field #areaInput [inputLabel]="popupProjectVar.PopupProjectDescriptionLabel"
         [inputPlaceholder]="popupProjectVar.PopupProjectDescriptionPlaceholder" [textFieldHeight]="'78px'"
         [textArea]="true" [(modelArea)]="descriptionInput"></app-text-field>
 
+      <!-- Phần Input tìm assignee -->
       <app-text-field #memberInput [inputLabel]="popupProjectVar.PopupProjectMemberLabel"
         [inputPlaceholder]="popupProjectVar.PopupProjectMemberPlaceholder" [popoverWidth]="popoverWidth"
         bonusClass="ms-text-field__with-list" [bonusButton]="selectMemberButton" (userListChange)="addUserList($event)">
       </app-text-field>
 
-
+      <!-- Phần hiển thị asginee -->
       <app-user-list [userList]="userList"></app-user-list>
 
+      <!-- Phần footer -->
       <div class="ms-modal__footer">
         <div class="ms-modal__button--secondary" (click)="closePopup()">
           {{ popupProjectVar.PopupCloseButton }}
@@ -47,6 +57,7 @@
     </div>
   </div>
 
+  <!-- Phần popup custom header -->
   <div *dxTemplate="let data of 'title'">
     <div class="popup-header d-flex content-between align-center">
       <div class="popup-title">{{popupTitle}}</div>
@@ -54,3 +65,12 @@
     </div>
   </div>
 </dx-popup>
+
+<dx-toast [(visible)]="toastVisible" [type]="type" [closeOnOutsideClick]=true [closeOnSwipe]=true [closeOnClick]=true
+  width=auto [displayTime]=2000>
+  <dxo-position my="bottom right" at="bottom right" of="window" offset="-20 -20">
+  </dxo-position>
+  <div *dxTemplate="let data of 'content'">
+    <span>{{toastMessage}}</span>
+  </div>
+</dx-toast>

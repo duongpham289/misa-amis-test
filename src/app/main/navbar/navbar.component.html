@@ -30,8 +30,47 @@
         <div class="logo-user d-flex content-center align-center">
           <div class="icon-user"></div>
         </div>
-        <div class="project-title text-overflow">{{currentProject.ProjectName}}</div>
+        <div id="navbar__project-title" class="project-title text-overflow cursor-pointer" (click)="openPopover()">
+          {{currentProject.ProjectName}}</div>
         <div class="icon-caret-down"></div>
+
+        <dx-popover target="#navbar__project-title" class="ms-nav__popover" position="bottom" [width]="330"
+          [visible]="popoverProjectVisible" titleTemplate="titleTemplate" [showTitle]="true"
+          (onHidden)="popoverProjectVisible = false">
+
+          <!-- Title Dropdown Chọn dự án -->
+          <div *dxTemplate="let data of 'titleTemplate'">
+            <app-text-field #search [ngStyle]="{ width: '100%' }" inputMode="search"
+              [inputPlaceholder]="popoverResources['PopoverProjectSearch']"></app-text-field>
+          </div>
+
+          <!-- Content Dropdown Chọn dự án -->
+          <div *dxTemplate="let data of 'content'">
+            <div class="ms-nav__popover-content">
+              <div class="ms-nav__popover-department" *ngFor="let department of departmentOptionsForTask">
+                <!-- Phần hiển thị tên Phòng ban -->
+                <div class="popover__department-title">{{department.DepartmentName}}</div>
+
+                <!-- Phần hiển thị tên Dự án -->
+                <div class="ms-nav__popover-project d-flex  align-center"
+                  *ngFor="let project of department.ListProjects" [routerLink]="['/project']"
+                  [queryParams]="{Type: 1, ProjectId: project.ProjectId, DepartmentId: department.DepartmentId}"
+                  (click)="reloadProject()">
+                  <div class="popover__project d-flex align-center">
+                    <div class="popover__project-icon d-flex align-center content-center">
+                      <div class="person-icon"></div>
+                    </div>
+                    <div class="popover__project-title">{{project.ProjectName}}</div>
+                  </div>
+                  <div class="popover__project-selected icon-tick"
+                    [ngClass]="{'backgr-blue': currentProject.ProjectName == project.ProjectName}">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </dx-popover>
 
         <!-- Nút setting -->
         <div class="project-setting cursor-pointer" (click)="funcNotAvailable()">
@@ -82,7 +121,8 @@
       </div>
     </dx-popover>
 
-    <div *ngFor="let item of navbarIcons" class="{{item.iconClass}} nav-icon cursor-pointer" (click)="funcNotAvailable()">
+    <div *ngFor="let item of navbarIcons" class="{{item.iconClass}} nav-icon cursor-pointer"
+      (click)="funcNotAvailable()">
     </div>
 
     <div class="ava-icon cursor-pointer" (click)="funcNotAvailable()">PD</div>
@@ -116,6 +156,7 @@
   (onModalSubmitted)="renderMembersInfo($event)"></app-popup-member>
 
 
+<!-- ToastMessage -->
 <dx-toast [(visible)]="toastVisible" [type]="type" [closeOnOutsideClick]=true [closeOnSwipe]=true [closeOnClick]=true
   width=auto [displayTime]=2000>
   <dxo-position my="bottom right" at="bottom right" of="window" offset="-20 -20">

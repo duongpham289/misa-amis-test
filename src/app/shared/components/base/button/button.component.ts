@@ -6,10 +6,12 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./button.component.scss']
 })
 export class ButtonComponent implements OnInit {
+  //region Declare
   @Input() buttonText: string = '';
+  //endregion
+  
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
 }

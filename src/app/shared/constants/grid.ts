@@ -4,7 +4,7 @@ export const GRID_CONSTANTS = {
   WidgetSort: 'Sắp xếp',
   WidgetSelector: 'Chọn nhiều',
   WidgetAll: 'Tất cả',
-  WidgetChild: 'Thứ tự công việccon',
+  WidgetChild: 'Thứ tự công việc con',
 
   TaskStatusUnfinished: 'Chưa hoàn thành',
   TaskStatusFinishing: 'Đã hoàn thành'

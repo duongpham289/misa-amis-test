@@ -7,6 +7,9 @@ import { DxSelectBoxComponent } from 'devextreme-angular';
   styleUrls: ['./select-box.component.scss']
 })
 export class SelectBoxComponent implements OnInit {
+
+  //region Declare
+
   @ViewChild(DxSelectBoxComponent) selectBoxInput!: DxSelectBoxComponent;
 
   @Input() selectBoxName: string = '';
@@ -21,10 +24,13 @@ export class SelectBoxComponent implements OnInit {
   @Input() selectBoxDisplayExpression: string = '';
   @Output() onSelected = new EventEmitter<any>();
 
+  //endregion
+
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  //region Methods
+
+  ngOnInit(): void { }
 
   /**
    * Phương thức xử lý sự kiện khi người dùng chọn các lựa chọn của dropdown
@@ -48,5 +54,5 @@ export class SelectBoxComponent implements OnInit {
     this.selectBoxInput.instance.reset();
   }
 
-
+  //endregion
 }

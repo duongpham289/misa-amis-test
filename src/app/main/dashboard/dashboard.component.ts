@@ -14,45 +14,83 @@ import { User } from 'src/app/shared/models/user';
 })
 export class DashboardComponent implements OnInit {
 
+  //region Declare
+
   userList: User[] = [];
-  userId: string = "6827e1c0-5b98-6d19-831b-27d9d367aeb0";
+  userDefault: User[] = [];
 
   departments: Department[] = [];
 
-  departmentOptionsForProject: Department[] = [];
-  departmentOptionsForTask: Department[] = [];
-  userDefault: User[] = [];
+  departmentOptionsForProjectPopup: Department[] = [];
 
+  departmentOptionsForTaskPopup: Department[] = [];
+
+
+  //endregion
+
+  //region Constructor
   constructor(private reloadData: ReloadDataService, private departmentService: DepartmentService, private userService: UserService) { }
+  //endregion
 
-  /**
-   * Lấy dữ liệu qua service 
-   * CreatedBY: PHDUONG(07/10/2021)
-   */
+  //region Methods
+
   ngOnInit(): void {
 
-    this.userService.getUserById(this.userId).subscribe(users => {
-      this.userList.push(users);
-      this.userDefault.push(users);
-    });
 
-    this.getDepartmentsData();
+    this.getUserData();
+    this.getDepartmentData();
 
-    this.reloadData.reloadDepartment.subscribe(() => { this.getDepartmentsData() });
+    this.reloadData.reloadDepartment.subscribe(() => { this.updateDepartment() });
+  }
+  /**
+   * Lấy dữ liệu người dùng
+   * CreatedBY: PHDUONG(07/10/2021)
+   */
+  getUserData() {
+    if (!this.userService.currentUser.UserId) {
+      this.userService.getUserById(this.userService.userId).subscribe(user => {
+        this.userService.currentUser = user
+        this.userList.push(this.userService.currentUser);
+        this.userDefault.push(this.userService.currentUser);
+      });
+    } else {
+      this.userList.push(this.userService.currentUser);
+      this.userDefault.push(this.userService.currentUser);
+    }
   }
 
-  getDepartmentsData() {
-    this.departmentService.getDepartmentByUserId(this.userId).subscribe(departments => {
-      this.departments = departments;
+  /**
+   * Lấy dữ liệu phòng ban
+   * CreatedBY: PHDUONG(07/10/2021)
+   */
+  getDepartmentData() {
+    if (this.departmentService.departments.length <= 0) {
+      this.updateDepartment();
+    } else {
+      this.departments = Object.assign([], this.departmentService.departments);
+      this.departmentOptionsForTaskPopup = Object.assign([], this.departmentService.departments);
+      this.departmentOptionsForProjectPopup = Object.assign([], this.departmentService.departmentOptionsForProjectPopup);
+    }
+  }
 
-      this.departmentOptionsForTask = this.departments;
-      this.departmentOptionsForProject = Array<Department>();
-      this.departments.forEach(department => {
+  updateDepartment() {
+    this.departmentService.getDepartmentByUserId(this.userService.userId).subscribe(departments => {
+      this.departmentService.departments = departments
+
+      this.departments = Object.assign([], this.departmentService.departments);
+
+      this.departmentOptionsForTaskPopup = Object.assign([], this.departmentService.departments);
+
+      this.departmentService.departmentOptionsForProjectPopup = [] as Department[];
+      this.departmentService.departments.forEach(department => {
         if (department.IsBelongToCurrentUser) {
-          this.departmentOptionsForProject.push(department);
+          this.departmentService.departmentOptionsForProjectPopup.push(department);
         }
       });
+      this.departmentOptionsForProjectPopup = Object.assign([], this.departmentService.departmentOptionsForProjectPopup);
     });
   }
+
+  //endregion
 
 }

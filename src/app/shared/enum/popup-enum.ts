@@ -7,6 +7,8 @@ export const POPUP_ENUMS = {
     PopupDepartment: 0,
     PopupProject: 1,
     PopupTask: 2,
-    PopupMember: 3
+    PopupMember: 3,
+
+    
   }
   

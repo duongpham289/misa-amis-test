@@ -11,8 +11,31 @@
   font-family: "GoogleSans-Light", sans-serif;
   font-size: 15px;
   color: $color-text !important;
+
+
+    
 }
 
+.dx-overlay-wrapper{
+  &.popup__task-popover{
+    &.deadline{
+      .text-field {
+        margin: 0 !important;
+      margin-bottom: 8px !important;
+    }
+    }
+    .text-field {
+      margin: 0 24px;
+      margin-bottom: 8px !important;
+    }
+  }
+  &.ms-nav__popover{
+     .text-field {
+      margin: 24px;
+      margin-bottom: 0 !important;
+    }
+  }
+}
 .dx-editor-underlined .dx-texteditor-input {
   font-family: "GoogleSans-Light", sans-serif;
   font-size: 15px;
@@ -49,8 +72,9 @@
 
 .dx-overlay-wrapper input,
 .dx-overlay-wrapper textarea {
-  font-family: "GoogleSans-Light", sans-serif;
+  font-family: "GoogleSans-Regular", sans-serif !important;
   font-size: 15px;
+    color: #1f1f1f;
 }
 
 .dx-texteditor-input {
@@ -321,7 +345,7 @@
 
 //popover region
 
-.dx-popover-arrow {
+.text-field__popover.dx-popover-arrow {
   display: none;
 }
 
@@ -335,8 +359,10 @@
 
 .text-field__popover.dx-list .dx-empty-message,
 .dx-list-item-content {
-  height: 40px;
+  line-height:26px;
   padding: 7px 9px;
+    font-size: 15px;
+    font-family: "GoogleSans-Regular", sans-serif;
 }
 
 //endregion

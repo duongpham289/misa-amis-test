@@ -9,6 +9,7 @@ import { DepartmentUser } from 'src/app/shared/models/department-user';
 
 import { User } from 'src/app/shared/models/user';
 import { ReloadDataService } from 'src/app/data-tranfer/reload-data.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-popup-department',
@@ -17,8 +18,13 @@ import { ReloadDataService } from 'src/app/data-tranfer/reload-data.service';
 })
 export class PopupDepartmentComponent implements OnInit {
 
+  //region Declare
+
   @ViewChild('departmentNameInput') departmentNameInput!: TextFieldComponent;
+
   @ViewChild('memberInput') memberInput!: TextFieldComponent;
+
+  @Input() userList: User[] = [];
 
   @Input() popupWidth: number = 0;
   @Input() popupTitle: string = '';
@@ -32,11 +38,15 @@ export class PopupDepartmentComponent implements OnInit {
   nameInput: string = '';
   popoverWidth: string = '450px';
 
-  userId: string = "6827e1c0-5b98-6d19-831b-27d9d367aeb0";
+  toastVisible: boolean = false;
+  type: string = "info";
+  toastMessage: string = '';
 
-  @Input() userList: User[] = [];
+  //endregion
 
-  constructor(private departmentService: DepartmentService, private reloadData: ReloadDataService) {
+
+  //region Constructor
+  constructor(private reloadData: ReloadDataService, private departmentService: DepartmentService, private userService: UserService) {
     this.popupDepartmentVar = popupResources;
     this.selectMemberButton = {
       icon: '../../../assets/icons/icon-pick-doer-blue.svg',
@@ -46,6 +56,12 @@ export class PopupDepartmentComponent implements OnInit {
       }
     };
   }
+  //endregion
+
+
+  //region Methods
+
+  ngOnInit(): void { }
 
   /**
    * Tái thiết lập Input
@@ -78,7 +94,7 @@ export class PopupDepartmentComponent implements OnInit {
 
     var department = <Department>{};
     department.DepartmentName = this.nameInput;
-    department.UserId = this.userId;
+    department.UserId = this.userService.userId;
 
 
     this.departmentService
@@ -91,6 +107,7 @@ export class PopupDepartmentComponent implements OnInit {
 
         this.departmentService.addDepartmentUser(departmentUser).subscribe(departmentUser => {
           this.reloadData.reloadDepartmentData();
+          this.addSuccess();
           this.closePopup()
         });
 
@@ -105,7 +122,17 @@ export class PopupDepartmentComponent implements OnInit {
   addUserList(user: User) {
     this.userList.push(user);
   }
+  
+  /**
+     * Hàm hiển thị Thêm thành công
+     * CreatedBy: PHDUONG(09/10/2021)
+     */
+  addSuccess() {
+    this.toastMessage = "Thêm phòng ban thành công";
+    this.type = "success";
+    this.toastVisible = true;
+  }
 
-  ngOnInit(): void { }
+  //endregion
 
 }

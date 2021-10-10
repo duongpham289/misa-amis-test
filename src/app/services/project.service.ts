@@ -11,78 +11,95 @@ import { ProjectUser } from '../shared/models/project-user';
   providedIn: 'root'
 })
 export class ProjectService {
-  
+  //region Declare
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  constructor(private http: HttpClient) { }
-
   private projectsUrl = 'https://localhost:44385/api/v1/projects';
+  //endregion
 
-  getById(id: string): Observable<Project> {
-    
-    const projectsUrl = `${this.projectsUrl}/${id}`;
+  //region Constructor
+  constructor(private http: HttpClient) { }
+  //endregion
+
+  //region Methods
+
+  /**
+   * Lấy dữ liệu dự án qua id của dự án
+   * @param projectId project id
+   * @returns Dữ liệu dự án
+   * CreatedBy: PHDUONG(06/10/2021)
+   */
+  getById(projectId: string): Observable<Project> {
+
+    const projectsUrl = `${this.projectsUrl}/${projectId}`;
 
     return this.http.get<Project>(projectsUrl).pipe(
       catchError(this.handleError<Project>('getProjectById'))
     );
   }
 
-  getProjectByUserId(id: string): Observable<Project[]> {
-    
-    const projectsUrl = `${this.projectsUrl}/getByUserId/${id}`;
+  /**
+   * lấy dữ liệu dự án qua Id người dùng
+   * @param userId id của người dùng
+   * @returns 
+   * CreatedBy: PHDUONG(06/10/2021)
+   */
+  getProjectByUserId(userId: string): Observable<Project[]> {
+
+    const projectsUrl = `${this.projectsUrl}/getByUserId/${userId}`;
 
     return this.http.get<Project[]>(projectsUrl).pipe(
       catchError(this.handleError<Project[]>('getProjectByUserId', []))
     );
   }
-  
 
-   /**
-   * Thêm mới phòng ban
-   * @param id TaskId
-   * @returns 
-   */
-    addProject(project: Project): Observable<string> {    
-      return this.http.post<string>(this.projectsUrl, project, this.httpOptions).pipe(
-        catchError(this.handleError<string>('addProject' ))
-      );
-  
-    }
-
-   /**
-   * Thêm mới phòng ban
-   * @param id TaskId
-   * @returns 
-   */
-    addProjectUser(projectUser: ProjectUser): Observable<ProjectUser> { 
-
-      const projectsUrl = `${this.projectsUrl}/addProjectUser`;
-
-      return this.http.post<ProjectUser>(projectsUrl, projectUser, this.httpOptions).pipe(
-        catchError(this.handleError<ProjectUser>('addProjectUser', projectUser))
-      );
-  
-    }
 
   /**
- * Handle Http operation that failed.
- * Let the app continue.
- * @param operation - name of the operation that failed
- * @param result - optional value to return as the observable result
- */
-   private handleError<T>(operation = 'operation', result?: T) {
+  * Thêm mới dự án
+  * @param project Thông tin dự án
+  * @returns 
+  * CreatedBy: PHDUONG(06/10/2021)
+  */
+  addProject(project: Project): Observable<string> {
+    return this.http.post<string>(this.projectsUrl, project, this.httpOptions).pipe(
+      catchError(this.handleError<string>('addProject'))
+    );
+
+  }
+
+  /**
+  * Thêm mới ProjertUser
+  * @param projectUser projectUser
+  * @returns 
+  * CreatedBy: PHDUONG(06/10/2021)
+  */
+  addProjectUser(projectUser: ProjectUser): Observable<ProjectUser> {
+
+    const projectsUrl = `${this.projectsUrl}/addProjectUser`;
+
+    return this.http.post<ProjectUser>(projectsUrl, projectUser, this.httpOptions).pipe(
+      catchError(this.handleError<ProjectUser>('addProjectUser', projectUser))
+    );
+
+  }
+
+  /**
+   * Xử lí lỗi.
+   * @param operation - tên của hàm sinh ra lỗi
+   * @param result - giá trị tùy chọn để trả về dưới dạng kết quả observable
+   * CreatedBy: PHDUONG(06/10/2021)
+   */
+  private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+      // TODO: gửi lỗi đến cơ sở hạ tầng ghi log từ xa
 
-      // TODO: better job of transforming error for user consumption
-      // this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
+      // Cho phép ứng dụng tiếp tục chạy bằng cách trả về một kết quả trống.
       return of(result as T);
     };
   }
+  //endregion
 }

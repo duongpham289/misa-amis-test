@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 import { HeaderLinks } from 'src/app/shared/models/header-links';
 
@@ -11,6 +11,7 @@ import { Department } from 'src/app/shared/models/department';
 import { User } from 'src/app/shared/models/user';
 import { Task } from 'src/app/shared/models/task';
 import { Project } from 'src/app/shared/models/project';
+import { POPUP_TASK_RESOURCES } from 'src/app/shared/resources/popup-task-resources';
 
 @Component({
   selector: 'app-navbar',
@@ -18,6 +19,8 @@ import { Project } from 'src/app/shared/models/project';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
+
+  //region Declare
 
   @Input() userList: User[] = [];
   @Input() userDefault: User[] = [];
@@ -28,6 +31,8 @@ export class NavbarComponent implements OnInit {
   @Input() popupTaskData = <Task>{};
 
   @Input() currentProject = <Project>{};
+
+  @Output() reloadProjectData = new EventEmitter<string>();
 
   popoverVisible: boolean = false;
 
@@ -41,6 +46,9 @@ export class NavbarComponent implements OnInit {
 
   popupVisible: boolean = false;
   popupMemberVisible: boolean = false;
+
+  projectId: string = '16c9b8e7-29bb-11ec-a25d-b8ca3abd234e';
+  departmentId: string = '1b6e67e6-29b1-11ec-a25d-b8ca3abd234e';
 
 
   currentPopupType: number = 0;
@@ -61,18 +69,27 @@ export class NavbarComponent implements OnInit {
   type: string = "info";
   toastMessage: string = '';
 
+  popoverResources: any;
+  popoverProjectVisible: boolean = false;
+
+  //endregion
+
+  //region Constructor
   constructor() {
     this.headerLinks = HeaderLinks;
 
     this.navbarIcons = NavbarIcons;
     this.navbarTexts = NavbarTexts;
     this.navbarDropdownIcons = NavbarDropdownIcons;
+    this.popoverResources = POPUP_TASK_RESOURCES;
 
     this.popupEnums = POPUP_ENUMS;
   }
+  //endregion
 
-  ngOnInit(): void {
-  }
+  //region Methods
+
+  ngOnInit(): void { }
 
   /**
    * Mở popup thêm công việc
@@ -98,7 +115,7 @@ export class NavbarComponent implements OnInit {
   }
 
   /**
-   * Phương thức lưu thông tin thành viên vào list
+   * Phương thức lưu thông tin thành viên vào userList
    * CreatedBy: PHDUONG (27/09/2021)
    */
   renderMembersInfo(data: User[]): void {
@@ -109,7 +126,7 @@ export class NavbarComponent implements OnInit {
   }
 
   /**
-    * Mở popup modal tương ứng
+    * Mở popup tương ứng
     * @param itemId
     * CreatedBy: PHDUONG (27/09/2021)
     */
@@ -148,7 +165,7 @@ export class NavbarComponent implements OnInit {
   }
 
   /**
-   * Hàm mở/đóng Popover 
+   * Hàm mở/đóng Popover thêm dự án/phòng ban 
    * CreatedBy: PHDUONG(23/09/2021)
    */
   toggleDropdown() {
@@ -156,17 +173,41 @@ export class NavbarComponent implements OnInit {
   }
 
   /**
+   * Hàm mở/đóng Popover chọn dự án
+   * CreatedBy: PHDUONG(23/09/2021)
+   */
+  openPopover() {
+    this.popoverProjectVisible = !this.popoverProjectVisible;
+  }
+
+  /**
   * Phương thức style link tương ứng ở từng page
   * @param linkIndex
-  * Author: NQMinh (25/09/2021)
+  * CreatedBy: PHDUONG(23/09/2021)
   */
   activeLink(linkIndex: number) {
     this.currentLink = linkIndex;
   }
 
+  /**
+   * Reload trang Project
+   * CreatedBy: PHDUONG(10/10/2021)
+   */
+  reloadProject() {
+    this.reloadProjectData.emit();
+
+    this.popoverProjectVisible = !this.popoverProjectVisible;
+  }
+
+  /**
+   * Hàm hiển thị thông báo chức năng không khả dụng
+   * CreatedBy: PHDUONG(09/10/2021)
+   */
   funcNotAvailable() {
     this.toastMessage = "Chức năng trong giai đoạn phát triển";
     this.type = "custom";
     this.toastVisible = true;
   }
+
+  //endregion
 }

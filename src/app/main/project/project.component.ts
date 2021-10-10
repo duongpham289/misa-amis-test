@@ -29,16 +29,15 @@ export class ProjectComponent implements OnInit {
 
   @ViewChild(NavbarComponent) navbar!: NavbarComponent;
 
+  //region Declare
 
   userList: User[] = [];
   userDefault: User[] = [];
 
-  userId: string = "6827e1c0-5b98-6d19-831b-27d9d367aeb0";
-
   departments: Department[] = [];
 
-  departmentOptionsForProject: Department[] = [];
-  departmentOptionsForTask: Department[] = [];
+  departmentOptionsForProjectPopup: Department[] = [];
+  departmentOptionsForTaskPopup: Department[] = [];
 
   tasksData: Task[] = [];
 
@@ -49,63 +48,126 @@ export class ProjectComponent implements OnInit {
   currentProject = <Project>{};
   popupTaskData = <Task>{};
 
+  //endregion
 
-  constructor(public router: Router, private currentRoute: ActivatedRoute, private reloadData: ReloadDataService, private taskService: TaskService, private projectService: ProjectService, private service: DepartmentService, private userService: UserService) {
+  //region Construcstor
+  constructor(public router: Router, private currentRoute: ActivatedRoute, private reloadData: ReloadDataService, private taskService: TaskService, private projectService: ProjectService, private departmentService: DepartmentService, private userService: UserService) {
 
     this.taskColumns = TaskColumns;
     this.projectPages = PROJECT_PAGES;
   }
+  //endregion
 
-  /**
-   * Lấy dữ liệu qua service 
-   * CreatedBY: PHDUONG(07/10/2021)
-   */
+
+  //region Methods
+
   ngOnInit(): void {
-
 
     this.currentRoute.queryParams
       .subscribe(params => {
         this.currentProjectId = params.ProjectId;
       });
-      
-    this.projectService.getById(this.currentProjectId).subscribe(project => {
-      this.currentProject = project;
 
-    });
-
-    this.userService.getUserById(this.userId).subscribe(users => {
-      this.userList.push(users);
-      this.userDefault.push(users);
-    });
-
-    this.service.getDepartmentByUserId(this.userId).subscribe(departments => {
-      this.departments = departments;
-
-      this.departmentOptionsForTask = this.departments;
-      this.departments.forEach(department => {
-        if (department.IsBelongToCurrentUser) {
-          this.departmentOptionsForProject.push(department);
-        }
-      });
-    });
-
+    this.getUserData();
+    this.getDepartmentData();
+    this.getProjectData();
     this.getTaskData();
 
     this.reloadData.reloadTask.subscribe(() => { this.getTaskData() });
   }
 
-  getTaskData() {
-    this.taskService.getTasks(this.currentProjectId).subscribe(tasks => {
-      this.tasksData = tasks;
+  /**
+   * Lấy dữ liệu Người dùng
+   * CreatedBy: PHDUONG(08/10/2021)
+   */
+  getUserData() {
+    if (!this.userService.currentUser.UserId) {
+      this.userService.getUserById(this.userService.userId).subscribe(user => {
+        this.userService.currentUser = user
+        this.userList.push(this.userService.currentUser);
+        this.userDefault.push(this.userService.currentUser);
+      });
+    } else {
+      this.userList.push(this.userService.currentUser);
+      this.userDefault.push(this.userService.currentUser);
+    }
+  }
+  /**
+   * Lấy dữ liệu Phòng ban
+   * CreatedBy: PHDUONG(08/10/2021)
+   */
+  getDepartmentData() {
+    if (this.departmentService.departments.length <= 0) {
+      this.departmentService.getDepartmentByUserId(this.userService.userId).subscribe(departments => {
+        this.departmentService.departments = departments
+
+        this.departments = Object.assign([], this.departmentService.departments);
+
+        this.departmentOptionsForTaskPopup = Object.assign([], this.departmentService.departments);
+
+        departments.forEach(department => {
+          if (department.IsBelongToCurrentUser) {
+            this.departmentService.departmentOptionsForProjectPopup.push(department);
+          }
+        });
+        this.departmentOptionsForProjectPopup = Object.assign([], this.departmentService.departmentOptionsForProjectPopup);
+      });
+    } else {
+      this.departments = Object.assign([], this.departmentService.departments);
+      this.departmentOptionsForTaskPopup = Object.assign([], this.departmentService.departments);
+      this.departmentOptionsForProjectPopup = Object.assign([], this.departmentService.departmentOptionsForProjectPopup);
+    }
+  }
+
+  /**
+   * Lấy dữ liệu Dự án
+   * CreatedBy: PHDUONG(08/10/2021)
+   */
+  getProjectData() {
+    this.projectService.getById(this.currentProjectId).subscribe(project => {
+      this.currentProject = project;
     });
 
   }
 
+  /**
+   * Lấy dữ liệu Công việc
+   * CreatedBy: PHDUONG(08/10/2021)
+   */
+  getTaskData() {
+    this.taskService.getTasksByProjectId(this.currentProjectId).subscribe(tasks => {
+      this.tasksData = tasks;
+    });
+  }
+
+  /**
+   * Mở popup sửa công việc
+   * CreatedBy: PHDUONG(08/10/2021)
+   */
   openTaskEdit(data: any) {
-    console.log(data.data);
-    
     this.popupTaskData = data.data;
     this.navbar.openPopupTask(true);
   }
+
+  /**
+   * Load lại dữ liệu trang Project
+   * CreatedBy: PHDUONG(08/10/2021)
+   */
+  reloadProjectData() {
+    setTimeout(() => {
+      this.currentRoute.queryParams
+        .subscribe(params => {
+          this.currentProjectId = params.ProjectId;
+        });
+
+      this.projectService.getById(this.currentProjectId).subscribe(project => {
+        this.currentProject = project;
+      });
+
+      this.getTaskData();
+    }, 1000);
+  }
+
+  //endregion
 
 }

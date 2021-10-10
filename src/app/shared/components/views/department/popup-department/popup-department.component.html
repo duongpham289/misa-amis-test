@@ -1,19 +1,26 @@
 <dx-popup class="ms-popup" [width]="popupWidth" height="auto" [shadingColor]="'rgba(0, 0, 0, 0.45)'"
-  [dragEnabled]="true" [visible]="popupVisible" (onShown)="focusInput()"
-  contentTemplate="currentTemplate" titleTemplate="title">
+  [dragEnabled]="true" [visible]="popupVisible" (onShown)="focusInput()" contentTemplate="currentTemplate"
+  titleTemplate="title">
 
+  <!-- Phần popup custom content -->
   <div *dxTemplate="let data of 'currentTemplate'">
     <div class="popup-department">
+      <!-- Phần Input tên phòng ban -->
       <app-text-field #departmentNameInput [inputLabel]="popupDepartmentVar.PopupDepartmentNameLabel"
-        [inputPlaceholder]="popupDepartmentVar.PopupDepartmentNamePlaceholder" [isRequired]="true" [(model)]="nameInput">
+        [inputPlaceholder]="popupDepartmentVar.PopupDepartmentNamePlaceholder" [isRequired]="true"
+        [(model)]="nameInput">
       </app-text-field>
 
+      <!-- Phần Input tìm assignee -->
       <app-text-field #memberInput [inputLabel]="popupDepartmentVar.PopupDepartmentMemberLabel"
         [inputPlaceholder]="popupDepartmentVar.PopupDepartmentMemberPlaceholder" [popoverWidth]="popoverWidth"
-        bonusClass="ms-text-field__with-list" [bonusButton]="selectMemberButton" (userListChange)="addUserList($event)"></app-text-field>
-
+        bonusClass="ms-text-field__with-list" [bonusButton]="selectMemberButton" (userListChange)="addUserList($event)">
+      </app-text-field>
+      
+      <!-- Phần hiển thị asginee -->
       <app-user-list [userList]="userList"></app-user-list>
-
+      
+      <!-- Phần footer -->
       <div class="ms-modal__footer">
         <div class="ms-modal__button--secondary" (click)="closePopup()">
           {{ popupDepartmentVar.PopupCloseButton }}
@@ -25,6 +32,7 @@
     </div>
   </div>
 
+  <!-- Phần popup custom header -->
   <div *dxTemplate="let data of 'title'">
     <div class="popup-header d-flex content-between align-center">
       <div class="popup-title">{{popupTitle}}</div>
@@ -32,3 +40,12 @@
     </div>
   </div>
 </dx-popup>
+
+<dx-toast [(visible)]="toastVisible" [type]="type" [closeOnOutsideClick]=true [closeOnSwipe]=true [closeOnClick]=true
+  width=auto [displayTime]=2000>
+  <dxo-position my="bottom right" at="bottom right" of="window" offset="-20 -20">
+  </dxo-position>
+  <div *dxTemplate="let data of 'content'">
+    <span>{{toastMessage}}</span>
+  </div>
+</dx-toast>

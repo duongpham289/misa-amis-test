@@ -8,23 +8,28 @@ import { Task } from '../shared/models/task';
   providedIn: 'root'
 })
 export class TaskService {
-
+  //region Declare
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  constructor(private http: HttpClient) { }
-
   private tasksUrl = 'https://localhost:44385/api/v1/tasks';
+  //endregion
 
+  //region Constuctor
+  constructor(private http: HttpClient) { }
+  //endregion
+
+  //region Methods
 
   /**
    * Lấy dữ liệu công việc dựa trên Project Id
-   * @param id ProjectId
+   * @param projectId ProjectId
    * @returns 
+   * CreatedBy: PHDUONG(06/10/2021)
    */
-  getTasks(id: string): Observable<Task[]> {
-    const getTasksByProjectIdUrl = `${this.tasksUrl}/getByProjectId/${id}`;
+  getTasksByProjectId(projectId: string): Observable<Task[]> {
+    const getTasksByProjectIdUrl = `${this.tasksUrl}/getByProjectId/${projectId}`;
     return this.http.get<Task[]>(getTasksByProjectIdUrl).pipe(
       catchError(this.handleError<Task[]>('getTasks', []))
     );
@@ -35,6 +40,7 @@ export class TaskService {
    * Thêm mới công việc
    * @param task Công việc
    * @returns 
+   * CreatedBy: PHDUONG(06/10/2021)
    */
   addTask(task: Task): Observable<any> {
     return this.http.post<any>(this.tasksUrl, task, this.httpOptions).pipe(
@@ -44,9 +50,11 @@ export class TaskService {
   }
 
   /**
-   * Thêm mới công việc
+   *  Sửa công việc
    * @param task Công việc
+   * @param taskId id công việc
    * @returns 
+   * CreatedBy: PHDUONG(06/10/2021)
    */
   updateTask(task: Task, taskId: string): Observable<any> {
 
@@ -59,23 +67,19 @@ export class TaskService {
   }
 
   /**
- * Handle Http operation that failed.
- * Let the app continue.
- * @param operation - name of the operation that failed
- * @param result - optional value to return as the observable result
- */
+   * Xử lí lỗi.
+   * @param operation - tên của hàm sinh ra lỗi
+   * @param result - giá trị tùy chọn để trả về dưới dạng kết quả observable
+   * CreatedBy: PHDUONG(06/10/2021)
+   */
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
 
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+      // TODO: gửi lỗi đến cơ sở hạ tầng ghi log từ xa
 
-      // TODO: better job of transforming error for user consumption
-      // this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
+      // Cho phép ứng dụng tiếp tục chạy bằng cách trả về một kết quả trống.
       return of(result as T);
     };
   }
-
+  //endregion
 }

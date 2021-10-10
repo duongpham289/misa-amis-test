@@ -18,6 +18,8 @@ import { User } from 'src/app/shared/models/user';
 })
 export class TextFieldComponent implements OnInit {
 
+  //region Declare
+
   @ViewChild('textBox') textBoxInput!: DxTextBoxComponent;
   @ViewChild('textArea') textAreaInput!: DxTextBoxComponent;
 
@@ -46,14 +48,17 @@ export class TextFieldComponent implements OnInit {
   userSelected: User[] = [];
   dropdownVisible: boolean = false;
 
-  userId: string = "6827e1c0-5b98-6d19-831b-27d9d367aeb0";
+  //endregion
 
+  //region Constructor
   constructor(private userService: UserService) {
-  }
-
-  ngOnInit(): void {
 
   }
+  //endregion
+
+  //region Methods
+
+  ngOnInit(): void { }
 
   /**
    * Bắt sự kiện thay đổi input
@@ -77,11 +82,11 @@ export class TextFieldComponent implements OnInit {
               this.userList = users;
               if (users) {
                 users.forEach(user => {
-                  if (this.userId == user.UserId) {
+                  if (this.userService.userId == user.UserId) {
                     this.userList.splice(this.userList.indexOf(user), 1);
                   }
                 });
-    
+
                 this.userSelected.forEach(userSelected => {
                   users.forEach(user => {
                     if (userSelected.UserId == user.UserId) {
@@ -101,8 +106,9 @@ export class TextFieldComponent implements OnInit {
       this.modelChange.emit(data.value);
     }
   }
+
   /**
-   * Bắt sự kiện thay đổi input
+   * Bắt sự kiện thay đổi input area
    * @param data input object
    * CreatedBy: PHDUONG(04/10/2021)
    */
@@ -142,5 +148,7 @@ export class TextFieldComponent implements OnInit {
       this.textAreaInput.instance.reset();
     }
   }
+
+  //endregion
 
 }

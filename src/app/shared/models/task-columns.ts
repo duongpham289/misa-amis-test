@@ -52,15 +52,6 @@ export const TaskColumns: TaskColumn[] = [
   },
   {
     ColID: 3,
-    ColField: 'TaskStatus',
-    ColName: 'Trạng thái hoạt động',
-    ColWidth: 250,
-    ColDataType: "",
-    ColFormat: "",
-    CellTemplate: "normalCellTemplate"
-  },
-  {
-    ColID: 4,
     ColField: 'EndDate',
     ColName: 'Hạn hoàn thành',
     ColWidth: 250,
@@ -69,12 +60,21 @@ export const TaskColumns: TaskColumn[] = [
     CellTemplate: "dateCellTemplate"
   },
   {
-    ColID: 5,
+    ColID: 4,
     ColField: 'AssigneeName',
     ColName: 'Người thực hiện',
     ColWidth: 265,
     ColDataType: "",
     ColFormat: "",
     CellTemplate: "normalCellTemplate"
+  },
+  {
+    ColID: 5,
+    ColField: 'CreatedDate',
+    ColName: 'Ngày tạo',
+    ColWidth: 250,
+    ColDataType: "date",
+    ColFormat: "dd/MM/yyyy",
+    CellTemplate: "dateCellTemplate"
   }
 ];

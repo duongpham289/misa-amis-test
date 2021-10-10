@@ -10,30 +10,40 @@ import { doughnutItem } from 'src/app/shared/interfaces/doughtnut';
   styleUrls: ['./project-grid.component.scss']
 })
 export class ProjectGridComponent implements OnInit {
+  //region Declare
+
   @Input() gridData: any;
+
   @Input() taskColumns: any;
 
   @Output() openTaskEdit = new EventEmitter<any>();
 
   popupVisible: boolean = false;
+
   gridConst: any;
 
-  
   toastVisible: boolean = false;
+
   type: string = "info";
+
   toastMessage: string = '';
-  
+
+  //endregion
+
+  //region Constructor
   constructor() {
     this.gridConst = GRID_CONSTANTS;
   }
+  //endregion
+
+  //region Methods
   
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   /**
    * Phương thức lấy id của các hàng
    * @param data
- * CreatedBy: PHDUONG(29/09/2021)
+   * CreatedBy: PHDUONG(29/09/2021)
    */
   getRowId(data: any) {
     return data.row.rowIndex + 1;
@@ -42,7 +52,7 @@ export class ProjectGridComponent implements OnInit {
   /**
    * Phương thức lấy dữ liệu để hiển thị lên bảng
    * @param data
- * CreatedBy: PHDUONG(29/09/2021)
+   * CreatedBy: PHDUONG(29/09/2021)
    */
   getData(data: any) {
     const columnIndex = data.columnIndex;
@@ -52,7 +62,7 @@ export class ProjectGridComponent implements OnInit {
   /**
    * Phương thức hiển thị trạng thái công việc tương ứng
    * @param data
- * CreatedBy: PHDUONG(29/09/2021)
+   * CreatedBy: PHDUONG(29/09/2021)
    */
   getDataStatus(data: any) {
     const columnIndex = data.columnIndex;
@@ -76,7 +86,7 @@ export class ProjectGridComponent implements OnInit {
   }
 
   /**
-   * Phương thức mở popup modal khi nhấn vào ô tương ứng
+   * Phương thức mở popup khi nhấn vào ô tương ứng
    * @param data
    * CreatedBy: PHDUONG(29/09/2021)
    */
@@ -115,10 +125,16 @@ export class ProjectGridComponent implements OnInit {
     return doughnutData;
   }
 
+  /**
+   * Hàm hiển thị thông báo chức năng không khả dụng
+   * CreatedBy: PHDUONG(09/10/2021)
+   */
   funcNotAvailable() {
     this.toastMessage = "Chức năng trong giai đoạn phát triển";
     this.type = "custom";
     this.toastVisible = true;
   }
+
+  //endregion
 
 }

@@ -8,16 +8,29 @@ import { locale } from 'devextreme/localization';
   styleUrls: ['./date-box.component.scss']
 })
 export class DateBoxComponent implements OnInit {
+
+  //region Declare
+
   @ViewChild(DxDateBoxComponent) dateBoxInput!: DxDateBoxComponent;
-  
+
   @Input() dateBoxName: string = '';
+
   @Input() dateBoxLabel: string = '';
+
   @Input() inputPlaceholder: string = '';
+  
   @Input() inputHeight: string = '40px';
 
-  @Output() onValueChanged= new EventEmitter<any>();
+  @Output() onValueChanged = new EventEmitter<any>();
 
+  //endregion
+
+
+  //region Constructor
   constructor() { }
+  //endregion
+
+  //region Methods
 
   ngOnInit(): void {
     locale("vi-VN");
@@ -38,8 +51,10 @@ export class DateBoxComponent implements OnInit {
    * Hàm đặt lại Input
    * CreatedBy: PHDUONG(04/10/2021)
    */
-   resetInput() {
+  resetInput() {
     this.dateBoxInput.instance.reset();
   }
+
+  //endregion
 
 }
